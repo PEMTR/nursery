@@ -10,5 +10,8 @@
     "cookie-parser": "^1.4.4",
     "lazy_mod": "0.0.1",
     "signale": "^1.4.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2"
   }
 }
