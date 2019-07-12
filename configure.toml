@@ -1,0 +1,53 @@
+# ==============
+# 项目配置
+# ==============
+
+listen = 80
+name = "water"
+static = "./static"
+
+
+# ==============
+# MongoDB配置
+# ==============
+
+[mongo]
+host = "localhost"
+port = 27017
+db = "water"
+collections = [
+    "users",     # 用户表
+]
+
+# 数据库认证
+# [mongo.auth]
+# username = ""
+# password = ""
+
+
+# ==============
+# Redis配置
+# ==============
+
+[redis]
+host = "localhost"
+port = 6379
+# password = ""
+
+
+# ==============
+# 加密配置
+# ==============
+
+[crypto]
+method = "aes256"
+password = "ZDQxZTQ4OGM4MTg4ZDkYzljNjYIyNzcy"
+
+
+# ==============
+# 日志配置
+# ==============
+
+[logs]
+timeout = 86400000
+path = "./logs"

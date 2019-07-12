@@ -1,0 +1,14 @@
+{
+  "name": "water",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "author": "Mr.Panda <xivistudios@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "lazy_mod": "0.0.1",
+    "signale": "^1.4.0"
+  }
+}
