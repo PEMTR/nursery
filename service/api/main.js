@@ -1,6 +1,12 @@
 "use strict"
 
 
+// 环境变量
+const {
+  WATER_API_CONF = "../configure/api.toml"
+} = process.env
+
+
 // package
 // @package
 const http = require("http")
@@ -11,21 +17,21 @@ const middleware = require("./middleware")
 const express = require("lazy_mod/express")
 const mongo = require("lazy_mod/mongo")
 const redis = require("lazy_mod/redis")
-const schema = require("./schema/mod")
-const validate = require("./bin/validate")
-const decrypt = require("./bin/decrypt")
-const multer = require("./bin/multer")
-const wechat = require("./bin/wechat")
-const util = require("./bin/util")
-const logs = require("./bin/logs")
-const oss = require("./bin/oss")
-const pay = require("./bin/pay")
-const code = require("./code")
+const schema = require("../schema/mod")
+const validate = require("../bin/validate")
+const decrypt = require("../bin/decrypt")
+const multer = require("../bin/multer")
+const wechat = require("../bin/wechat")
+const util = require("../bin/util")
+const logs = require("../bin/logs")
+const oss = require("../bin/oss")
+const pay = require("../bin/pay")
+const code = require("../code")
 
 
 // 初始化
 const app = express()
-const configure = util.readtoml("./configure.toml")
+const configure = util.readtoml(WATER_API_CONF)
 const server = http.createServer(app)
 const crate = {}
 
