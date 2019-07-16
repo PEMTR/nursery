@@ -1,6 +1,0 @@
-mod server;
-
-
-fn main() {
-    
-}

@@ -8,7 +8,7 @@ const router = express.router()
 
 
 // 路由表
-router.use("/manage", require("./manage/mod"))
+router.use("*", require("./role"))
 
 
 // export.
