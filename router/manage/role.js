@@ -4,7 +4,7 @@
 // package
 // @package
 const express = require("lazy_mod/express")
-const router = express.router()
+const router = express.Router()
 
 
 

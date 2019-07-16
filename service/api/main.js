@@ -3,7 +3,7 @@
 
 // 环境变量
 const {
-  WATER_API_CONF = "../configure/api.toml"
+  WATER_API_CONF = "../../configure/api.toml"
 } = process.env
 
 
@@ -52,8 +52,8 @@ crate.ware = new middleware(crate)
 crate.validate = new validate(true, "E.VALIDATE")
 crate.decrypt = new decrypt(crate)
 crate.wechat = new wechat(crate)
-crate.pay = new pay(crate)
-crate.oss = new oss(crate)
+// crate.pay = new pay(crate)
+// crate.oss = new oss(crate)
 
 
 // 依赖注入
@@ -74,7 +74,7 @@ app.use(bodyparse.json())
 app.use(bodyparse.urlencoded({ extended: true }))
 app.use("/static", express.static(configure.static))
 app.use(crate.ware.fhooks())
-app.use(require("./router/mod"))
+app.use(require("../../router/mod"))
 app.use(crate.ware.ehooks())
 
 
