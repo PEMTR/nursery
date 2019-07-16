@@ -51,3 +51,10 @@ password = "ZDQxZTQ4OGM4MTg4ZDkYzljNjYIyNzcy"
 [logs]
 timeout = 86400000
 path = "./logs"
+
+
+# ==============
+# 日志配置
+# ==============
+
+[oss]
