@@ -21,7 +21,7 @@ module.exports = class UserCup {
   // @params {ObjectID} id
   // @public
   async find (id) {
-    return await this.mongo.user_cup.aggragate([
+    return await this.mongo.UserCap.aggragate([
       { $match: { user: id } },
       { $project: {
         user: false

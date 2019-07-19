@@ -13,10 +13,10 @@ module.exports = class Middleware {
   // @new
   // @params {object} [code]
   // @params {object} [configure]
-  // @paramss {class} [events]
-  constructor ({ code, configure, events }) {
+  // @paramss {class} [factory]
+  constructor ({ code, configure, factory }) {
     this.configure = configure
-    this.events = events
+    this.factory = factory
     this.code = code
     this.crate = {}
   }
@@ -28,11 +28,10 @@ module.exports = class Middleware {
   // @returns {object}
   // @private
   logs (req, { fatal, success }) {
-    let status = fatal ? "fatal" : "success"
-
+    
     // 记录日志
-    let event_name = "LOG.EXPRESS." + status
-    this.events.emit(event_name, Object.assign({
+    let status = fatal ? "fatal" : "success"
+    this.factory.logs[status](Object.assign({
       host: req.hostname,
       path: req._path_,
       origin: req.originalUrl,
@@ -40,7 +39,7 @@ module.exports = class Middleware {
       params: req.params,
       query: req.query,
       body: req.body,
-      ip: req.headers["x-real-ip"] || req.ip,
+      address: req.headers["x-real-ip"] || req.ip,
       headers: req.headers,
       date: Date.now(),
       timeout: (Date.now() - req._timeout_),
@@ -54,7 +53,7 @@ module.exports = class Middleware {
     }} : { success }))
     
     // 检查是否需要调试
-    if (this.configure.project.debug) {
+    if (this.configure.debug) {
       fatal && signale.fatal(fatal)
     }
 
@@ -79,8 +78,9 @@ module.exports = class Middleware {
   // 路由头部绑定
   // @returns {function}
   // @public
-  fhooks () {
+  filter () {
     return (req, res, next) => {
+      req._timeout_ = Date.now()
       req.crate = this.crate
       res.take = success => {
         res.send(this.logs(req, { success }))
@@ -93,7 +93,7 @@ module.exports = class Middleware {
   // 路由尾部绑定
   // @returns {array<function>}
   // @public
-  ehooks () {
+  hooks () {
     return [(fatal, req, res, _) => {
       res.send(this.logs(req, { fatal }))
     }, (_, res) => res.status(404).end()]
