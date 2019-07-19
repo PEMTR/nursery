@@ -1,10 +1,18 @@
 {
-  "name": "water",
-  "version": "1.0.0",
-  "description": "",
+  "name": "nursery",
+  "version": "0.0.1",
+  "description": "小象喝水项目服务端",
   "main": "main.js",
-  "author": "Mr.Panda <xivistudios@gmail.com>",
-  "license": "MIT",
+  "author": "Mr.Panda <xivistudios@gmail.com> (https://github.com/quasipaa)",
+  "homepage": "https://github.com/quasipaa/nursery",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quasipaa/nursery"
+  },
+  "scripts": {
+    "run": "node main.js",
+    "docker-build": "docker build --tag=$1 ."
+  },
   "dependencies": {
     "ajv": "^6.10.1",
     "ali-oss": "^6.1.1",
@@ -19,5 +27,7 @@
     "signale": "^1.4.0",
     "toml": "^3.0.0",
     "uuid": "^3.3.2"
-  }
+  },
+  "license": "MIT",
+  "keywords": []
 }

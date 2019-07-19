@@ -5,6 +5,7 @@
 listen = 81
 name = "water"
 static = "./static"
+debug = true
 
 
 # ==============
@@ -16,9 +17,9 @@ host = "localhost"
 port = 27017
 db = "nursery"
 collections = [
-    "users",     # 用户表
-    "cup",       # 水杯表
-    "user_cup",  # 用户水杯绑定表
+    "User",     # 用户表
+    "Cup",       # 水杯表
+    "UserCup",  # 用户水杯绑定表
 ]
 
 # 数据库认证
@@ -56,16 +57,16 @@ password = "ZDQxZTQ4OGM4MTg4ZDkYzljNjYIyNzcy"
 
 
 # ==============
-# 日志配置
+# 验证配置
 # ==============
 
-[logs]
-timeout = 86400000
-path = "./logs"
+[schema]
+status = true
+code = "E.VALIDATE"
 
 
 # ==============
-# 日志配置
+# OSS配置
 # ==============
 
 [oss]
