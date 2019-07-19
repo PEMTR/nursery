@@ -3,26 +3,32 @@
 
 // package
 // @package
+const fs = require("fs")
 const url = require("url")
 const path = require("path")
 const addon = require("../native")
 const mongodb = require("mongodb")
 const assert = require("assert")
 const crypto = require("crypto")
+const toml = require("toml")
 
 
 // 加载配置文件
 // @param {string} path 路径
 // @returns {object}
 // @public
-exports.readtoml = addon.readToml
+exports.readtoml = function (path) {
+  return toml.parse(fs.readFileSync(path))
+}
 
   
 // 计算MD5
 // @param {string} str 要计算的字符串
 // @returns {string}
 // @public
-exports.md5 = addon.md5
+exports.md5 = function (str) {
+  
+}
 
 
 // HMAC SHA256
