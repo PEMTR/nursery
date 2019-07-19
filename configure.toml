@@ -2,7 +2,7 @@
 # 服务配置
 # ==============
 
-listen = 80
+listen = 81
 name = "water"
 static = "./static"
 
@@ -14,9 +14,11 @@ static = "./static"
 [mongo]
 host = "localhost"
 port = 27017
-db = "water"
+db = "nursery"
 collections = [
     "users",     # 用户表
+    "cup",       # 水杯表
+    "user_cup",  # 用户水杯绑定表
 ]
 
 # 数据库认证
@@ -32,7 +34,7 @@ collections = [
 [redis]
 host = "localhost"
 port = 6379
-# password = ""
+password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
 
 
 # ==============
