@@ -38,6 +38,15 @@ password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5
 
 
 # ==============
+# RabbitMQ配置
+# ==============
+
+[rabbitmq]
+host = "amqp://panda:panda@localhost"
+topic = "bus"
+
+
+# ==============
 # 加密配置
 # ==============
 
