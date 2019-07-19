@@ -38,6 +38,6 @@ Nightly
 
 
 ### 计划
-[x] 拆分子服务.</br>
-[x] 全文搜索的接入.</br>
-[x] 多媒体处理转为Rust Native FFI.</br>
+-[] 拆分子服务.</br>
+-[] 全文搜索的接入.</br>
+-[] 多媒体处理转为Rust Native FFI.</br>
