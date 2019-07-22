@@ -4,7 +4,7 @@
 // package
 // @pckage
 const path = require("path")
-const validate = require("./bin/validate")
+const validate = require("../bin/validate")
 
 
 // 模式验证

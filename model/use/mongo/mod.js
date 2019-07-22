@@ -3,7 +3,8 @@
 
 // package
 // @package
-const user_cup = require("./use/user_cup")
+const user = require("./use/User")
+const member = require("./use/Member")
 
 
 // 模型公共出口类
@@ -16,6 +17,7 @@ module.exports = class Mongo {
   // 模拟多继承子类
   // @new
   constructor (crate) {
-    this.UserCap = new user_cup(crate)
+    this.User = new user(crate)
+    this.Member = new member(crate)
   }
 }

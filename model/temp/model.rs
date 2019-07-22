@@ -18,9 +18,17 @@ struct User {
   username: Option<String>,       // 用户名
   password: Option<String>,       // 密码
   nick_name: String,              // 昵称
+  phone: Option<>String>,         // 手机
   status: i32,                    // 状态
   date: i64,
   update: i64
+}
+
+
+/// 会员
+struct Member {
+  user: User,      // 用户
+  level: i32         // 等级
 }
 
 

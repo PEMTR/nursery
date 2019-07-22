@@ -16,6 +16,8 @@ router.use(async function (req, _, next) {
     let auth = req.headers.authorization || req.cookies.Authorization
     req.user = auth ? await req.crate.decrypt.parseUserAuthToken(auth) : false
   } catch (_) {
+    
+    // 取出错误
     req.user = false
   }
   
@@ -25,8 +27,9 @@ router.use(async function (req, _, next) {
 
 
 // 路由表
-router.use("/user", require("./mod/user"))
-router.use("/cup", require("./mod/cup"))
+router.use("/user", require("./use/user"))
+router.use("/cup", require("./use/cup"))
+router.use("/member", require("./use/member"))
 
 
 // export.

@@ -43,7 +43,7 @@ module.exports = class Decrypt {
     // 写入redis
     let token = Buffer.from(decrypt + "]|[" + id).toString("base64")
     let redisData = JSON.stringify(Object.assign(user, { token }))
-    this.redis.set("USERDATA." + id, redisData)
+    void await this.redis.promise.set("USERDATA." + id, redisData)
 
     // 回调
     return token
@@ -63,7 +63,7 @@ module.exports = class Decrypt {
 
     // 提取redis数据
     // 验证redis数据
-    let data = await this.redis.Get("USERDATA." + id)
+    let data = await this.redis.promise.get("USERDATA." + id)
     assert.deepStrictEqual(this.util.isNullValue(data), true, "E.TOKEN")
 
     // 验证token是否强一致

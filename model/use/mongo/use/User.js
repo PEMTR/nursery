@@ -16,10 +16,10 @@
 
 // 用户表类
 // @class
-class Users {
+module.exports = class User {
   
   // @new
-  constructor (mongo) {
+  constructor ({ mongo }) {
     this.mongo = mongo
   }
   
