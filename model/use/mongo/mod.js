@@ -5,6 +5,8 @@
 // @package
 const user = require("./use/User")
 const member = require("./use/Member")
+const water = require("./use/Water")
+const user_cups = require("./use/UserCups")
 
 
 // 模型公共出口类
@@ -19,5 +21,7 @@ module.exports = class Mongo {
   constructor (crate) {
     this.User = new user(crate)
     this.Member = new member(crate)
+    this.Water = new water(crate)
+    this.UserCups = new user_cups(crate)
   }
 }

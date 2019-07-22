@@ -10,7 +10,6 @@
 ```json
 {
     "_id": "5d351698337dcc22f37d0a8e",
-    "user": "5d35159d337dcc22f37d0a8d",
-    "level": 0
+    "level": 0  // 会员等级
 }
 ```

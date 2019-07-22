@@ -25,10 +25,12 @@ collections = [
     "FilterCore",
     "Device",
     "DeviceFilter",
-    "Cup",
     "Cups",
+    "UserCups",
     "Devices",
-    "Member"
+    "Member",
+    "Water",
+    "CupWaters"
 ]
 
 # 数据库认证
