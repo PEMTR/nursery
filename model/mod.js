@@ -5,6 +5,7 @@
 // @package
 const mongo = require("./use/mongo/mod")
 const redis = require("./use/redis/mod")
+const graphql = require("./use/graphql/mod")
 
 
 // 模型类
@@ -16,5 +17,6 @@ module.exports = class Model {
   constructor (crate) {
     this.mongo = new mongo(crate)
     this.redis = new redis(crate)
+    this.graphql = new graphql(crate)
   }
 }
