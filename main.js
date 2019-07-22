@@ -10,7 +10,6 @@ const {
 // package
 // @package
 const http = require("http")
-const events = require("events")
 const bodyparse = require("body-parser")
 const cookieparse = require("cookie-parser")
 const middleware = require("./middleware")

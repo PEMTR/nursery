@@ -6,7 +6,6 @@
 const fs = require("fs")
 const url = require("url")
 const path = require("path")
-const addon = require("../native")
 const mongodb = require("mongodb")
 const assert = require("assert")
 const crypto = require("crypto")
@@ -27,7 +26,7 @@ exports.readtoml = function (path) {
 // @returns {string}
 // @public
 exports.md5 = function (str) {
-  
+  return crypto.createHash("md5").update(str).digest("hex")
 }
 
 
@@ -36,7 +35,11 @@ exports.md5 = function (str) {
 // @param {string} toSign 待摘要数据
 // @returns {String}
 // @public
-exports.hmacSHA256 = addon.sign
+exports.hmacSHA256 = function (key, toSign) {
+  let crypted = crypto.createHmac("sha256", key.toString())
+  let hex = crypted.update(toSign).digest("hex")
+  return Buffer.from(hex).toString("base64")
+}
 
 
 // 加密
@@ -77,7 +80,10 @@ exports.encrypt = function (options) {
 // @param {string} ip ip地址
 // @returns {boolean}
 // @public
-exports.isValidIP = addon.isIP
+exports.isValidIP = function (ip) {
+  let reg = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
+  return reg.test(ip)
+}
 
 
 // 判断是否为ObjectId
@@ -94,7 +100,9 @@ exports.isValidOID = function (id) {
 // @param {number} fdate
 // @returns {boolean}
 // @public
-exports.timeout = addon.isTimeOut
+exports.timeout = function (date, fdate) {
+  return date >= (Date.now() - fdate)
+}
 
 
 // 转ObjectId
@@ -119,14 +127,20 @@ exports.isNullValue = function (value) {
 // @param {string} phone 手机号
 // @returns {boolean}
 // @public
-exports.isPoneAvailable = addon.isPhone
+exports.isPoneAvailable = function (phone) {
+  let reg = /^[1][3,4,5,7,8][0-9]{9}$/
+  return reg.test(phone)
+}
 
 
 // 判断是否为邮箱
 // @param {string} eamil
 // @returns {boolean}
 // @public
-exports.isEmail = addon.isEmail
+exports.isEmail = function (email) {
+  let reg = /^[A-Za-z\\d]+([-_.][A-Za-z\\d]+)*@([A-Za-z\\d]+[-.])+[A-Za-z\\d]{2,4}$/
+  return reg.test(email)
+}
 
 
 // 下载文件
@@ -158,7 +172,10 @@ exports.unwind = function (data) {
 // @returns {object}
 // @public
 exports.pagination = function ({ page = "1", limit = "10" }) {
-  return addon.pagination(String(page), String(limit))
+  page = Number(page)
+  limit = Number(limit)
+  let skip = (page - 1) * limit
+  return { skip, limit }
 }
 
 
@@ -166,7 +183,7 @@ exports.pagination = function ({ page = "1", limit = "10" }) {
 // @params {any} arg
 // @public
 exports.promise = function (arg) {
-  assert.deepStrictEqual(arg !== null && arg !== undefined, true, "E2")
+  assert.deepStrictEqual(arg !== null && arg !== undefined, true)
   return arg
 }
 
