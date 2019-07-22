@@ -17,9 +17,20 @@ host = "localhost"
 port = 27017
 db = "nursery"
 collections = [
-    "User",     # 用户表
-    "Cup",       # 水杯表
-    "UserCup",  # 用户水杯绑定表
+    "User",
+    "Company",
+    "Sales",
+    "School",
+    "Classroom",
+    "FilterCore",
+    "Device",
+    "DeviceFilter",
+    "Cups",
+    "UserCups",
+    "Devices",
+    "Member",
+    "Water",
+    "CupWaters"
 ]
 
 # 数据库认证

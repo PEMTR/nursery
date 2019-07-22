@@ -66,6 +66,7 @@ crate.ware.apply("schema", crate.schema)
 crate.ware.apply("mongo", crate.mongo)
 crate.ware.apply("redis", crate.redis)
 crate.ware.apply("events", crate.events)
+crate.ware.apply("decrypt", crate.decrypt)
 crate.ware.apply("env", crate.env)
 
 

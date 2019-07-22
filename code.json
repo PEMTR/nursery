@@ -1,5 +1,4 @@
 {
-  "E.TOKEN": "无权限",
   "E.AUTH": "无权限",
   "E.PARAMS.TYPE": "参数未通过验证",
   "E.NOTFOUND": "未找到数据",
