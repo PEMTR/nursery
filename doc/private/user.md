@@ -7,7 +7,7 @@
 
 * `method` GET</br>
 * `success`
-```json
+```js
 {
     "_id": "5d35159d337dcc22f37d0a8d",
     "nick_name": "Mr.Panda",  // 用户昵称或姓名

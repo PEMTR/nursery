@@ -7,7 +7,7 @@
 
 * `method` GET</br>
 * `success`
-```json
+```js
 {
     "_id": "5d3525f1337dcc22f37d0a8f",
     "count": 8888,  // 水滴总数

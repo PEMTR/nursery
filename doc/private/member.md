@@ -7,7 +7,7 @@
 
 * `method` GET</br>
 * `success`
-```json
+```js
 {
     "_id": "5d351698337dcc22f37d0a8e",
     "level": 0  // 会员等级

@@ -7,7 +7,7 @@
 
 * `method` GET</br>
 * `success`
-```json
+```js
 [
     {
         "_id": "5d352d74337dcc22f37d0a91",
