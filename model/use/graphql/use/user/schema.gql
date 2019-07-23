@@ -1,0 +1,71 @@
+# 水杯
+type Cups {
+  _id: String,
+  code: String,
+  uid: String,
+  expires: Float,
+  avatar: String,
+  username: String,
+  date: Float,
+  update: Float
+}
+
+# 水杯饮水信息
+type CupWaters {
+  number: Int,
+  date: Float,
+  update: Float
+}
+
+# 水滴
+type Water {
+  count: Int,
+  date: Float,
+  update: Float
+}
+
+# 用户水杯信息
+type Cup {
+  _id: String,
+  cup: String,
+  cupLink: Cups,
+  waters: [CupWaters]
+  notice: Boolean,
+  date: Float,
+  update: Float
+}
+
+# 用户
+type User {
+  _id: String,
+  type: Int,
+  username: String,
+  nick_name: String,
+  phone: String,
+  status: Int,
+  date: Float,
+  update: Float,
+  cups: [Cup],
+  water: Water
+}
+
+# 查询条件
+input UserStruct {
+  _id: String,
+  type: Int,
+  username: String,
+  nick_name: String,
+  phone: String,
+  status: Int,
+  date: Float,
+  update: Float
+}
+
+type Query {
+  # 获取单个用户
+  user (id: String!): User,
+  # 获取用户列表
+  users (match: UserStruct, skip: Int, limit: Int): [User],
+  # 设置用户信息
+  setUser (id: String, body: UserStruct): Boolean
+}

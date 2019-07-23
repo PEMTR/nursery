@@ -2,8 +2,8 @@
 # 服务配置
 # ==============
 
-listen = 81
-name = "water"
+listen = 8081
+name = "nursery"
 static = "./static"
 debug = true
 
