@@ -19,9 +19,10 @@ router.use(async function (req, _, next) {
 
 // 路由表
 router.use("/user", require("./use/user"))
-router.use("/cups", require("./use/cups"))
+router.use("/cup", require("./use/cup"))
 router.use("/member", require("./use/member"))
 router.use("/water", require("./use/water"))
+router.use("/upload", require("./use/upload"))
 
 
 // export.
