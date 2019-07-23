@@ -3,7 +3,7 @@
 
 // package
 // @package
-const user = require("./use/User/mod")
+const user = require("./use/user/mod")
 
 
 // GraphQL
