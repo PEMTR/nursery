@@ -1,18 +1,16 @@
 "use strict"
 
-
 // 环境变量
 const {
-  WATER_API_CONF = "./configure.toml"
+  NURSERY_CONFFILE = "./configure.toml"
 } = process.env
-
 
 // package
 // @package
 const http = require("http")
 const bodyparse = require("body-parser")
 const cookieparse = require("cookie-parser")
-const middleware = require("./middleware")
+const expmiddleware = require("./middleware")
 const express = require("lazy_mod/express")
 const mongo = require("lazy_mod/mongo")
 const redis = require("lazy_mod/redis")
@@ -27,13 +25,11 @@ const oss = require("./bin/oss")
 const pay = require("./bin/pay")
 const code = require("./code")
 
-
 // 初始化
+const crate = {}
 const app = express()
 const configure = util.readtoml(WATER_API_CONF)
 const server = http.createServer(app)
-const crate = {}
-
 
 // 依赖总线
 crate.code = code
@@ -46,7 +42,6 @@ crate.configure = configure
 crate.mongo = mongo(configure.mongo)
 crate.redis = redis(configure.redis)
 crate.rabbitmq = new rabbitmq(configure.rabbitmq)
-crate.ware = new middleware(crate)
 crate.decrypt = new decrypt(crate)
 crate.wechat = new wechat(crate)
 crate.model = new model(crate)
@@ -54,30 +49,31 @@ crate.schema = new schema(crate)
 // crate.pay = new pay(crate)
 // crate.oss = new oss(crate)
 
+// 路由中间件
+const middleware = new expmiddleware(crate)
 
+// 路由中间件
 // 依赖注入
-crate.ware.apply("code", crate.code)
-crate.ware.apply("util", crate.util)
-crate.ware.apply("model", crate.model)
-crate.ware.apply("dirname", crate.dirname)
-crate.ware.apply("configure", crate.configure)
-crate.ware.apply("schema", crate.schema)
-crate.ware.apply("mongo", crate.mongo)
-crate.ware.apply("redis", crate.redis)
-crate.ware.apply("events", crate.events)
-crate.ware.apply("decrypt", crate.decrypt)
-crate.ware.apply("env", crate.env)
+middleware.apply("code", crate.code)
+middleware.apply("util", crate.util)
+middleware.apply("model", crate.model)
+middleware.apply("dirname", crate.dirname)
+middleware.apply("configure", crate.configure)
+middleware.apply("schema", crate.schema)
+middleware.apply("mongo", crate.mongo)
+middleware.apply("redis", crate.redis)
+middleware.apply("events", crate.events)
+middleware.apply("decrypt", crate.decrypt)
+middleware.apply("env", crate.env)
 
-
+// 路由中间件
 // 路由初始化
-app.use(cookieparse())
-app.use(bodyparse.json())
+app.use(cookieparse(), bodyparse.json())
 app.use(bodyparse.urlencoded({ extended: true }))
 app.use("/static", express.static(configure.static))
-app.use(crate.ware.filter())
+app.use(middleware.filter())
 app.use(require("./router/mod"))
-app.use(crate.ware.hooks())
-
+app.use(middleware.hooks())
 
 // 绑定端口
 // 绑定进程名

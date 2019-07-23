@@ -1,0 +1,16 @@
+{
+  "title": "private.upload.cup.avatar",
+  "description": "水杯上传用户头像",
+  "type": "object",
+  "required": [ "user", "cup" ],
+  "properties": {
+    "user": {
+      "type": "string",
+      "format": "objectId"
+    },
+    "cup": {
+      "type": "string",
+      "format": "objectId"
+    }
+  }
+}

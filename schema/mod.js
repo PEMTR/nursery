@@ -36,14 +36,14 @@ module.exports = class Schema {
   // 绑定模版
   // @private
   applyTemp () {
-    
+    this.core.bind("private.upload.cup.avatar", require("./use/private.upload.cup.avatar.json"))
   }
   
   // 验证
   // @params {string} key
   // @params {any} params
   // @public
-  schema (key, params) {
+  eq (key, params) {
     return this.core.schema(key, params)
   }
 }

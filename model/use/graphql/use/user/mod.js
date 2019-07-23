@@ -77,7 +77,7 @@ module.exports = class {
   // @params {class} crate
   constructor (crate) {
     let schema_file = path.join(__dirname, "schema.gql")
-    this.template = fs.readFileSync(schema_file, "uft8")
+    this.template = fs.readFileSync(schema_file, "utf8")
     this.crate = crate
   }
   
