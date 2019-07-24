@@ -7,6 +7,7 @@ const user = require("./use/User")
 const member = require("./use/Member")
 const water = require("./use/Water")
 const user_cups = require("./use/UserCups")
+const commodity = require("./use/Commodity")
 
 
 // 模型公共出口类
@@ -23,5 +24,6 @@ module.exports = class Mongo {
     this.Member = new member(crate)
     this.Water = new water(crate)
     this.UserCups = new user_cups(crate)
+    this.Commodity = new commodity(crate)
   }
 }

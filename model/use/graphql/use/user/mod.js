@@ -115,6 +115,6 @@ module.exports = class {
   async setUser ({ id, body = {} }) {
     return (await this.crate.mongo.User.updateOne({
       _id: this.crate.util.createHexId(id)
-    }, { $set: body }).result.n === 1)
+    }, { $set: body })).result.n === 1
   }
 }

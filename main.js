@@ -28,7 +28,7 @@ const code = require("./code")
 // 初始化
 const crate = {}
 const app = express()
-const configure = util.readtoml(WATER_API_CONF)
+const configure = util.readtoml(NURSERY_CONFFILE)
 const server = http.createServer(app)
 
 // 依赖总线
