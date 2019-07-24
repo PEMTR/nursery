@@ -2,8 +2,8 @@
 # 服务配置
 # ==============
 
-listen = 8081
-name = "nursery"
+listen = 8082
+name = "nursery.disk"
 static = "./static"
 debug = true
 
@@ -48,37 +48,3 @@ password = "ZDY5YWE1NzQzOTkwMjc0Mm"
 host = "127.0.0.1"
 port = 6379
 # password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
-
-
-# ==============
-# RabbitMQ配置
-# ==============
-
-[rabbitmq]
-host = "amqp://panda:panda@localhost"
-topic = "bus"
-
-
-# ==============
-# 加密配置
-# ==============
-
-[crypto]
-method = "aes256"
-password = "ZDQxZTQ4OGM4MTg4ZDkYzljNjYIyNzcy"
-
-
-# ==============
-# 验证配置
-# ==============
-
-[schema]
-status = true
-code = "E.VALIDATE"
-
-
-# ==============
-# OSS配置
-# ==============
-
-[oss]
