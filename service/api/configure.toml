@@ -1,0 +1,83 @@
+# ==============
+# 服务配置
+# ==============
+
+listen = 8081
+name = "nursery.api"
+debug = true
+
+
+# ==============
+# MongoDB配置
+# ==============
+
+[mongo]
+host = "127.0.0.1"
+port = 27017
+db = "nursery"
+collections = [
+    "User",
+    "Company",
+    "Sales",
+    "School",
+    "Classroom",
+    "FilterCore",
+    "Device",
+    "DeviceFilter",
+    "Cups",
+    "UserCups",
+    "Devices",
+    "Member",
+    "Water",
+    "CupWaters",
+    "Commodity"
+]
+
+# 数据库认证
+[mongo.auth]
+username = "nursery"
+password = "ZDY5YWE1NzQzOTkwMjc0Mm"
+
+
+# ==============
+# Redis配置
+# ==============
+
+[redis]
+host = "127.0.0.1"
+port = 6379
+# password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
+
+
+# ==============
+# RabbitMQ配置
+# ==============
+
+[rabbitmq]
+host = "amqp://panda:panda@localhost"
+topic = "bus"
+
+
+# ==============
+# 加密配置
+# ==============
+
+[crypto]
+method = "aes256"
+password = "ZDQxZTQ4OGM4MTg4ZDkYzljNjYIyNzcy"
+
+
+# ==============
+# 验证配置
+# ==============
+
+[schema]
+status = true
+code = "E.VALIDATE"
+
+
+# ==============
+# OSS配置
+# ==============
+
+[oss]
