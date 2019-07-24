@@ -3,7 +3,7 @@
 
 
 ### 获取用户水杯列表信息
-> /private/cups/user
+> /private/cup/all
 
 * `method` GET</br>
 * `success`
@@ -23,4 +23,13 @@
         }
     }
 ]
+```
+
+### 用户设置水杯提醒
+> /private/cup/:cups/notice/:boolean
+
+* `method` PUT.</br>
+* `success`
+```js
+true || false // 更新成功/失败
 ```

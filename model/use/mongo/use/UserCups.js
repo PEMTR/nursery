@@ -1,7 +1,7 @@
 "use strict"
 
 
-// 水杯
+// 用户水杯
 // @class
 module.exports = class UserCups {
    
@@ -42,5 +42,18 @@ module.exports = class UserCups {
         }
       } }
     ]).toArray()
+  }
+  
+  // 用户设置水杯提醒
+  // @params {ObjectId} _id
+  // @params {boolean} notice
+  // @params {ObjectId} user
+  // @public
+  async setNotice ({ _id, notice, user }) {
+    return (await this.mongo.UserCups.updateOne({ 
+      _id, user 
+    }, { $set: { 
+      notice 
+    } })).result.n === 1
   }
 }

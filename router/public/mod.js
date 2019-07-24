@@ -3,14 +3,13 @@
 
 // package
 // @package
+const assert = require("assert").strict
 const express = require("lazy_mod/express")
 const router = express.Router()
 
 
 // 路由表
-router.use("/public", require("./public/mod"))
-router.use("/private", require("./private/mod"))
-router.use("/manage", require("./manage/mod"))
+router.use("/commodity", require("./use/commodity"))
 
 
 // export.

@@ -10,6 +10,10 @@ Nightly
 - [接口文档](./doc/api.md)
 
 
+### 来源
+- [镜像仓库](https://hub.docker.com/u/quasipaa) 包含服务群所有服务.</br>
+
+
 ### 概述
 * 使用`Travis CI`作为持续集成和测试工具.</br>
 * 使用`Docker`作为容器服务和镜像托管.</br>

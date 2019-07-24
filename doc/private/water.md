@@ -3,7 +3,7 @@
 
 
 ### 获取用户水滴信息
-> /private/water/user
+> /private/water
 
 * `method` GET</br>
 * `success`

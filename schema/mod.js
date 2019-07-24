@@ -36,7 +36,7 @@ module.exports = class Schema {
   // 绑定模版
   // @private
   applyTemp () {
-    this.core.bind("private.upload.cup.avatar", require("./use/private.upload.cup.avatar.json"))
+    this.core.bind("private.cup.set.notice", require("./use/private.cup.set.notice.json"))
   }
   
   // 验证
