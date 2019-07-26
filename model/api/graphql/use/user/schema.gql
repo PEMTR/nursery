@@ -65,7 +65,5 @@ type Query {
   # 获取单个用户
   user (id: String!): User,
   # 获取用户列表
-  users (match: UserStruct, skip: Int, limit: Int): [User],
-  # 设置用户信息
-  setUser (id: String, body: UserStruct): Boolean
+  users (match: UserStruct, skip: Int, limit: Int): [User]
 }

@@ -55,7 +55,7 @@ class User {
     return (await this.crate.mongo.UserCups.find({
       user: this._id
     }).toArray()).map(value => {
-      new Cups(this.crate, value)
+      return new Cups(this.crate, value)
     })
   }
   

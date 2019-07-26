@@ -34,9 +34,9 @@ collections = [
 ]
 
 # 数据库认证
-[mongo.auth]
-username = "nursery"
-password = "ZDY5YWE1NzQzOTkwMjc0Mm"
+# [mongo.auth]
+# username = "nursery"
+# password = "ZDY5YWE1NzQzOTkwMjc0Mm"
 
 
 # ==============
@@ -46,7 +46,7 @@ password = "ZDY5YWE1NzQzOTkwMjc0Mm"
 [redis]
 host = "127.0.0.1"
 port = 6379
-# password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
+password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
 
 
 # ==============
@@ -73,11 +73,4 @@ password = "ZDQxZTQ4OGM4MTg4ZDkYzljNjYIyNzcy"
 
 [schema]
 status = true
-code = "E.VALIDATE"
-
-
-# ==============
-# OSS配置
-# ==============
-
-[oss]
+code = "E.PARAMS.TYPE"
