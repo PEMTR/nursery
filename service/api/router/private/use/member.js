@@ -7,7 +7,7 @@ const router = express.Router()
 
 
 // 获取用户会员信息
-router.get("/user", async function (req) {
+router.get("/", async function (req) {
   let { _id } = req.user
   let user_id = req.crate.util.createHexId(_id)
   return await req.crate.model.mongo.Member.find(user_id)

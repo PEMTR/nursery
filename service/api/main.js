@@ -18,7 +18,6 @@ const model = require("../../model/mod")
 const expmiddleware = require("../../middleware")
 const rabbitmq = require("../../bin/rabbitmq")
 const decrypt = require("../../bin/decrypt")
-const multer = require("../../bin/multer")
 const wechat = require("../../bin/wechat")
 const util = require("../../bin/util")
 const pay = require("../../bin/pay")
@@ -33,7 +32,6 @@ const server = http.createServer(app)
 // 依赖总线
 crate.code = code
 crate.util = util
-crate.multer = multer
 crate.pid = process.pid
 crate.env = process.env
 crate.dirname = __dirname
@@ -43,7 +41,7 @@ crate.redis = redis(configure.redis)
 crate.rabbitmq = new rabbitmq(configure.rabbitmq)
 crate.decrypt = new decrypt(crate)
 crate.wechat = new wechat(crate)
-crate.model = new model(crate)
+crate.model = new model.Api(crate)
 crate.schema = new schema(crate)
 // crate.pay = new pay(crate)
 

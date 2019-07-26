@@ -6,10 +6,6 @@
 Nightly
 
 
-### 文档
-- [接口文档](./doc/api.md)
-
-
 ### 来源
 - [镜像仓库](https://hub.docker.com/u/quasipaa) 包含服务群所有服务.</br>
 

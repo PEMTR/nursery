@@ -16,9 +16,10 @@ router.get("/all", async function (req) {
 
 
 // 用户设置水杯提醒
-router.put("/:cups/notice/:boolean", async function (req) {
+router.put("/:cups/notice", async function (req) {
   let { _id } = req.user
-  let { cups, boolean } = req.params
+  let { cups } = req.params
+  let { boolean } = req.body
   
   // 验证参数
   req.crate.schema.eq("private.cup.set.notice", {
