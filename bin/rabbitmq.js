@@ -7,13 +7,10 @@ const { EventEmitter } = require("events")
 
 
 // 消息队列类
-// @param {string} [.host]
-// @param {string} [.topic] 
-// @param {number} [.timeout] 
 // @class
-function MQ ({ host, topic }) {
-  this.host = host
-  this.topic = topic
+function MQ ({ configure }) {
+  this.host = configure.rabbitmq.host
+  this.topic = configure.rabbitmq.topic
   this.consumer = {}
   this.handle = null
   this.consumerLoop = null

@@ -22,10 +22,4 @@ module.exports = class User {
   constructor ({ mongo }) {
     this.mongo = mongo
   }
-  
-  // 新建单个用户
-  // @public
-  insertOne () {
-    
-  }
 }

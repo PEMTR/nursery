@@ -2,7 +2,7 @@
 # 服务配置
 # ==============
 
-listen = 8081
+listen = 80
 name = "nursery.api"
 debug = true
 
@@ -12,7 +12,7 @@ debug = true
 # ==============
 
 [mongo]
-host = "127.0.0.1"
+host = "xivistudios.com"
 port = 27017
 db = "nursery"
 collections = [
@@ -30,13 +30,19 @@ collections = [
     "Member",
     "Water",
     "CupWaters",
-    "Commodity"
+    "Commodity",
+    "Achievement",
+    "AchievementClass",
+    "UserAchievements",
+    "Family",
+    "FamilyUsers",
+    "UserCommoditys"
 ]
 
 # 数据库认证
-# [mongo.auth]
-# username = "nursery"
-# password = "ZDY5YWE1NzQzOTkwMjc0Mm"
+[mongo.auth]
+username = "nursery"
+password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
 
 
 # ==============
@@ -44,18 +50,9 @@ collections = [
 # ==============
 
 [redis]
-host = "127.0.0.1"
+host = "xivistudios.com"
 port = 6379
-password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
-
-
-# ==============
-# RabbitMQ配置
-# ==============
-
-[rabbitmq]
-host = "amqp://panda:panda@localhost"
-topic = "bus"
+password = "panda"
 
 
 # ==============

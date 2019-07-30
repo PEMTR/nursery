@@ -14,7 +14,7 @@ module.exports = class Water {
   // @params {ObjectId} user
   // @public
   async find (user) {
-    return await this.mongo.Water.aggregate([
+    return await this.mongo.Cos.Water.aggregate([
       { $match: { user } },
       { $project: {
         user: false

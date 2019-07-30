@@ -4,5 +4,7 @@
   "E.NOTFOUND": "未找到数据",
   "E.INSERT": "写入数据失败",
   "E.UPDATE": "更新数据失败",
-  "E.PAY": "支付错误"
+  "E.DELETE": "删除数据错误",
+  "E.PAY": "支付错误",
+  "E.WATER.OVER": "水滴不足"
 }

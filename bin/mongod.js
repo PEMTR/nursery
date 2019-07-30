@@ -4,6 +4,7 @@
 // package
 // @package
 const MongoDB = require("mongodb")
+const util = require("util")
 
 
 // 全局常量
@@ -16,9 +17,9 @@ const DEFAULT_OPT = {
 }
 
 
-// <超级类>
+// MongoDB
 // @class
-class Mongod extends MongoDB {
+module.exports = class Mongod {
   
   // @interface
   // type interface Option {
@@ -34,20 +35,22 @@ class Mongod extends MongoDB {
   // }
   
   // @new
-  // @params {Option} options 配置
-  constructor (options) {
+  constructor ({ configure: { mongo } }) {
+    this.self = MongoDB
+    this._from(mongo)
     this.Cos = {}
-    this._default_from(options)
   }
   
   // 连接数据库
   // @params {Option} .. 配置
   // @private
-  _default_from ({ host, port, db, collections, options, auth }) {
+  _from ({ host, port, db, collections, options, auth }) {
     let temp = auth ? "mongodb://%s:%s@%s:%s/%s" : "mongodb://%s:%s/%s"
     let args = auth ? [ auth.username, auth.password, host, port, db ] : [ host, port, db ]
-    this.MongoClient.connect(util.format(temp, ...args), options || DEFAULT_OPT).then(mongod => {
-      this.Cos = collections.map(element => mongod.db(db).collection(element))
+    this.self.MongoClient.connect(util.format(temp, ...args), options || DEFAULT_OPT).then(mongod => {
+      collections.forEach(element => {
+        this.Cos[element] = mongod.db(db).collection(element)
+      })
     })
   }
 }

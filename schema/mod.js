@@ -37,6 +37,8 @@ module.exports = class Schema {
   // @private
   applyTemp () {
     this.core.bind("private.cup.set.notice", require("./use/private.cup.set.notice.json"))
+    this.core.bind("private.family.remove.user", require("./use/private.family.remove.user.json"))
+    this.core.bind("private.commodity.user.get.mock", require("./use/private.commodity.user.get.mock.json"))
   }
   
   // 验证
