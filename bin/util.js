@@ -179,7 +179,7 @@ exports.pagination = function ({ page = "1", limit = "10" }) {
 }
 
 
-// 保证参数
+// 参数保证
 // @params {any} arg
 // @params {string} err
 // @public

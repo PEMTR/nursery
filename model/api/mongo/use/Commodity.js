@@ -69,7 +69,7 @@ module.exports = class Commodity {
     
     // 更新用户水滴
     assert.deepStrictEqual((await this.mongo.Cos.Water.updateOne({
-      _id: water
+      _id: water._id
     }, { $inc: {
       count: countWater - (countWater * 2)
     } })).result.n, 1, "E.UPDATE")
