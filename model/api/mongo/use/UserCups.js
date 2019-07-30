@@ -1,6 +1,11 @@
 "use strict"
 
 
+// package
+// @package
+const assert = require("assert").strict
+
+
 // 用户水杯
 // @class
 module.exports = class UserCups {
@@ -12,9 +17,10 @@ module.exports = class UserCups {
   
   // 查询用户关联水杯列表信息
   // @params {ObjectId} user
+  // @returns {array}
   // @public
   async finds (user) {
-    return await this.mongo.UserCups.aggregate([
+    return await this.mongo.Cos.UserCups.aggregate([
       { $match: { user } },
       { $lookup: {
         from: "Cups",
@@ -48,12 +54,15 @@ module.exports = class UserCups {
   // @params {ObjectId} _id
   // @params {boolean} notice
   // @params {ObjectId} user
+  // @returns {boolean}
   // @public
   async setNotice ({ _id, notice, user }) {
-    return (await this.mongo.UserCups.updateOne({ 
+    assert.deepStrictEqual((await this.mongo.Cos.UserCups.updateOne({ 
       _id, user 
     }, { $set: { 
       notice 
-    } })).result.n === 1
+    } })).result.n, 1, "E.UPDATE")
+    
+    return true
   }
 }

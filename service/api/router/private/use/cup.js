@@ -10,8 +10,8 @@ const router = express.Router()
 // 获取用户绑定的水杯列表
 router.get("/all", async function (req) {
   let { _id } = req.user
-  let user_id = req.crate.util.createHexId(_id)
-  return await req.crate.model.mongo.UserCups.finds(user_id)
+  let userId = req.crate.util.createHexId(_id)
+  return await req.crate.model.mongo.UserCups.finds(userId)
 })
 
 
@@ -27,13 +27,13 @@ router.put("/:cups/notice", async function (req) {
   })
   
   // 索引
-  let user_id = req.crate.util.createHexId(_id)
-  let user_cups_id = req.crate.util.createHexId(cups)
+  let userId = req.crate.util.createHexId(_id)
+  let userCupsId = req.crate.util.createHexId(cups)
   
   // 更新
   return await req.crate.model.mongo.UserCups.setNotice({
-    _id: user_cups_id,
-    user: user_id,
+    _id: userCupsId,
+    user: userId,
     notice: boolean
   })
 })

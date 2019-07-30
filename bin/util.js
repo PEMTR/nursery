@@ -181,9 +181,10 @@ exports.pagination = function ({ page = "1", limit = "10" }) {
 
 // 保证参数
 // @params {any} arg
+// @params {string} err
 // @public
-exports.promise = function (arg) {
-  assert.deepStrictEqual(arg !== null && arg !== undefined, true)
+exports.promise = function (arg, err) {
+  assert.deepStrictEqual(arg !== null && arg !== undefined, true, err)
   return arg
 }
 

@@ -22,7 +22,7 @@ class Cups {
   // 获取水杯信息
   // @public
   async cupLink () {
-    return await this.crate.mongo.Cups.findOne({
+    return await this.crate.mongo.Cos.Cups.findOne({
       _id: this.cup
     })
   }
@@ -30,7 +30,7 @@ class Cups {
   // 获取水杯喝水信息
   // @public
   async waters () {
-    return await this.crate.mongo.CupWaters.find({
+    return await this.crate.mongo.Cos.CupWaters.find({
       cup: this.cup
     }).toArray()
   }
@@ -52,7 +52,7 @@ class User {
   // 获取用户水杯列表
   // @public
   async cups () {
-    return (await this.crate.mongo.UserCups.find({
+    return (await this.crate.mongo.Cos.UserCups.find({
       user: this._id
     }).toArray()).map(value => {
       return new Cups(this.crate, value)
@@ -62,7 +62,7 @@ class User {
   // 获取用户水滴
   // @public
   async water () {
-    return this.crate.mongo.Water.findOne({
+    return this.crate.mongo.Cos.Water.findOne({
       user: this._id
     })
   }
@@ -86,7 +86,7 @@ module.exports = class {
   // @returns {object}
   // @public
   async user ({ id }) {
-    return new User(this.crate, await this.crate.mongo.User.findOne({ 
+    return new User(this.crate, await this.crate.mongo.Cos.User.findOne({ 
       _id: this.crate.util.createHexId(id)
     }))
   }
@@ -98,7 +98,7 @@ module.exports = class {
   // @returns {array}
   // @public
   async users ({ match = {}, skip = 0, limit = 20 }) {
-    return (await this.crate.mongo.User.aggregate([
+    return (await this.crate.mongo.Cos.User.aggregate([
       { $match: match },
       { $skip: skip },
       { $limit: limit }
@@ -113,7 +113,7 @@ module.exports = class {
   // @returns {boolean}
   // @public
   async setUser ({ id, body = {} }) {
-    return (await this.crate.mongo.User.updateOne({
+    return (await this.crate.mongo.Cos.User.updateOne({
       _id: this.crate.util.createHexId(id)
     }, { $set: body })).result.n === 1
   }

@@ -2,7 +2,7 @@
 
 // 环境变量
 const {
-  NURSERY_CONFFILE = "./configure.toml"
+  NURSERY_CONFFILE = "./configure/api.toml"
 } = process.env
 
 // package
@@ -11,14 +11,13 @@ const http = require("http")
 const bodyparse = require("body-parser")
 const cookieparse = require("cookie-parser")
 const express = require("lazy_mod/express")
-const mongo = require("lazy_mod/mongo")
-const redis = require("lazy_mod/redis")
 const schema = require("../../schema/mod")
 const model = require("../../model/mod")
 const expmiddleware = require("../../middleware")
-const rabbitmq = require("../../bin/rabbitmq")
 const decrypt = require("../../bin/decrypt")
 const wechat = require("../../bin/wechat")
+const mongod = require("../../bin/mongod")
+const redis = require("../../bin/redis")
 const util = require("../../bin/util")
 const pay = require("../../bin/pay")
 const code = require("../../code")
@@ -36,9 +35,8 @@ crate.pid = process.pid
 crate.env = process.env
 crate.dirname = __dirname
 crate.configure = configure
-crate.mongo = mongo(configure.mongo)
-crate.redis = redis(configure.redis)
-crate.rabbitmq = new rabbitmq(configure.rabbitmq)
+crate.mongo = new mongod(crate)
+crate.redis = new redis(crate)
 crate.decrypt = new decrypt(crate)
 crate.wechat = new wechat(crate)
 crate.model = new model.Api(crate)

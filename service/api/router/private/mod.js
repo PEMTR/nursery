@@ -22,6 +22,9 @@ router.use("/user", require("./use/user"))
 router.use("/cup", require("./use/cup"))
 router.use("/member", require("./use/member"))
 router.use("/water", require("./use/water"))
+router.use("/family", require("./use/family"))
+router.use("/commodity", require("./use/commodity"))
+router.use("/achievement", require("./use/achievement"))
 
 
 // export.

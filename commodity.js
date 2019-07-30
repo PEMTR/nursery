@@ -8,7 +8,7 @@ const router = express.Router()
 
 
 // 获取虚拟商品列表
-router.get("/mock", async function (req) {
+router.get("/mocks", async function (req) {
   return await req.crate.model.mongo.Commodity.mocks()
 })
 

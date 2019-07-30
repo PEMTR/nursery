@@ -41,7 +41,7 @@ module.exports = class Decrypt {
 
     // 生成token
     // 写入redis
-    let token = Buffer.from(decrypt + "]|[" + id).toString("base64")
+    let token = Buffer.from(decrypt + " " + id).toString("base64")
     let redisData = JSON.stringify(Object.assign(user, { token }))
     void await this.redis.promise.set("USERDATA." + id, redisData)
 
@@ -57,7 +57,7 @@ module.exports = class Decrypt {
   // @public
   async parseUserAuthToken (token) {
     assert.deepStrictEqual(this.util.isNullValue(token), true, "E.AUTH")
-    let [ text, id ] = Buffer.from(token, "base64").toString().split("]|[")
+    let [ text, id ] = Buffer.from(token, "base64").toString().split(" ")
     assert.deepStrictEqual(this.util.isNullValue(text), true, "E.AUTH")
     assert.deepStrictEqual(this.util.isNullValue(id), true, "E.AUTH")
 
