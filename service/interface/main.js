@@ -2,7 +2,7 @@
 
 // 环境变量
 const {
-  NURSERY_CONFFILE = "./configure/api.toml"
+  NURSERY_INTERFACE_CONFFILE = "./configure/interface.toml"
 } = process.env
 
 // package
@@ -11,8 +11,9 @@ const http = require("http")
 const bodyparse = require("body-parser")
 const cookieparse = require("cookie-parser")
 const express = require("lazy_mod/express")
-const schema = require("../../schema/api/mod")
-const model = require("../../model/api/mod")
+const routers = require("../../router/interface/mod")
+const schema = require("../../schema/interface/mod")
+const model = require("../../model/interface/mod")
 const expmiddleware = require("../../middleware")
 const decrypt = require("../../bin/decrypt")
 const wechat = require("../../bin/wechat")
@@ -24,7 +25,7 @@ const code = require("../../code")
 // 初始化
 const crate = {}
 const app = express()
-const configure = util.readtoml(NURSERY_CONFFILE)
+const configure = util.readtoml(NURSERY_INTERFACE_CONFFILE)
 const server = http.createServer(app)
 
 // 依赖总线
@@ -62,8 +63,7 @@ middleware.apply("env", crate.env)
 // 路由初始化
 app.use(cookieparse(), bodyparse.json())
 app.use(bodyparse.urlencoded({ extended: true }))
-app.use(middleware.filter())
-app.use(require("../../router/api/mod"))
+app.use(middleware.filter(), routers)
 app.use(middleware.hooks())
 
 // 绑定端口
