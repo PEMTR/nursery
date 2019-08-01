@@ -16,12 +16,14 @@ module.exports = class UserCups {
   }
   
   // 查询用户关联水杯列表信息
-  // @params {ObjectId} user
+  // @params {ObjectId} [user]
   // @returns {array}
   // @public
-  async finds (user) {
+  async finds ({ userId }) {
     return await this.mongo.Cos.UserCups.aggregate([
-      { $match: { user } },
+      { $match: { 
+        user: userId 
+      } },
       { $lookup: {
         from: "Cups",
         localField: "cup",
@@ -51,14 +53,15 @@ module.exports = class UserCups {
   }
   
   // 用户设置水杯提醒
-  // @params {ObjectId} _id
-  // @params {boolean} notice
-  // @params {ObjectId} user
+  // @params {ObjectId} [cupId]
+  // @params {boolean} [notice]
+  // @params {ObjectId} [userId]
   // @returns {boolean}
   // @public
-  async setNotice ({ _id, notice, user }) {
+  async setNotice ({ cupId, notice, userId }) {
     assert.deepStrictEqual((await this.mongo.Cos.UserCups.updateOne({ 
-      _id, user 
+      cup: cupId,
+      user: userId
     }, { $set: { 
       notice 
     } })).result.n, 1, "E.UPDATE")

@@ -35,12 +35,14 @@ module.exports = class Commodity {
   }
   
   // 获取用户所有成就
-  // @params {ObjectId} user
+  // @params {ObjectId} [userId]
   // @returns {array}
   // @public
-  async user (user) {
+  async user ({ userId }) {
     return this.mongo.Cos.UserAchievements.aggregate([ 
-      { $match: { user } },
+      { $match: { 
+        user: userId 
+      } },
       { $project: {
         user: false
       } }

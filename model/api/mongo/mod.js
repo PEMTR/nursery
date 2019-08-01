@@ -10,6 +10,8 @@ const user_cups = require("./use/UserCups")
 const commodity = require("./use/Commodity")
 const achievement = require("./use/Achievement")
 const family = require("./use/Family")
+const animation = require("./use/Animation")
+const audio = require("./use/Audio")
 
 
 // 模型公共出口类
@@ -29,5 +31,7 @@ module.exports = class Mongo {
     this.Commodity = new commodity(crate)
     this.Achievement = new achievement(crate)
     this.Family = new family(crate)
+    this.Animation = new animation(crate)
+    this.Audio = new audio(crate)
   }
 }

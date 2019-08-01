@@ -16,13 +16,13 @@ router.get("/mock/:commodity/:count", async function (req) {
     count: Number(count),
     commodity
   })
-  
-  // 索引
-  let userId = req.crate.util.createHexId(_id)
-  let commodityId = req.crate.util.createHexId(commodity)
-  
+
   // 更新
-  return await req.crate.model.mongo.Commodity.get(userId, commodityId, count)
+  return await req.crate.model.mongo.Commodity.get({
+    commodityId: req.crate.util.createHexId(commodity), 
+    userId: req.crate.util.createHexId(_id), 
+    count
+  })
 })
 
 

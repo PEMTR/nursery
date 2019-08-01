@@ -31,12 +31,12 @@ module.exports = class Commodity {
   }
   
   // 用户获取虚拟商品
-  // @params {ObjectId} userId
-  // @params {ObjectId} commodityId
-  // @params {number} count
+  // @params {ObjectId} [userId]
+  // @params {ObjectId} [commodityId]
+  // @params {number} [count]
   // @returns {ObjectId}
   // @public
-  async get (userId, commodityId, count) {
+  async get ({ userId, commodityId, count }) {
     
     // 查询商品
     let commodity = this.util.promise(await this.mongo.Cos.Commodity.findOne({
