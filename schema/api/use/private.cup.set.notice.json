@@ -2,9 +2,9 @@
   "title": "private.upload.cup.avatar",
   "description": "用户设置水杯提醒",
   "type": "object",
-  "required": [ "cups", "boolean" ],
+  "required": [ "cup", "boolean" ],
   "properties": {
-    "cups": {
+    "cup": {
       "type": "string",
       "format": "objectId"
     },

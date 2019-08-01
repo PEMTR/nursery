@@ -36,7 +36,11 @@ collections = [
     "UserAchievements",
     "Family",
     "FamilyUsers",
-    "UserCommoditys"
+    "UserCommoditys",
+    "Animation",
+    "Audio",
+    "CupAnimation",
+    "CupAudio"
 ]
 
 # 数据库认证
@@ -52,7 +56,7 @@ password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
 [redis]
 host = "xivistudios.com"
 port = 6379
-password = "panda"
+password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
 
 
 # ==============

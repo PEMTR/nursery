@@ -11,12 +11,14 @@ module.exports = class Member {
   }
   
   // 获取用户会员信息
-  // @params {ObjectId} user
+  // @params {ObjectId} [userId]
   // @returns {object}
   // @public
-  async find (user) {
+  async find ({ userId }) {
     return await this.mongo.Cos.Member.aggregate([
-      { $match: { user }},
+      { $match: { 
+        user: userId 
+      }},
       { $project: {
         user: false
       }}

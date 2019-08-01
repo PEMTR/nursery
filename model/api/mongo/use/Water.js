@@ -11,11 +11,15 @@ module.exports = class Water {
   }
   
   // 查询用户水滴数
-  // @params {ObjectId} user
+  // @params {ObjectId} [userId]
+  // @returns {object}
   // @public
-  async find (user) {
+  async find ({ userId }) {
     return await this.mongo.Cos.Water.aggregate([
-      { $match: { user } },
+      { $match: { 
+        user: userId 
+      } },
+      { $limit: 1 },
       { $project: {
         user: false
       } }

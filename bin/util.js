@@ -7,7 +7,7 @@ const fs = require("fs")
 const url = require("url")
 const path = require("path")
 const mongodb = require("mongodb")
-const assert = require("assert")
+const assert = require("assert").strict
 const crypto = require("crypto")
 const toml = require("toml")
 
@@ -172,14 +172,12 @@ exports.unwind = function (data) {
 // @returns {object}
 // @public
 exports.pagination = function ({ page = "1", limit = "10" }) {
-  page = Number(page)
-  limit = Number(limit)
-  let skip = (page - 1) * limit
-  return { skip, limit }
+  page = Number(page), limit = Number(limit)
+  return { skip: (page - 1) * limit, limit }
 }
 
 
-// 保证参数
+// 参数保证
 // @params {any} arg
 // @params {string} err
 // @public

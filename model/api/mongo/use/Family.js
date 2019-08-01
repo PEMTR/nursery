@@ -17,14 +17,16 @@ module.exports = class Commodity {
   }
   
   // 获取家庭成员列表
-  // @params {ObjectId} user
+  // @params {ObjectId} [userId]
   // @return {object}
   // @public
-  async users (user) {
+  async users ({ userId }) {
     
     // 查找家庭信息
     let familyUser = this.util.promise(await this.mongo.Cos.FamilyUsers.aggregate([
-      { $match: { user } },
+      { $match: { 
+        user: userId 
+      } },
       { $lookup: {
         from: "Family",
         localField: "family",
@@ -44,7 +46,9 @@ module.exports = class Commodity {
     // 合并返回
     return Object.assign(familyUser, {
       users: await this.mongo.Cos.FamilyUsers.aggregate([
-        { $match: { family: familyUser.family._id } },
+        { $match: { 
+          family: familyUser.family._id 
+        } },
         { $lookup: {
           from: "User",
           localField: "user",
@@ -70,10 +74,10 @@ module.exports = class Commodity {
   // @params {ObjectId} userId
   // @returns {boolean}
   // @public
-  async remove (familyId, fromId, userId) {
+  async remove ({ familyId, fromId, userId }) {
     
-    // 查询管理员
-    let family = this.util.promise(await this.mongo.Cos.Family.findOne({
+    // 检查管理员身份
+    void this.util.promise(await this.mongo.Cos.Family.findOne({
       _id: familyId,
       manage: userId
     }), "E.AUTH")
