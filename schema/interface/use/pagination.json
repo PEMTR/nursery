@@ -1,18 +1,20 @@
 {
-  "title": "pagination",
-  "description": "分页参数验证",
-  "type": "object",
-  "required": [ "skip", "limit" ],
-  "properties": {
-    "skip": {
-      "type": "integer",
-      "max": 999,
-      "min": 1
-    },
-    "limit": {
-      "type": "integer",
-      "max": 40,
-      "min": 1
+    "title": "pagination",
+    "description": "分页参数验证",
+    "type": "object",
+    "required": [
+        "skip",
+        "limit"
+    ],
+    "properties": {
+        "skip": {
+            "type": "integer",
+            "min": 1
+        },
+        "limit": {
+            "type": "integer",
+            "max": 40,
+            "min": 1
+        }
     }
-  }
 }

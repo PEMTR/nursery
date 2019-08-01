@@ -43,6 +43,7 @@ module.exports = class UserCups {
           count: { $size: "$waters" }
         },
         cup: {
+          _id: true,
           code: true,
           expires: true,
           avatar: true,
@@ -67,5 +68,37 @@ module.exports = class UserCups {
     } })).result.n, 1, "E.UPDATE")
     
     return true
+  }
+  
+  // 获取水杯照片
+  // @params {ObjectId} [cupId]
+  // @params {ObjectId} [userId]
+  // @params {number} [lte]
+  // @params {number} [gte]
+  // @params {number} [skip]
+  // @params {number} [limit]
+  // @returns {array}
+  // @public
+  async photo ({ userId, cupId, lte, gte, skip, limit }) {
+    
+    // 验证用户水杯
+    void this.util.promise(await this.mongo.Cos.UserCups.findOne({
+      user: userId,
+      cup: cupId
+    }), "E.NOTFOUND")
+    
+    // 查询相册
+    return await this.mongo.Cos.CupPhoto.aggregate([
+      { $match: {
+        cup: cupId,
+        $lte: lte,
+        $gte: gte
+      } },
+      { $skip: skip },
+      { $limit: limit },
+      { $project: {
+        cup: false
+      } }
+    ]).toArray()
   }
 }

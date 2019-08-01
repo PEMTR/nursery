@@ -1,12 +1,14 @@
 {
-  "title": "private.cup.get.animation",
-  "description": "获取水杯取水动画",
-  "type": "object",
-  "required": [ "cup" ],
-  "properties": {
-    "cup": {
-      "type": "string",
-      "format": "objectId"
+    "title": "private.cup.get.animation",
+    "description": "获取水杯取水动画",
+    "type": "object",
+    "required": [
+        "cup"
+    ],
+    "properties": {
+        "cup": {
+            "type": "string",
+            "format": "objectId"
+        }
     }
-  }
 }
