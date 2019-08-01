@@ -15,33 +15,6 @@ debug = true
 host = "xivistudios.com"
 port = 27017
 db = "nursery"
-collections = [
-    "User",
-    "Company",
-    "Sales",
-    "School",
-    "Classroom",
-    "FilterCore",
-    "Device",
-    "DeviceFilter",
-    "Cups",
-    "UserCups",
-    "Devices",
-    "Member",
-    "Water",
-    "CupWaters",
-    "Commodity",
-    "Achievement",
-    "AchievementClass",
-    "UserAchievements",
-    "Family",
-    "FamilyUsers",
-    "UserCommoditys",
-    "Animation",
-    "Audio",
-    "CupAnimation",
-    "CupAudio"
-]
 
 # 数据库认证
 [mongo.auth]

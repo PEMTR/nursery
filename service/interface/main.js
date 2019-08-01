@@ -68,6 +68,5 @@ app.use(middleware.hooks())
 
 // 绑定端口
 // 绑定进程名
-// 初始化接口验证
 server.listen(configure.listen)
 process.title = configure.name

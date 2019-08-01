@@ -8,6 +8,7 @@ const util = require("util")
 
 
 // 全局常量
+// 默认连接配置
 const DEFAULT_OPT = {
   poolSize: 10,
   ssl: false,
@@ -21,36 +22,51 @@ const DEFAULT_OPT = {
 // @class
 module.exports = class Mongod {
   
-  // @interface
-  // type interface Option {
-  //   host: String, 数据库链接地址
-  //   port: Number, 端口
-  //   db: String, 数据库
-  //   collections: Array<String>, 数据库表
-  //   options?: Object, 选项
-  //   auth?: {
-  //     username: String, 用户名
-  //     password: String 密码
-  //   }
-  // }
-  
   // @new
   constructor ({ configure: { mongo } }) {
     this.self = MongoDB
     this._from(mongo)
-    this.Cos = {}
+    this._Cos = {}
+  }
+  
+  // 设置表
+  // @params {string} key
+  // @private
+  _setProxy (key) {
+    let _db = this._mongod.db(this._db)
+    this._Cos[key] = _db.collection(key)
+  }
+  
+  // 获取句柄
+  // @public
+  get Cos () {
+    
+    // 检查代理
+    // 是否初始化
+    // 初始化代理
+    // 绑定表
+    if (!this._proxy) {
+      this._proxy = new Proxy(this._Cos, {
+        get: (promise, key) => {
+          !promise[key] && this._setProxy(key)
+          return promise[key]
+        }
+      })
+    }
+    
+    // 返回代理实例
+    return this._proxy
   }
   
   // 连接数据库
   // @params {Option} .. 配置
   // @private
-  _from ({ host, port, db, collections, options, auth }) {
+  _from ({ host, port, db, options, auth }) {
     let temp = auth ? "mongodb://%s:%s@%s:%s/%s" : "mongodb://%s:%s/%s"
     let args = auth ? [ auth.username, auth.password, host, port, db ] : [ host, port, db ]
     this.self.MongoClient.connect(util.format(temp, ...args), options || DEFAULT_OPT).then(mongod => {
-      collections.forEach(element => {
-        this.Cos[element] = mongod.db(db).collection(element)
-      })
+      this._mongod = mongod
+      this._db = db
     })
   }
 }
