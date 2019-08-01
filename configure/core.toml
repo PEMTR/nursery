@@ -1,0 +1,16 @@
+# ==============
+# 服务配置
+# ==============
+
+name = "nursery.core"
+
+
+# ==============
+# RabbitMQ配置
+# ==============
+
+[rabbitmq]
+host = "amqp://panda:panda@xivistudios.com"
+topic_list = [
+  "core.exchange"
+]

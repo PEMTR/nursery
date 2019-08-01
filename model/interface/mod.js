@@ -10,7 +10,7 @@ const graph = require("./graph/mod")
 
 // 模型类
 // @class
-module.exports = class Api {
+module.exports = class Interface {
   constructor (crate) {
     this.mongo = new mongo(crate)
     this.redis = new redis(crate)
