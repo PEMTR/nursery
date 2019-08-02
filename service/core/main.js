@@ -1,22 +1,25 @@
 "use strict"
 
-
 // 环境变量
 const {
-  NURSERY_CORE_CONFFILE = "./configure/core.toml"
+  NURSERY_CORE_CONFGILE = "./configure/core.toml"
 } = process.env
 
-
-// package
-// @package
-const rabbitx = require("../../bin/rabbitx")
+const crate = {}
 const util = require("../../bin/util")
+const mongod = require("../../bin/mongod")
+const rabbitx = require("../../bin/rabbitx")
+const model = require("../../model/core/mod")
+const configure = util.readtoml(NURSERY_CORE_CONFGILE)
 
-// 初始化
-const configure = util.readtoml(NURSERY_CORE_CONFFILE)
+// 依赖
+crate.util = util
+crate.env = process.env
+crate.dirname = __dirname
+crate.configure = configure
+crate.queue = new rabbitx(crate)
+crate.mongo = new mongod(crate)
+crate.model = new model(crate)
 
-const context = new rabbitx({ configure })
-
-context.On("CoreExchange", function (msg, ack) {
-  console.log(msg.as("json"))
-})
+// 进程名
+process.title = configure.name

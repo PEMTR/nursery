@@ -37,6 +37,23 @@ module.exports = class Mongod {
     this._Cos[key] = _db.collection(key)
   }
   
+  // 事务
+  // @params {function} process
+  // @public
+  Transfer (process) {
+    return new Promise((reslove, reject) => {
+      let _session = this._mongod.startSession()
+      _session.startTransaction()
+      process(_session)
+        .then(reslove)
+        .catch(err => {
+          void await _session.abortTransaction()
+          _session.endSession()
+          reject(err)
+      })
+    })
+  }
+  
   // 获取句柄
   // @public
   get Cos () {

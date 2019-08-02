@@ -48,3 +48,15 @@ password = "ZDQxZTQ4OGM4MTg4ZDkYzljNjYIyNzcy"
 [schema]
 status = true
 code = "E.PARAMS.TYPE"
+
+
+# ==============
+# RabbitMQ配置
+# ==============
+
+[rabbitmq]
+host = "amqp://panda:panda@xivistudios.com"
+confirmation = true
+queues = [
+  "CoreExchange"
+]

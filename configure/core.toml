@@ -6,11 +6,27 @@ name = "nursery.core"
 
 
 # ==============
+# MongoDB配置
+# ==============
+
+[mongo]
+host = "xivistudios.com"
+port = 27017
+db = "nursery"
+
+# 数据库认证
+[mongo.auth]
+username = "nursery"
+password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
+
+
+# ==============
 # RabbitMQ配置
 # ==============
 
 [rabbitmq]
 host = "amqp://panda:panda@xivistudios.com"
-topic_list = [
+confirmation = false
+queues = [
   "CoreExchange"
 ]

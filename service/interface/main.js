@@ -29,7 +29,7 @@ const app = express()
 const configure = util.readtoml(NURSERY_INTERFACE_CONFFILE)
 const server = http.createServer(app)
 
-// 依赖总线
+// 依赖
 crate.code = code
 crate.util = util
 crate.pid = process.pid
