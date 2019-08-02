@@ -15,6 +15,7 @@ const routers = require("../../router/interface/mod")
 const schema = require("../../schema/interface/mod")
 const model = require("../../model/interface/mod")
 const expmiddleware = require("../../middleware")
+const rabbitx = require("../../bin/rabbitx")
 const decrypt = require("../../bin/decrypt")
 const wechat = require("../../bin/wechat")
 const mongod = require("../../bin/mongod")
@@ -41,6 +42,7 @@ crate.decrypt = new decrypt(crate)
 crate.wechat = new wechat(crate)
 crate.model = new model(crate)
 crate.schema = new schema(crate)
+crate.rabbitx = new rabbitx(crate)
 
 // 路由中间件
 const middleware = new expmiddleware(crate)
@@ -57,6 +59,7 @@ middleware.apply("mongo", crate.mongo)
 middleware.apply("redis", crate.redis)
 middleware.apply("events", crate.events)
 middleware.apply("decrypt", crate.decrypt)
+middleware.apply("rabbitx", crate.rabbitx)
 middleware.apply("env", crate.env)
 
 // 路由中间件

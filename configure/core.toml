@@ -12,5 +12,5 @@ name = "nursery.core"
 [rabbitmq]
 host = "amqp://panda:panda@xivistudios.com"
 topic_list = [
-  "core.exchange"
+  "CoreExchange"
 ]
