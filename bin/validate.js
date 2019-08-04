@@ -67,7 +67,6 @@ module.exports = class Schema {
     this.Validator.addFormat(format, handle)
   }
 
-
   // 自定义关键字
   // @params {string} keyword
   // @params {function} handle

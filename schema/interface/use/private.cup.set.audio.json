@@ -1,0 +1,19 @@
+{
+    "title": "private.cup.set.audio",
+    "description": "设置水杯取水语音",
+    "type": "object",
+    "required": [
+        "cup",
+        "audio"
+    ],
+    "properties": {
+        "cup": {
+            "type": "string",
+            "format": "objectId"
+        },
+        "audio": {
+            "type": "string",
+            "format": "objectId"
+        }
+    }
+}

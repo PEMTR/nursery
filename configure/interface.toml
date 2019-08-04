@@ -1,0 +1,62 @@
+# ==============
+# 服务配置
+# ==============
+
+listen = 80
+name = "nursery.api"
+debug = true
+
+
+# ==============
+# MongoDB配置
+# ==============
+
+[mongo]
+host = "xivistudios.com"
+port = 27017
+db = "nursery"
+
+# 数据库认证
+[mongo.auth]
+username = "nursery"
+password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
+
+
+# ==============
+# Redis配置
+# ==============
+
+[redis]
+host = "xivistudios.com"
+port = 6379
+password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
+
+
+# ==============
+# 加密配置
+# ==============
+
+[crypto]
+method = "aes256"
+password = "ZDQxZTQ4OGM4MTg4ZDkYzljNjYIyNzcy"
+
+
+# ==============
+# 验证配置
+# ==============
+
+[schema]
+status = true
+code = "E.PARAMS.TYPE"
+
+
+# ==============
+# RabbitMQ配置
+# ==============
+
+[rabbitmq]
+host = "amqp://panda:panda@xivistudios.com"
+confirmation = true
+queues = [
+  "CoreExchange"
+]

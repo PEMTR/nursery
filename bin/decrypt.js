@@ -49,7 +49,6 @@ module.exports = class Decrypt {
     return token
   }
 
-
   // 解密用户token
   // 取出redis数据
   // @param {string} token 用户token

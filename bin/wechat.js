@@ -37,7 +37,6 @@ module.exports = class Wechat {
     return res.data
   }
 
-
   // 推送模板消息
   // @param {object} params 参数
   // @param {string} touser 到达用户
@@ -76,7 +75,6 @@ module.exports = class Wechat {
     return res.data.msgid
   }
 
-
   // 生成二维码
   // @param {number} expire 有效期
   // @param {string} str 字符串
@@ -99,7 +97,6 @@ module.exports = class Wechat {
     return res.data
   }
 
-
   // 获取openid
   // @param {string} [code] 临时登陆凭证
   // @param {string} [referer] 来源
@@ -121,7 +118,6 @@ module.exports = class Wechat {
     return res.data
   }
 
-
   // 获取素材列表
   // @param {string} type 素材类型
   // @param {number} offset 跳过
@@ -140,7 +136,6 @@ module.exports = class Wechat {
     return res.data
   }
 
-
   // 获取用户基本信息(UnionID机制)
   // @param {string} openid
   // @returns {object}
@@ -157,7 +152,6 @@ module.exports = class Wechat {
     assert.deepStrictEqual(res.data.subscribe, 1, "E.WECHATAPI")
     return res.data
   }
-
 
   // 设置服务号菜单
   // @param {object} options

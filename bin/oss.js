@@ -44,7 +44,6 @@ module.exports = class Oss {
     return objects
   }
 
-
   // 获取文件地址
   // @param {string} bucket
   // @param {string} name
@@ -74,7 +73,6 @@ module.exports = class Oss {
     return path
   }
 
-
   // 上传文件
   // @param {string} bucket
   // @param {string} name
@@ -85,7 +83,6 @@ module.exports = class Oss {
     this.store.useBucket(bucket)
     return await this.store.putStream(name, stream, meta || null)
   }
-
 
   // 删除文件
   // @param {string} bucket

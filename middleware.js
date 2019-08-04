@@ -32,11 +32,10 @@ module.exports = class Middleware {
 
     // 返回响应数据
     return fatal ? {
-      status: 500,
       stack: fatal.stack,
       code: fatal.message,
       error: this.code[fatal.message] || fatal.message
-    } : { data: success, status: 200 }
+    } : success
   }
 
   // 依赖注入
@@ -69,7 +68,7 @@ module.exports = class Middleware {
   // @public
   hooks () {
     return [(fatal, req, res, _) => {
-      res.send(this.logs(req, { fatal }))
+      res.status(500).send(this.logs(req, { fatal }))
     }, (_, res) => res.status(404).end()]
   }
 }

@@ -1,0 +1,19 @@
+{
+    "title": "private.cup.set.animation",
+    "description": "设置水杯取水动画",
+    "type": "object",
+    "required": [
+        "cup",
+        "animation"
+    ],
+    "properties": {
+        "cup": {
+            "type": "string",
+            "format": "objectId"
+        },
+        "animation": {
+            "type": "string",
+            "format": "objectId"
+        }
+    }
+}

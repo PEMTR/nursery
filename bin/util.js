@@ -202,3 +202,29 @@ exports.Integer = function (number) {
   let number_str = String(number)
   return !number_str.includes(".") && !number_str.includes("-")
 }
+
+// 重试函数
+// @params {number} int
+// @params {function} process
+// @public
+exports.Retry = async function (int, process) {
+  let _number = 0
+  let _err = null
+  
+  // 循环指定阈值
+  while (_number < int) {
+    try {
+      
+      // 尝试运行函数
+      // 成功回调并结束循环
+      return await process()
+    } catch (err) {
+      _number += 1
+      _err = err
+    }
+  }
+  
+  // 到达阈值不成功
+  // 抛出错误
+  throw _err
+}

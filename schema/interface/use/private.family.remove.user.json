@@ -1,0 +1,19 @@
+{
+    "title": "private.family.remove.user",
+    "description": "删除家庭成员",
+    "type": "object",
+    "required": [
+        "family",
+        "user"
+    ],
+    "properties": {
+        "family": {
+            "type": "string",
+            "format": "objectId"
+        },
+        "user": {
+            "type": "string",
+            "format": "objectId"
+        }
+    }
+}
