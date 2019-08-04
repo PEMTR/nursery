@@ -10,6 +10,7 @@ const util = require("../../bin/util")
 const mongod = require("../../bin/mongod")
 const rabbitx = require("../../bin/rabbitx")
 const model = require("../../model/core/mod")
+const factory = require("../../factory/core/mod")
 const configure = util.readtoml(NURSERY_CORE_CONFGILE)
 
 // 依赖
@@ -20,6 +21,7 @@ crate.configure = configure
 crate.queue = new rabbitx(crate)
 crate.mongo = new mongod(crate)
 crate.model = new model(crate)
+crate.factory = new factory(crate)
 
 // 进程名
 process.title = configure.name
