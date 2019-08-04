@@ -217,7 +217,7 @@ exports.Retry = async function (int, process) {
       
       // 尝试运行函数
       // 成功回调并结束循环
-      return await process()
+      return await process(_number)
     } catch (err) {
       _number += 1
       _err = err

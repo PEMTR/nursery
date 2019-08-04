@@ -12,7 +12,7 @@ debug = true
 # ==============
 
 [mongo]
-host = "xivistudios.com"
+host = "server.local"
 port = 27017
 db = "nursery"
 
@@ -55,7 +55,7 @@ code = "E.PARAMS.TYPE"
 # ==============
 
 [rabbitmq]
-host = "amqp://panda:panda@xivistudios.com"
+host = "amqp://panda:panda@server.local"
 confirmation = true
 queues = [
   "CoreExchange"

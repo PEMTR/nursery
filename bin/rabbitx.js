@@ -5,6 +5,7 @@
 // @package
 const uuid = require("uuid/v4")
 const amqplib = require("amqplib")
+const signale = require("signale")
 
 
 // RabbitMQ
@@ -173,7 +174,7 @@ module.exports =  class Rabbitx {
     // 检查回调主题列表中有无处理函数
     // 如果没有，中断处理
     // 这里是为了处理无宿主的返回信息
-    if (!_context) {
+    if (!_context || !_context.process) {
       return false
     }
     
@@ -205,7 +206,7 @@ module.exports =  class Rabbitx {
         // 所以这里如果出现错误不处理
         // 并且不会重试，直接消费该条消息
         this._transferBackProcess(topic, message)
-          .catch(console.warn)
+          .catch(signale.fatal)
         void await this._context.ack(message)
       })
     }
@@ -248,6 +249,7 @@ module.exports =  class Rabbitx {
       let _buf = this._stringify({ success: _result, uid: _uid })
       void await this._context.sendToQueue(topic, _buf)
     } catch (err) {
+      signale.fatal(err)
 
       // 处理出现错误
       // 检查消息UID是否存在
@@ -299,7 +301,7 @@ module.exports =  class Rabbitx {
     // 并且记录消息创建时间
     // 此处是为了处理超时的函数
     this._listens[_backTopic][_uid] = { 
-      process: null, 
+      process: null,
       date: Date.now() 
     }
     
@@ -308,7 +310,7 @@ module.exports =  class Rabbitx {
     // 当回调完成的时候处理回调信息
     return new Promise((reslove, reject) => {
       this._listens[_backTopic][_uid].process = function ({ error, success }) {
-        error ? reject(error) : reslove(success)
+        error ? reject(new Error(error)) : reslove(success)
       }
     })
   }

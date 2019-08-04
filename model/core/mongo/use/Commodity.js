@@ -22,47 +22,50 @@ module.exports = class Commodity {
   // @params {number} [count]
   // @returns {ObjectId}
   // @public
-  async get ({ userId, commodityId, count }) {
-    return await this.util.Retry(3, this.mongo.Transfer(async session => {
+  async getMock ({ userId, commodityId, count }) {
+    return await this.util.Retry(3, _ => {
+      return this.mongo.Transfer(async session => {
       
-      // 查询商品
-      let commodity = this.util.promise(await this.mongo.Cos.Commodity.findOne({
-        _id: commodityId,
-        class: 0 
-      }, { session }), "E.NOTFOUND")
+        // 查询商品
+        let commodity = this.util.promise(await this.mongo.Cos.Commodity.findOne({
+          _id: commodityId,
+          class: 0 
+        }, { session }), "E.NOTFOUND")
 
-      // 查询用户水滴
-      let water = this.util.promise(await this.mongo.Cos.Water.findOne({
-        user: userId
-      }, { session }), "E.NOTFOUND")
+        // 查询用户水滴
+        let water = this.util.promise(await this.mongo.Cos.Water.findOne({
+          user: userId
+        }, { session }), "E.NOTFOUND")
 
-      // 计算总数
-      // 检查水滴是否足够
-      let countWater = commodity.univalent * count
-      assert.deepStrictEqual(water.count >= countWater, true, "E.WATER.OVER")
+        // 计算总数
+        // 检查水滴是否足够
+        let countWater = commodity.univalent * count
+        assert.deepStrictEqual(water.count >= countWater, true, "E.WATER.OVER")
 
-      // 用户商品数据
-      let data = {
-        commodity: commodity._id,
-        user: userId,
-        number: count,
-        date: Date.now(),
-        update: Date.now()
-      }
+        // 用户商品数据
+        let data = {
+          commodity: commodity._id,
+          user: userId,
+          number: count,
+          date: Date.now(),
+          update: Date.now()
+        }
 
-      // 写入用户商品
-      let append = await this.mongo.Cos.UserCommoditys.insertOne(data, { session })
-      assert.deepStrictEqual(append.result.n, 1, "E.INSERT")
+        // 写入用户商品
+        let append = await this.mongo.Cos.UserCommoditys.insertOne(data, { session })
+        assert.deepStrictEqual(append.result.n, 1, "E.INSERT")
 
-      // 更新用户水滴
-      assert.deepStrictEqual((await this.mongo.Cos.Water.updateOne({
-        _id: water._id
-      }, { $inc: {
-        count: countWater - (countWater * 2)
-      } }, { session })).result.n, 1, "E.UPDATE")
+        // 更新用户水滴
+        assert.deepStrictEqual((await this.mongo.Cos.Water.updateOne({
+          _id: water._id
+        }, { $inc: {
+          count: countWater - (countWater * 2)
+        } }, { session })).result.n, 1, "E.UPDATE")
 
-      // 返回用户商品索引
-      return append.insertedId
-    }))
+        // 转字符串
+        // 返回用户商品索引
+        return append.insertedId.toString()
+      })
+    })
   }
 }
