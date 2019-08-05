@@ -12,7 +12,7 @@ debug = true
 # ==============
 
 [mongo]
-host = "server.local"
+host = "192.168.2.188"
 port = 27017
 db = "nursery"
 
@@ -55,8 +55,5 @@ code = "E.PARAMS.TYPE"
 # ==============
 
 [rabbitmq]
-host = "amqp://panda:panda@server.local"
-confirmation = true
-queues = [
-  "CoreExchange"
-]
+host = "amqp://panda:panda@192.168.2.188"
+prefetch = 1

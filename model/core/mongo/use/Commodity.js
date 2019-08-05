@@ -23,8 +23,8 @@ module.exports = class Commodity {
   // @returns {ObjectId}
   // @public
   async getMock ({ userId, commodityId, count }) {
-    return await this.util.Retry(3, _ => {
-      return this.mongo.Transfer(async session => {
+    return await this.util.Retry(2, async _ => {
+      return await this.mongo.Transfer(async session => {
       
         // 查询商品
         let commodity = this.util.promise(await this.mongo.Cos.Commodity.findOne({

@@ -11,7 +11,16 @@ const router = express.Router()
 router.get("/", async function (req) {
   let { _id } = req.user
   let userId = req.crate.util.createHexId(_id)
-  
+  return await req.crate.model.mongo.SignIn.signIns({ userId })
+})
+
+
+// 用户签到
+router.post("/", async function (req) {
+  return await req.crate.rabbitx.SendTransfer("CoreWater", {
+    data: { user: req.user._id },
+    type: "SignIn"
+  })
 })
 
 

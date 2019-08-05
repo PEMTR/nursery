@@ -6,5 +6,7 @@
   "E.UPDATE": "更新数据失败",
   "E.DELETE": "删除数据错误",
   "E.PAY": "支付错误",
-  "E.WATER.OVER": "水滴不足"
+  "E.WATER.OVER": "水滴不足",
+  "E.SIGNIN.DAY": "用户已经签到",
+  "E.TRABSFER": "事务错误"
 }
