@@ -7,8 +7,7 @@ const express = require("lazy_mod/express")
 const router = express.Router()
 
 
-// 路由表
-router.use("/publish", require("./publish/mod"))
+// 上传
 
 
 // export.
