@@ -12,6 +12,7 @@ const achievement = require("./use/Achievement")
 const family = require("./use/Family")
 const animation = require("./use/Animation")
 const audio = require("./use/Audio")
+const signin = require("./use/SignIn")
 
 
 // 模型公共出口类
@@ -33,5 +34,6 @@ module.exports = class Mongo {
     this.Family = new family(crate)
     this.Animation = new animation(crate)
     this.Audio = new audio(crate)
+    this.SignIn = new signin(crate)
   }
 }
