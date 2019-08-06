@@ -27,9 +27,10 @@ function filename (name) {
 // @returns {object}
 // @private
 function diskStorage (files, destination, name) {
-  return Object.assign({ storage: multer.diskStorage({ 
-    destination, filename: filename(name) 
-  }) }, { limits: { files } })
+  return { storage: multer.diskStorage({ 
+    destination, filename: filename(name),
+    limits: { files }
+  }) }
 }
 
 

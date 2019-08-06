@@ -25,23 +25,14 @@ module.exports = class SignIn {
     return await this.mongo.Cos.UserSignIn.aggregate([
       { $match: { 
         user: userId,
-        update: { 
-          $gte: gte, 
-          $lte: lte 
-        }
+        update: { $gte: gte, $lte: lte }
       } },
       { $project: {
-        _date: { 
-          $toDate: "$update" 
-        }
+        _date: { $toDate: "$update" }
       } },
       { $project: {
-        day: { 
-          $dayOfYear: "$_date" 
-        },
-        week: { 
-          $dayOfWeek: "$_date" 
-        }
+        day: { $dayOfYear: "$_date" },
+        week: { $dayOfWeek: "$_date" }
       } }
     ]).toArray()
   }

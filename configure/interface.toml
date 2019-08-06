@@ -12,7 +12,7 @@ debug = true
 # ==============
 
 [mongo]
-host = "192.168.2.188"
+host = "server.local"
 port = 27017
 db = "nursery"
 
@@ -55,5 +55,16 @@ code = "E.PARAMS.TYPE"
 # ==============
 
 [rabbitmq]
-host = "amqp://panda:panda@192.168.2.188"
+host = "amqp://panda:panda@server.local"
 prefetch = 1
+
+
+# ==============
+# ELK配置
+# ==============
+
+[elk]
+node = "http://elk.server.local"
+maxRetries = 3
+requestTimeout = 10000
+name = "nursery.interface"

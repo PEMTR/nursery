@@ -10,7 +10,7 @@ name = "nursery.core"
 # ==============
 
 [mongo]
-host = "192.168.2.188"
+host = "server.local"
 port = 27017
 db = "nursery"
 
@@ -25,5 +25,5 @@ password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
 # ==============
 
 [rabbitmq]
-host = "amqp://panda:panda@192.168.2.188"
+host = "amqp://panda:panda@server.local"
 prefetch = 1

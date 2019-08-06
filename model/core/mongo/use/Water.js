@@ -21,9 +21,6 @@ module.exports = class Water {
   // @public
   async signIn ({ userId }) {
     return await this.mongo.Transfer(async session => {
-        
-      // 当天开始时间和结束时间
-      // 00:00:00:0 - 23:59:59:999
       let gte = moment().hour(0).minute(0).second(0).millisecond(0).valueOf()
       let lte = moment().hour(23).minute(59).second(59).millisecond(999).valueOf()
 

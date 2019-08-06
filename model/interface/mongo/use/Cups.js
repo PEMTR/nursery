@@ -64,7 +64,8 @@ module.exports = class UserCups {
       cup: cupId,
       user: userId
     }, { $set: { 
-      notice 
+      notice,
+      update: Date.now()
     } })).result.n, 1, "E.UPDATE")
     
     return true
