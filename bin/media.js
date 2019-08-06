@@ -59,4 +59,13 @@ module.exports = class Media {
         })
     })
   }
+  
+  // 缩略图处理
+  // @params {path} file
+  // @params {path} out
+  // @params {string} size
+  // @public
+  async ImageResize (file, out, size) {
+    return await thumbnail(file, out, size)
+  }
 }

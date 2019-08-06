@@ -13,3 +13,14 @@ debug = true
 
 [stage]
 path = "D:/project/nursery/static"
+
+
+# ==============
+# ELK配置
+# ==============
+
+[elk]
+node = "http://elk.server.local"
+maxRetries = 3
+requestTimeout = 10000
+name = "nursery.interface"

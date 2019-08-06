@@ -27,7 +27,7 @@ password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
 # ==============
 
 [redis]
-host = "xivistudios.com"
+host = "server.local"
 port = 6379
 password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
 

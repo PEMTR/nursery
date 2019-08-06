@@ -7,9 +7,9 @@ module.exports = class Water {
   
   // @new
   constructor ({ queue, util, model }) {
+    this.util = util
     this.model = model
     this.queue = queue
-    this.util = util
     this.util.sleep(5000).then(_ => {
       this.queue.OnTransfer("CoreWater", async (message) => {
         let { type, data } = message.as("json")

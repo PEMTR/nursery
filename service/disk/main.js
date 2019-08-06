@@ -11,8 +11,10 @@ const express = require("lazy_mod/express")
 const redis = require("../../bin/redis")
 const util = require("../../bin/util")
 const multer = require("../../bin/multer")
+const analysis = require("../../analysis/disk/mod")
 const routers = require("../../router/disk/mod")
 const middlewares = require("../../middleware")
+const elasticx = require("../../bin/elasticx")
 const code = require("../../code")
 
 const crate = {}
@@ -27,6 +29,8 @@ crate.pid = process.pid
 crate.dirname = __dirname
 crate.configure = configure
 crate.multer = new multer(crate)
+crate.elasticx = new elasticx(crate)
+crate.analysis = new analysis(crate)
 
 // app.use(cookieparse(), bodyparse.json())
 // app.use(bodyparse.urlencoded({ extended: true }))
