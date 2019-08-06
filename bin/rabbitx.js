@@ -5,7 +5,6 @@
 // @package
 const uuid = require("uuid/v4")
 const amqplib = require("amqplib")
-const signale = require("signale")
 
 
 // RabbitMQ
@@ -250,7 +249,6 @@ module.exports =  class Rabbitx {
       let _buf = this._stringify({ success: _result, uid: _uid })
       void await this._context.sendToQueue(topic, _buf)
     } catch (err) {
-      signale.fatal(err)
 
       // 处理出现错误
       // 检查消息UID是否存在

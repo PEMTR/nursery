@@ -52,7 +52,7 @@ module.exports = class Logs {
   // @public
   async success (req, success) {
     let name = "nursery.interface.success"
-    return await this.elasticx.Index(, {
+    return await this.elasticx.Index(name, {
       ...this._header(req),
       success
     })

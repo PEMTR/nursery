@@ -16,8 +16,6 @@ module.exports = class Redis {
     this.self = createClient(redis)
     this._promise = {}
     this._proxy = null
-    
-    this.self.on("error", console.log)
   }
   
   // 绑定promise

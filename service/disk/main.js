@@ -10,15 +10,26 @@ const cookieparse = require("cookie-parser")
 const express = require("lazy_mod/express")
 const redis = require("../../bin/redis")
 const util = require("../../bin/util")
+const multer = require("../../bin/multer")
 const routers = require("../../router/disk/mod")
+const middlewares = require("../../middleware")
+const code = require("../../code")
 
 const crate = {}
 const app = express()
 const server = http.createServer(app)
 const configure = util.readtoml(NURSERY_DISK_CONFFILE)
+const middleware = new middlewares({ configure, code }, crate)
 
-app.use(cookieparse(), bodyparse.json())
-app.use(bodyparse.urlencoded({ extended: true }))
+crate.code = code
+crate.env = process.env
+crate.pid = process.pid
+crate.dirname = __dirname
+crate.configure = configure
+crate.multer = new multer(crate)
+
+// app.use(cookieparse(), bodyparse.json())
+// app.use(bodyparse.urlencoded({ extended: true }))
 app.use(middleware.filter(), routers)
 app.use(middleware.hooks())
 

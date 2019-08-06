@@ -1,66 +1,49 @@
 "use strict"
 
 
-// package.
+// package
 // @package
+const fs = require("fs")
 const path = require("path")
+const busboy = require("busboy")
 const uuid = require("uuid/v4")
-const multer = require("multer")
 
 
-// 文件名处理
-// @param {string} name
-// @returns {function}
-// @private
-function filename (name) {
-  return function (req, file, next) {
-    let mimename = path.parse(file.originalname).ext
-    let filesname = name === false ? uuid() : name
-    next(null, filesname + mimename)
+// 表单处理
+// @class
+module.exports = class Multer {
+  
+  // @new
+  constructor ({ configure: { stage } }) {
+    this.configure = stage
   }
-}
-
-
-// 存储引擎
-// @param {number} files
-// @param {string} destination
-// @returns {object}
-// @private
-function diskStorage (files, destination, name) {
-  return { storage: multer.diskStorage({ 
-    destination, filename: filename(name),
-    limits: { files }
-  }) }
-}
-
-
-// 文件上传处理
-// @object
-module.exports = {
   
-  // 多文件上传
-  // @param {object} options
+  // 创建文件可写流
+  // @params {string} name
+  // @params {string} dir
   // @public
-  fields: function ({ 
-    req, res, destination, 
-    fields, name = false, limit 
-  }) {
-    return new Promise((resolve, reject) => {
-      let multers = multer(diskStorage(limit, destination, name)).fields(fields)
-      multers(req, res, error => error ? reject(error) : resolve(name))
-    })
-  },
+  createWriteStream (name = uuid(), dir) {
+    let _dir = dir || this.configure.path
+    let _path = path.join(_dir, name)
+    let stream = fs.createWriteStream(_path)
+    return { stream, name }
+  }
   
-  // 单文件上传
-  // @param {object} options
+  // 处理请求
+  // @params {Request} req
+  // @params {WriteStream} write
   // @public
-  single: function ({ 
-    req, res, destination, 
-    single, name = uuid() 
-  }) {
+  from (req, write) {
     return new Promise((resolve, reject) => {
-      let multers = multer(diskStorage(1, destination, name)).single(single)
-      multers(req, res, error => error ? reject(error) : resolve(name))
+      let _detil = {}
+      let { headers } = req
+      req.pipe(new busboy({ headers })
+        .on("file", (...params) => {
+          _detil.type = params[4]
+          params[1].pipe(write)
+        }).on("finish", _ => {
+          resolve(_detil)
+        }))
     })
   }
 }

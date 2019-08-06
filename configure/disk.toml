@@ -4,5 +4,12 @@
 
 listen = 8082
 name = "nursery.disk"
-static = "./static"
 debug = true
+
+
+# ==============
+# 存储配置
+# ==============
+
+[stage]
+path = "D:/project/nursery/static"

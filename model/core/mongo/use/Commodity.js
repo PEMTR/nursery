@@ -22,7 +22,7 @@ module.exports = class Commodity {
   // @params {number} [count]
   // @returns {ObjectId}
   // @public
-  async getMock ({ userId, commodityId, count }) {
+  async GetMock ({ userId, commodityId, count }) {
     return await this.mongo.Transfer(async session => {
       
       // 查询商品

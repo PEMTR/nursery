@@ -12,7 +12,7 @@ const routers = require("../../router/interface/mod")
 const schema = require("../../schema/interface/mod")
 const model = require("../../model/interface/mod")
 const analysis = require("../../analysis/interface/mod")
-const expmiddleware = require("../../middleware")
+const middlewares = require("../../middleware")
 const elasticx = require("../../bin/elasticx")
 const rabbitx = require("../../bin/rabbitx")
 const decrypt = require("../../bin/decrypt")
@@ -25,7 +25,7 @@ const code = require("../../code")
 const crate = {}
 const app = express()
 const configure = util.readtoml(NURSERY_INTERFACE_CONFFILE)
-const middleware = new expmiddleware({ configure, code }, crate)
+const middleware = new middlewares({ configure, code }, crate)
 const server = http.createServer(app)
 
 crate.code = code

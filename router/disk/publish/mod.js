@@ -7,7 +7,8 @@ const express = require("lazy_mod/express")
 const router = express.Router()
 
 
-// 上传
+// 路由表
+router.use("/water", require("./use/water"))
 
 
 // export.

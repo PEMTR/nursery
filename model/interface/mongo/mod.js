@@ -13,11 +13,10 @@ const family = require("./use/family")
 const animation = require("./use/animation")
 const audio = require("./use/audio")
 const signin = require("./use/signIn")
+const work = require("./use/work")
 
 
-// 模型公共出口类
-// 超级类
-// 所有模型都挂载在此类上
+// 数据库
 // @class
 module.exports = class Mongo {
   
@@ -35,5 +34,6 @@ module.exports = class Mongo {
     this.Animation = new animation(crate)
     this.Audio = new audio(crate)
     this.SignIn = new signin(crate)
+    this.Work = new work(crate)
   }
 }

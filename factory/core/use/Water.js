@@ -21,7 +21,7 @@ module.exports = class Water {
   // 水滴兑换虚拟商品
   // @private
   async ExchangeMock ({ user, commodity, count }) {
-    return await this.model.mongo.Commodity.getMock({
+    return await this.model.mongo.Commodity.GetMock({
       commodityId: this.util.createHexId(commodity),
       userId: this.util.createHexId(user),
       count
@@ -31,7 +31,15 @@ module.exports = class Water {
   // 用户签到
   // @private
   async SignIn ({ user }) {
-    return await this.model.mongo.Water.signIn({
+    return await this.model.mongo.Water.SignIn({
+      userId: this.util.createHexId(user)
+    })
+  }
+  
+  // 分享公众号
+  // @private
+  async ShareWechatPublicNumber ({ user }) {
+    return await this.model.mongo.Water.ShareWechatPublicNumber({
       userId: this.util.createHexId(user)
     })
   }

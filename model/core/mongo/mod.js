@@ -3,8 +3,8 @@
 
 // package
 // @package
-const commodity = require("./use/Commodity")
-const water = require("./use/Water")
+const commodity = require("./use/commodity")
+const water = require("./use/water")
 
 
 // MongoDB
