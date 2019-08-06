@@ -3,15 +3,16 @@
 
 // package
 // @package
-const user = require("./use/User")
-const member = require("./use/Member")
-const water = require("./use/Water")
-const cups = require("./use/Cups")
-const commodity = require("./use/Commodity")
-const achievement = require("./use/Achievement")
-const family = require("./use/Family")
-const animation = require("./use/Animation")
-const audio = require("./use/Audio")
+const user = require("./use/user")
+const member = require("./use/member")
+const water = require("./use/water")
+const cups = require("./use/cups")
+const commodity = require("./use/commodity")
+const achievement = require("./use/achievement")
+const family = require("./use/family")
+const animation = require("./use/animation")
+const audio = require("./use/audio")
+const signin = require("./use/signIn")
 
 
 // 模型公共出口类
@@ -33,5 +34,6 @@ module.exports = class Mongo {
     this.Family = new family(crate)
     this.Animation = new animation(crate)
     this.Audio = new audio(crate)
+    this.SignIn = new signin(crate)
   }
 }

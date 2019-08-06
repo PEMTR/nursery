@@ -88,7 +88,8 @@ module.exports =  class Rabbitx {
   // @params {any} message
   // @private
   _parse (message) {
-    return Object.assign(message, {
+    return {
+      ...message,
       
       // 为原始数据对象添加as方法
       // 作用为转数据类型
@@ -115,7 +116,7 @@ module.exports =  class Rabbitx {
           return JSON.parse(str)
         }
       }
-    })
+    }
   }
 
   // 消息处理

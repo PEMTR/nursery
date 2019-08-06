@@ -66,7 +66,8 @@ module.exports = class Animation {
       cup: cupId
     }, { $set: {
       user: userId,
-      animation: animationId
+      animation: animationId,
+      update: Date.now()
     } })).result.n, 1, "E.UPDATA")
 
     return true

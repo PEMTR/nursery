@@ -3,7 +3,7 @@
 # ==============
 
 listen = 80
-name = "nursery.api"
+name = "nursery.interface"
 debug = true
 
 
@@ -56,7 +56,15 @@ code = "E.PARAMS.TYPE"
 
 [rabbitmq]
 host = "amqp://panda:panda@server.local"
-confirmation = true
-queues = [
-  "CoreExchange"
-]
+prefetch = 1
+
+
+# ==============
+# ELK配置
+# ==============
+
+[elk]
+node = "http://elk.server.local"
+maxRetries = 3
+requestTimeout = 10000
+name = "nursery.interface"

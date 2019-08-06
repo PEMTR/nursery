@@ -27,4 +27,12 @@ module.exports = class Water {
       count
     })
   }
+  
+  // 用户签到
+  // @private
+  async SignIn ({ user }) {
+    return await this.model.mongo.Water.signIn({
+      userId: this.util.createHexId(user)
+    })
+  }
 }

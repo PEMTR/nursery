@@ -106,7 +106,10 @@ class AliPay extends Pay {
     let crypto_type = this.configure.alipay.crypto
     let rsa = crypto.createSign(crypto_type).update(params_str, "utf8")
     let sign = rsa.sign(this.alipayPrivateKey, "base64")
-    return Object.assign(params, { sign })
+    return { 
+      ...params,
+      sign 
+    }
   }
 
   // 公共请求参数
@@ -332,9 +335,10 @@ class WxPay extends Pay {
     }
 
     // 计算签名
-    params = Object.assign(params, {
-      sign: this.sign(params, this.configure.wechat.pay.key)
-    }) 
+    params = {
+      sign: this.sign(params, this.configure.wechat.pay.key),
+      ...params
+    }
 
     /**
      * 请求微信服务器 -> axios.post
@@ -393,9 +397,10 @@ class WxPay extends Pay {
     }
 
     // 计算签名
-    params = Object.assign(params, {
-      sign: this.sign(params, this.configure.wechat.pay.key)
-    })
+    params = {
+      sign: this.sign(params, this.configure.wechat.pay.key),
+      ...params
+    }
 
     /**
      * 请求微信服务器 -> axios.post

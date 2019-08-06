@@ -60,7 +60,8 @@ module.exports = class Audio {
       cup: cupId
     }, { $set: {
       user: userId,
-      audio: audioId
+      audio: audioId,
+      update: Date.now()
     } })).result.n, 1, "E.UPDATA")
 
     return true

@@ -42,7 +42,7 @@ module.exports = class Decrypt {
     // 生成token
     // 写入redis
     let token = Buffer.from(decrypt + " " + id).toString("base64")
-    let redisData = JSON.stringify(Object.assign(user, { token }))
+    let redisData = JSON.stringify({ token, ...user })
     void await this.redis.promise.set("USERDATA." + id, redisData)
 
     // 回调

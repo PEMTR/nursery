@@ -44,7 +44,8 @@ module.exports = class Commodity {
     
     // 查找家庭用户组
     // 合并返回
-    return Object.assign(familyUser, {
+    return {
+      ...familyUser,
       users: await this.mongo.Cos.FamilyUsers.aggregate([
         { $match: { 
           family: familyUser.family._id 
@@ -65,7 +66,7 @@ module.exports = class Commodity {
           }
         } }
       ]).toArray()
-    })
+    }
   }
   
   // 删除家庭成员

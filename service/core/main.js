@@ -1,6 +1,5 @@
 "use strict"
 
-// 环境变量
 const {
   NURSERY_CORE_CONFGILE = "./configure/core.toml"
 } = process.env
@@ -13,7 +12,6 @@ const model = require("../../model/core/mod")
 const factory = require("../../factory/core/mod")
 const configure = util.readtoml(NURSERY_CORE_CONFGILE)
 
-// 依赖
 crate.util = util
 crate.env = process.env
 crate.dirname = __dirname
@@ -23,5 +21,4 @@ crate.mongo = new mongod(crate)
 crate.model = new model(crate)
 crate.factory = new factory(crate)
 
-// 进程名
 process.title = configure.name

@@ -13,10 +13,10 @@ module.exports = class Middleware {
   // @new
   // @params {object} [code]
   // @params {object} [configure]
-  constructor ({ code, configure }) {
+  constructor ({ code, configure }, crate) {
     this.configure = configure
+    this.crate = crate
     this.code = code
-    this.crate = {}
   }
 
   // 日志处理
@@ -26,6 +26,11 @@ module.exports = class Middleware {
   // @returns {object}
   // @private
   logs (req, { fatal, success }) {
+    void this.crate.analysis.Logs[
+      fatal ? "fatal" : "success"
+    ](req, fatal || success)
+  
+    // 输出错误信息
     if (this.configure.debug && fatal) {
       signale.fatal(fatal)
     }
@@ -36,16 +41,6 @@ module.exports = class Middleware {
       code: fatal.message,
       error: this.code[fatal.message] || fatal.message
     } : success
-  }
-
-  // 依赖注入
-  // @params {string} name
-  // @params {any} mod
-  // @public
-  apply (name, mod) {
-    Object.defineProperty(this.crate, name, {
-      get: _ => mod
-    })
   }
 
   // 路由头部绑定
