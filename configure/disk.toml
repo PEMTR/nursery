@@ -20,7 +20,7 @@ path = "D:/project/nursery/static"
 # ==============
 
 [elk]
-node = "http://elk.server.local"
+node = "http://elk.server.local:9200"
 maxRetries = 3
 requestTimeout = 10000
 name = "nursery.interface"
