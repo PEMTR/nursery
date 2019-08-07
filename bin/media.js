@@ -16,24 +16,24 @@ module.exports = class Media {
     
   }
   
-  // 转码
+  // 媒体转码
   // @params {string || stream} input
   // @params {string || stream} out
   // @public
-  VideoTrans (input, out) {
+  Trans (input, out) {
     return new Promise((resolve, reject) => {
       ffmpeg(input)
         .on("error", reject)
         .on("end", resolve)
         .output(out)
-        .run
+        .run()
     })
   }
   
-  // 获取视频元信息
+  // 获取媒体元信息
   // @params {string || stream} file
   // @public
-  VideoMeta (file) {
+  Meta (file) {
     return new Promise((resolve, reject) => {
       ffmpeg(file).ffprobe((err, result) => {
         err ? reject(err) : resolve(result)

@@ -6,10 +6,17 @@
 const fs = require("fs")
 const url = require("url")
 const path = require("path")
+const http = require("http")
 const mongodb = require("mongodb")
 const assert = require("assert").strict
 const crypto = require("crypto")
 const toml = require("toml")
+
+
+// 常量
+const REG_IP = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
+const REG_PHONE = /^[1][3,4,5,7,8][0-9]{9}$/
+const REG_EMAIL = /^[A-Za-z\\d]+([-_.][A-Za-z\\d]+)*@([A-Za-z\\d]+[-.])+[A-Za-z\\d]{2,4}$/
 
 
 // 加载配置文件
@@ -81,8 +88,7 @@ exports.encrypt = function (options) {
 // @returns {boolean}
 // @public
 exports.isValidIP = function (ip) {
-  let reg = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
-  return reg.test(ip)
+  return REG_IP.test(ip)
 }
 
 
@@ -128,8 +134,7 @@ exports.isNullValue = function (value) {
 // @returns {boolean}
 // @public
 exports.isPoneAvailable = function (phone) {
-  let reg = /^[1][3,4,5,7,8][0-9]{9}$/
-  return reg.test(phone)
+  return REG_PHONE.test(phone)
 }
 
 
@@ -138,21 +143,21 @@ exports.isPoneAvailable = function (phone) {
 // @returns {boolean}
 // @public
 exports.isEmail = function (email) {
-  let reg = /^[A-Za-z\\d]+([-_.][A-Za-z\\d]+)*@([A-Za-z\\d]+[-.])+[A-Za-z\\d]{2,4}$/
-  return reg.test(email)
+  return REG_EMAIL.test(email)
 }
 
 
 // 下载文件
-// @param {string} uri 地址
-// @param {string} pathname 下载根目录
-// @param {string} filename 文件名
+// @param {string} uri 下载地址
+// @param {stream} write 写入流
 // @returns {Promise}
 // @public
-exports.downloadFile = function (uri, pathname, name) {
-  const filename = name || path.parse(url.parse(uri).path).base
-  const dir = addon.downloadFile(uri,  path.join(pathname, filename))
-  return { dir, filename }
+exports.save = async function (uri, write) {
+  return new Promise((resolve, reject) => {
+    http.request(uri, res => res.pipe(write))
+      .on("error", reject)
+      .on("finish", resolve)
+  })
 }
 
 
@@ -202,6 +207,7 @@ exports.Integer = function (number) {
   let number_str = String(number)
   return !number_str.includes(".") && !number_str.includes("-")
 }
+
 
 // 重试函数
 // @params {number} int

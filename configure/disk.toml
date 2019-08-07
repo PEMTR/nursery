@@ -12,7 +12,7 @@ debug = true
 # ==============
 
 [stage]
-path = "D:/project/nursery/static"
+path = "/mnt/d/project/nursery/AppData"
 
 
 # ==============
@@ -23,4 +23,13 @@ path = "D:/project/nursery/static"
 node = "http://elk.server.local:9200"
 maxRetries = 3
 requestTimeout = 10000
-name = "nursery.interface"
+name = "nursery.disk"
+
+
+# ==============
+# RabbitMQ配置
+# ==============
+
+[rabbitmq]
+host = "amqp://panda:panda@server.local"
+prefetch = 1

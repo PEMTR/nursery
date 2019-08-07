@@ -6,6 +6,15 @@ name = "nursery.media"
 
 
 # ==============
+# 存储配置
+# ==============
+
+[stage]
+path = "/mnt/d/project/nursery/AppData"
+size = "280x?"
+
+
+# ==============
 # MongoDB配置
 # ==============
 

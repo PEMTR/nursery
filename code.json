@@ -9,5 +9,6 @@
   "E.WATER.OVER": "水滴不足",
   "E.SIGNIN.DAY": "用户已经签到",
   "E.TRABSFER": "事务错误",
-  "E.WORKS.DAY": "任务当天已完成"
+  "E.WORKS.DAY": "任务当天已完成",
+  "E.FORMDATA": "表单数据错误"
 }

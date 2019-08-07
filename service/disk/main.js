@@ -15,6 +15,8 @@ const analysis = require("../../analysis/disk/mod")
 const routers = require("../../router/disk/mod")
 const middlewares = require("../../middleware")
 const elasticx = require("../../bin/elasticx")
+const rabbitx = require("../../bin/rabbitx")
+const media = require("../../bin/media")
 const code = require("../../code")
 
 const crate = {}
@@ -29,8 +31,10 @@ crate.pid = process.pid
 crate.dirname = __dirname
 crate.configure = configure
 crate.multer = new multer(crate)
+crate.rabbitx = new rabbitx(crate)
 crate.elasticx = new elasticx(crate)
 crate.analysis = new analysis(crate)
+crate.media = new media(crate)
 
 // app.use(cookieparse(), bodyparse.json())
 // app.use(bodyparse.urlencoded({ extended: true }))

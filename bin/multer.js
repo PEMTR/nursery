@@ -26,21 +26,27 @@ module.exports = class Multer {
     let _dir = dir || this.configure.path
     let _path = path.join(_dir, name)
     let stream = fs.createWriteStream(_path)
-    return { stream, name }
+    return { stream, name, path: _path }
   }
   
-  // 处理请求
+  // 处理文件表单请求
   // @params {Request} req
   // @params {WriteStream} write
+  // @params {string} key
+  // @params {reg} mmie
   // @public
-  from (req, write) {
+  from (req, write, key, mmie) {
     return new Promise((resolve, reject) => {
-      let _detil = {}
+      let _detil = null
       let { headers } = req
       req.pipe(new busboy({ headers })
         .on("file", (...params) => {
-          _detil.type = params[4]
-          params[1].pipe(write)
+          if (params[0] !== key || !mmie.test(params[4])) {
+            return reject(new Error("E.FORMDATA"))
+          }
+        
+          _detil = params[4]
+          params[1].pipe(write) 
         }).on("finish", _ => {
           resolve(_detil)
         }))

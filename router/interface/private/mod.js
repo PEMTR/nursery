@@ -8,6 +8,12 @@ const express = require("lazy_mod/express")
 const router = express.Router()
 
 
+// OPTIONS
+router.options("*", function (_, res) {
+  res.status(200).end()
+})
+
+
 // 用户状态
 router.use(async function (req, _, next) {
   let auth = req.headers.authorization || req.cookies.Authorization

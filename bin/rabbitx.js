@@ -41,6 +41,19 @@ module.exports =  class Rabbitx {
       })
     }, 20000)
   }
+  
+  // 等待连接完成
+  // @private
+  _awitConn () {
+    return new Promise((resolve, _) => {
+      let _loop = setInterval(_ => {
+        if (this._context !== null) {
+          clearInterval(_loop)
+          resolve()
+        }
+      }, 500)
+    })
+  }
 
   // 连接到服务器
   // 检查队列
@@ -135,6 +148,7 @@ module.exports =  class Rabbitx {
   // @params {string} topic
   // @private
   async _checkTopic (topic) {
+    void await this._awitConn()
     
     // 检查主题是否已经准备完成
     // 如果没有准备完成，就断言主题
