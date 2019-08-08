@@ -7,8 +7,11 @@ const express = require("lazy_mod/express")
 const router = express.Router()
 
 
-// 路由表
-router.use("/water", require("./use/water"))
+// 获取取水照片
+router.get("/image/:name", async function (req) {
+  let { name } = req.params
+  
+})
 
 
 // export.

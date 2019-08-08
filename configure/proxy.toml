@@ -1,0 +1,7 @@
+# ==============
+# 服务配置
+# ==============
+
+listen = 8088
+name = "nursery.proxy"
+debug = true

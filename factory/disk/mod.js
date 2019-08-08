@@ -6,9 +6,9 @@
 const queue = require("./queue/mod")
 
 
-// 核心类
+// 存储类
 // @class
-module.exports = class Core {
+module.exports = class Disk {
   constructor (crate) {
     this.Queue = new queue(crate)
   }

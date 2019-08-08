@@ -35,7 +35,7 @@ module.exports = class Logs {
   // @params {Error} fatal
   // @public
   async fatal (req, fatal) {
-    let name = "nursery.interface.fatal"
+    let name = "nursery.disk.fatal"
     return this.elasticx.Index(name, {
       ...this._header(req),
       message: fatal.message,
@@ -51,7 +51,7 @@ module.exports = class Logs {
   // @params {object} success
   // @public
   async success (req, success) {
-    let name = "nursery.interface.success"
+    let name = "nursery.disk.success"
     return await this.elasticx.Index(name, {
       ...this._header(req),
       success

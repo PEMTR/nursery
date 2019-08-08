@@ -5,7 +5,6 @@
 // @package
 const uuid = require("uuid/v4")
 const amqplib = require("amqplib")
-const signale = require("signale")
 
 
 // RabbitMQ
@@ -41,6 +40,19 @@ module.exports =  class Rabbitx {
         })
       })
     }, 20000)
+  }
+  
+  // 等待连接完成
+  // @private
+  _awitConn () {
+    return new Promise((resolve, _) => {
+      let _loop = setInterval(_ => {
+        if (this._context !== null) {
+          clearInterval(_loop)
+          resolve()
+        }
+      }, 500)
+    })
   }
 
   // 连接到服务器
@@ -136,6 +148,7 @@ module.exports =  class Rabbitx {
   // @params {string} topic
   // @private
   async _checkTopic (topic) {
+    void await this._awitConn()
     
     // 检查主题是否已经准备完成
     // 如果没有准备完成，就断言主题
@@ -154,7 +167,7 @@ module.exports =  class Rabbitx {
     // 回调主题为 ._callback 后缀，不可覆盖和重名
     // 依次检查原始主题和回调主题
     // 返回回调主题名
-    let _backTopic = topic + "._callback"
+    let _backTopic = topic + "__CALLBACK"
     void await this._checkTopic(topic)
     void await this._checkTopic(_backTopic)
     return _backTopic
@@ -250,7 +263,6 @@ module.exports =  class Rabbitx {
       let _buf = this._stringify({ success: _result, uid: _uid })
       void await this._context.sendToQueue(topic, _buf)
     } catch (err) {
-      signale.fatal(err)
 
       // 处理出现错误
       // 检查消息UID是否存在
@@ -336,7 +348,7 @@ module.exports =  class Rabbitx {
       
       // 此处不处理函数内部错误
       // 调用者应该自己保证自己函数内部的处理
-      process(this._ack(message), this._parse(message))
+      process(this._parse(message), this._ack(message))
     })
   }
 }

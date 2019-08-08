@@ -8,7 +8,7 @@ const mongo = require("./use/mongo/mod")
 
 // 模型类
 // @class
-module.exports = class Core {
+module.exports = class Disk {
   constructor (crate) {
     this.mongo = new mongo(crate)
   }
