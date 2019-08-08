@@ -7,6 +7,7 @@ const user = require("./use/user")
 const member = require("./use/member")
 const water = require("./use/water")
 const cups = require("./use/cups")
+const classroom = require("./use/classroom")
 const commodity = require("./use/commodity")
 const achievement = require("./use/achievement")
 const family = require("./use/family")
@@ -14,6 +15,7 @@ const animation = require("./use/animation")
 const audio = require("./use/audio")
 const signin = require("./use/signIn")
 const work = require("./use/work")
+const teacher = require("./use/teacher")
 
 
 // 数据库
@@ -28,6 +30,7 @@ module.exports = class Mongo {
     this.Member = new member(crate)
     this.Water = new water(crate)
     this.Cups = new cups(crate)
+    this.Classroom = new classroom(crate)
     this.Commodity = new commodity(crate)
     this.Achievement = new achievement(crate)
     this.Family = new family(crate)
@@ -35,5 +38,6 @@ module.exports = class Mongo {
     this.Audio = new audio(crate)
     this.SignIn = new signin(crate)
     this.Work = new work(crate)
+    this.Teacher = new teacher(crate)
   }
 }

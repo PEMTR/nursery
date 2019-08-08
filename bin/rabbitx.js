@@ -167,7 +167,7 @@ module.exports =  class Rabbitx {
     // 回调主题为 ._callback 后缀，不可覆盖和重名
     // 依次检查原始主题和回调主题
     // 返回回调主题名
-    let _backTopic = topic + "._callback"
+    let _backTopic = topic + "__CALLBACK"
     void await this._checkTopic(topic)
     void await this._checkTopic(_backTopic)
     return _backTopic
@@ -348,7 +348,7 @@ module.exports =  class Rabbitx {
       
       // 此处不处理函数内部错误
       // 调用者应该自己保证自己函数内部的处理
-      process(this._ack(message), this._parse(message))
+      process(this._parse(message), this._ack(message))
     })
   }
 }

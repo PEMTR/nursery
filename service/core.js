@@ -5,11 +5,11 @@ const {
 } = process.env
 
 const crate = {}
-const util = require("../../bin/util")
-const mongod = require("../../bin/mongod")
-const rabbitx = require("../../bin/rabbitx")
-const model = require("../../model/core/mod")
-const factory = require("../../factory/core/mod")
+const util = require("../bin/util")
+const mongod = require("../bin/mongod")
+const rabbitx = require("../bin/rabbitx")
+const model = require("../model/core/mod")
+const factory = require("../factory/core/mod")
 const configure = util.readtoml(NURSERY_CORE_CONFGILE)
 
 crate.util = util

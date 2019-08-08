@@ -11,7 +11,14 @@ const router = express.Router()
 router.get("/sort/:cup/water", async function (req) {
   let { cup } = req.params
   let { _id } = req.user
-  
+})
+
+
+// 获取班级信息
+router.get("/", async function (req) {
+  let { _id } = req.user
+  let userId = req.crate.util.createHexId(_id)
+  return req.crate.model.mongo.Classroom.detil({ userId })
 })
 
 

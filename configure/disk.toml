@@ -16,6 +16,21 @@ path = "/mnt/d/project/nursery/AppData"
 
 
 # ==============
+# MongoDB配置
+# ==============
+
+[mongo]
+host = "server.local"
+port = 27017
+db = "nursery"
+
+# 数据库认证
+[mongo.auth]
+username = "nursery"
+password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
+
+
+# ==============
 # ELK配置
 # ==============
 

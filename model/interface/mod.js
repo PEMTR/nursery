@@ -3,9 +3,9 @@
 
 // package
 // @package
-const mongo = require("./mongo/mod")
-const redis = require("./redis/mod")
-const graph = require("./graph/mod")
+const mongo = require("./use/mongo/mod")
+const redis = require("./use/redis/mod")
+const graph = require("./use/graph/mod")
 
 
 // 模型类
