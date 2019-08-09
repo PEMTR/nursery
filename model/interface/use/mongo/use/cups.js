@@ -32,12 +32,20 @@ module.exports = class UserCups {
       } },
       { $unwind: "$cup" },
       { $lookup: {
+        from: "Classroom",
+        localField: "cup.classroom",
+        foreignField: "_id",
+        as: "classroom"
+      } },
+      { $unwind: "$classroom" },
+      { $lookup: {
         from: "CupWaters",
         localField: "cup._id",
         foreignField: "cup",
         as: "waters"
       } },
       { $project: {
+        standard: "$classroom.standard",
         water: {
           number: { $sum: "$waters.number" },
           count: { $size: "$waters" }

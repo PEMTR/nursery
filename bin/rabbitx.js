@@ -5,6 +5,7 @@
 // @package
 const uuid = require("uuid/v4")
 const amqplib = require("amqplib")
+const events = require("events")
 
 
 // RabbitMQ
@@ -13,6 +14,7 @@ module.exports =  class Rabbitx {
 
   // @new
   constructor ({ configure: { rabbitmq } }) {
+    this._events = new events.EventEmitter()
     this.configure = rabbitmq
     this._context = null
     this._listens = {}
@@ -36,6 +38,12 @@ module.exports =  class Rabbitx {
           if (date <= _ttl) {
             process({ error: "TRANSFER.TIMEOUT" })
             delete this._listens[_value][_uid]
+            
+            // 事件报告
+            this._events.emit("timeout", {
+              topic: _value,
+              uid: _uid
+            })
           }
         })
       })
@@ -65,6 +73,54 @@ module.exports =  class Rabbitx {
     let _connect = await amqplib.connect(this.configure.host)
     this._context = await _connect.createChannel()
     this._context.prefetch(this.configure.prefetch || 1)
+    
+    // 链接
+    // 关闭事件
+    _connect.on("close", (...args) => {
+      this._events.emit("connect.close", ...args)
+    })
+    
+    // 链接
+    // 错误事件
+    _connect.on("error", (...args) => {
+      this._events.emit("connect.error", ...args)
+    })
+    
+    // 链接
+    // 阻止事件
+    _connect.on("blocked", (...args) => {
+      this._events.emit("connect.blocked", ...args)
+    })
+    
+    // 链接
+    // 资源释放事件
+    _connect.on("unblocked", (...args) => {
+      this._events.emit("connect.blocked", ...args)
+    })
+    
+    // 通道
+    // 关闭事件
+    this._connect.on("close", (...args) => {
+      this._events.emit("channel.close", ...args)
+    })
+    
+    // 通道
+    // 错误事件
+    this._connect.on("error", (...args) => {
+      this._events.emit("channel.error", ...args)
+    })
+    
+    // 通道
+    // 回送事件
+    this._connect.on("return", (...args) => {
+      this._events.emit("channel.return", ...args)
+    })
+    
+    // 通道
+    // 缓冲器清空事件
+    this._connect.on("drain", (...args) => {
+      this._events.emit("channel.drain", ...args)
+    })
   }
 
   // 消息转Buffer
@@ -156,6 +212,11 @@ module.exports =  class Rabbitx {
     if (!this._map[topic]) {
       void await this._context.assertQueue(topic)
       this._map[topic] = true
+      
+      // 事件报告
+      this._events.emit("topic", {
+        topic
+      })
     }
   }
   
@@ -214,13 +275,20 @@ module.exports =  class Rabbitx {
     if (!this._listens[topic]) {
       this._listens[topic] = {}
       this._context.consume(topic, async message => {
+        this._transferBackProcess(topic, message)
+          .catch(err => {
+          
+            // 事件报告
+            this._events.emit("error.transfer.callback", {
+              error: err,
+              topic
+            })
+        })
         
         // TODO: 
         // 交易通道不关注函数内部处理错误
         // 所以这里如果出现错误不处理
         // 并且不会重试，直接消费该条消息
-        this._transferBackProcess(topic, message)
-          .catch(signale.fatal)
         void await this._context.ack(message)
       })
     }
@@ -263,6 +331,13 @@ module.exports =  class Rabbitx {
       let _buf = this._stringify({ success: _result, uid: _uid })
       void await this._context.sendToQueue(topic, _buf)
     } catch (err) {
+      
+      // 事件报告
+      this._events.emit("error.transfer", {
+        error: err, 
+        uid: _uid,
+        topic
+      })
 
       // 处理出现错误
       // 检查消息UID是否存在
@@ -295,6 +370,11 @@ module.exports =  class Rabbitx {
       void await this._transferProcess(_backTopic, _msg, process)
       void await this._context.ack(_msg)
     })
+    
+    // 事件报告
+    this._events.emit("on.transfer", {
+      topic
+    })
   }
   
   // 发送交易
@@ -309,6 +389,11 @@ module.exports =  class Rabbitx {
     let _buf = Buffer.from(JSON.stringify(_body))
     this._context.sendToQueue(topic, _buf)
     this._checkTransferListen(_backTopic, _uid)
+    
+    // 事件报告
+    this._events.emit("send.transfer", {
+      topic, message
+    })
     
     // 初始化消息对象
     // 并且记录消息创建时间
@@ -335,6 +420,7 @@ module.exports =  class Rabbitx {
   async Send (topic, message) {
     void await this._checkTopic(topic)
     let _buf = this._stringify(message)
+    this._events.emit("send", { topic, message })
     return this._context.sendToQueue(topic, _buf)
   }
 
@@ -350,5 +436,18 @@ module.exports =  class Rabbitx {
       // 调用者应该自己保证自己函数内部的处理
       process(this._parse(message), this._ack(message))
     })
+    
+    // 事件报告
+    this._events.emit("on", {
+      topic
+    })
+  }
+  
+  // 绑定事件
+  // @params {string} event
+  // @params {function} process
+  // @public
+  on (event, process) {
+    this._events(event, process)
   }
 }

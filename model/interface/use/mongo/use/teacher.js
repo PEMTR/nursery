@@ -16,7 +16,7 @@ module.exports = class Teacher {
   // @public
   async detil ({ userId }) {
     return this.util.promise(await this.mongo.Cos.Classroom.findOne({
-      master: userId
+      techer: userId
     }), "E.NOTFOUND")
   }
 }

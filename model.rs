@@ -29,7 +29,7 @@ struct User {
 struct Classroom {
   name: String,       // 班级名称
   count: i64,         // 班级水杯数
-  master: User,       // 老师索引
+  techer: User,       // 老师索引
   date: i64,
   update: i64
 }
@@ -42,15 +42,6 @@ struct Cups {
   expires: i64,                // 到期时间
   avatar: Option<String>,      // 头像 
   username: Option<String>,    // 用户名
-  date: i64,
-  update: i64
-}
-
-
-// 班级水杯列表
-struct ClassroomCups {
-  classroom: Classrom,          // 班级索引
-  cup: Cups,                    // 水杯索引
   date: i64,
   update: i64
 }
@@ -144,6 +135,7 @@ struct CupPhoto {
 struct CupWaters {
   cup: Cups,               // 水杯索引
   number: i64,             // 取水量
+  classroom: Classroom,    // 班级索引
   date: i64,
   update: i64
 }
@@ -200,6 +192,7 @@ struct UserCommoditys {
 struct UserCups {
   cup: Cups,                // 水杯索引
   user: User,               // 用户索引
+  classroom: Classrom,      // 班级索引
   notice: bool,             // 通知开源
   date: i64,
   update: i64

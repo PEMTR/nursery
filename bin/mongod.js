@@ -4,6 +4,7 @@
 // package
 // @package
 const MongoDB = require("mongodb")
+const events = require("events")
 const util = require("util")
 
 
@@ -33,6 +34,7 @@ module.exports = class Mongod {
   
   // @new
   constructor ({ configure: { mongo } }) {
+    this._events = new events.EventEmitter()
     this.self = MongoDB
     this._from(mongo)
     this._Cos = {}
@@ -63,6 +65,12 @@ module.exports = class Mongod {
       _session.endSession()
       return _result
     } catch (err) {
+      
+      // 事件报告
+      // 事务错误
+      this._events.emit("error.transfer", {
+        error: err
+      })
 
       // 事务错误
       // 关闭事务
@@ -96,7 +104,13 @@ module.exports = class Mongod {
   }
   
   // 连接数据库
-  // @params {Option} .. 配置
+  // @params {string} [host]
+  // @params {number} [port]
+  // @params {string} [db]
+  // @params {object} [options]
+  // @params {object} [auth]
+  // @params {string} [auth.username]
+  // @params {string} [auth.password]
   // @private
   _from ({ host, port, db, options, auth }) {
     let _temp = auth ? "mongodb://%s:%s@%s:%s/%s" : "mongodb://%s:%s/%s"
@@ -104,6 +118,20 @@ module.exports = class Mongod {
     this.self.MongoClient.connect(util.format(_temp, ..._args), options || DEFAULT_OPT).then(mongod => {
       this._mongod = mongod
       this._db = db
+      
+      // 错误事件
+      // 事件报告
+      mongod.on("error", (...args) => {
+        this._events.emit("error", ...args)
+      })
     })
+  }
+  
+  // 监听事件
+  // @params {string} event
+  // @params {function} process
+  // @public
+  on (event, process) {
+    this._events.on(event, process)
   }
 }
