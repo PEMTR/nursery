@@ -76,14 +76,18 @@ module.exports =  class Rabbitx {
     
     // 链接
     // 关闭事件
+    // 重连
     _connect.on("close", (...args) => {
       this._events.emit("connect.close", ...args)
+      this._connect()
     })
     
     // 链接
     // 错误事件
+    // 重连
     _connect.on("error", (...args) => {
       this._events.emit("connect.error", ...args)
+      this._connect()
     })
     
     // 链接
@@ -100,25 +104,25 @@ module.exports =  class Rabbitx {
     
     // 通道
     // 关闭事件
-    this._connect.on("close", (...args) => {
+    this._context.on("close", (...args) => {
       this._events.emit("channel.close", ...args)
     })
     
     // 通道
     // 错误事件
-    this._connect.on("error", (...args) => {
+    this._context.on("error", (...args) => {
       this._events.emit("channel.error", ...args)
     })
     
     // 通道
     // 回送事件
-    this._connect.on("return", (...args) => {
+    this._context.on("return", (...args) => {
       this._events.emit("channel.return", ...args)
     })
     
     // 通道
     // 缓冲器清空事件
-    this._connect.on("drain", (...args) => {
+    this._context.on("drain", (...args) => {
       this._events.emit("channel.drain", ...args)
     })
   }

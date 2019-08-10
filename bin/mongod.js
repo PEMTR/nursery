@@ -36,6 +36,7 @@ module.exports = class Mongod {
   constructor ({ configure: { mongo } }) {
     this._events = new events.EventEmitter()
     this.self = MongoDB
+    this._mongod = null
     this._from(mongo)
     this._Cos = {}
   }
@@ -46,6 +47,54 @@ module.exports = class Mongod {
   _setProxy (key) {
     let _db = this._mongod.db(this._db)
     this._Cos[key] = _db.collection(key)
+  }
+  
+  // 等待连接完成
+  // @private
+  _awitConn () {
+    return new Promise((resolve, _) => {
+      let _loop = setInterval(_ => {
+        if (this._mongod !== null) {
+          clearInterval(_loop)
+          resolve()
+        }
+      }, 500)
+    })
+  }
+  
+  // 连接数据库
+  // @params {string} [host]
+  // @params {number} [port]
+  // @params {string} [db]
+  // @params {object} [options]
+  // @params {object} [auth]
+  // @params {string} [auth.username]
+  // @params {string} [auth.password]
+  // @private
+  _from ({ host, port, db, options, auth }) {
+    let _temp = auth ? "mongodb://%s:%s@%s:%s/%s" : "mongodb://%s:%s/%s"
+    let _args = auth ? [ auth.username, auth.password, host, port, db ] : [ host, port, db ]
+    this.self.MongoClient.connect(util.format(_temp, ..._args), options || DEFAULT_OPT).then(mongod => {
+      this._mongod = mongod
+      this._db = db
+      
+      // 错误事件
+      // 事件报告
+      // 重连
+      mongod.on("error", (...args) => {
+        this._events.emit("error", ...args)
+        this._from({ host, port, db, options, auth })
+      })
+    })
+  }
+  
+  // 监听
+  // @params {string} event
+  // @params {function} process
+  // @public
+  async Watch (event, process) {
+    void await this._awitConn()
+    this._mongod.db(this._db).watch().on(event, process)
   }
   
   // 事务
@@ -101,30 +150,6 @@ module.exports = class Mongod {
     
     // 返回代理实例
     return this._proxy
-  }
-  
-  // 连接数据库
-  // @params {string} [host]
-  // @params {number} [port]
-  // @params {string} [db]
-  // @params {object} [options]
-  // @params {object} [auth]
-  // @params {string} [auth.username]
-  // @params {string} [auth.password]
-  // @private
-  _from ({ host, port, db, options, auth }) {
-    let _temp = auth ? "mongodb://%s:%s@%s:%s/%s" : "mongodb://%s:%s/%s"
-    let _args = auth ? [ auth.username, auth.password, host, port, db ] : [ host, port, db ]
-    this.self.MongoClient.connect(util.format(_temp, ..._args), options || DEFAULT_OPT).then(mongod => {
-      this._mongod = mongod
-      this._db = db
-      
-      // 错误事件
-      // 事件报告
-      mongod.on("error", (...args) => {
-        this._events.emit("error", ...args)
-      })
-    })
   }
   
   // 监听事件
