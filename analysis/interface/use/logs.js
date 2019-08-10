@@ -57,4 +57,10 @@ module.exports = class Logs {
       success
     })
   }
+  
+  // 消息队列日志
+  // @public
+  async rabbitx () {
+    let name = "nursery.interface.queue"
+  }
 }

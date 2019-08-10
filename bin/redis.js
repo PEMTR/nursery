@@ -5,6 +5,7 @@
 // @package
 const { createClient } = require("redis")
 const { promisify } = require("util")
+const events = require("events")
 
 
 // Redis
@@ -13,9 +14,26 @@ module.exports = class Redis {
   
   // @new
   constructor ({ configure: { redis } }) {
-    this.self = createClient(redis)
+    this._events = new events.EventEmitter()
     this._promise = {}
     this._proxy = null
+    this.self = null
+    this._connect(redis)
+  }
+  
+  // 链接
+  // @params {object} redis
+  // @private
+  _connect (redis) {
+    this.self = createClient(redis)
+    
+    // 错误事件
+    // 报告
+    // 重连
+    this.self.on("error", err => {
+      this._events.emit("error", err)
+      this._connect(redis)
+    })
   }
   
   // 绑定promise
@@ -45,5 +63,13 @@ module.exports = class Redis {
     
     // 返回代理实例
     return this._proxy
+  }
+  
+  // 绑定事件
+  // @params {string} event
+  // @params {function} process
+  // @public
+  on (event, process) {
+    this._events(event, process)
   }
 }

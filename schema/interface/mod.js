@@ -32,7 +32,6 @@ module.exports = class Schema {
     this.core.type("ip", this.util.isValidIP)
   }
   
-  
   // 绑定模版
   // @private
   applyTemp () {
@@ -44,6 +43,7 @@ module.exports = class Schema {
     this.core.bind("private.cup.get.audio", require("./use/private.cup.get.audio.json"))
     this.core.bind("private.cup.set.animation", require("./use/private.cup.set.animation.json"))
     this.core.bind("private.cup.set.audio", require("./use/private.cup.set.audio.json"))
+    this.core.bind("private.photo.cup", require("./use/private.photo.cup.json"))
   }
   
   // 验证

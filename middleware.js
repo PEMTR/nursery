@@ -26,9 +26,9 @@ module.exports = class Middleware {
   // @returns {object}
   // @private
   logs (req, { fatal, success }) {
-    void this.crate.analysis.Logs[
-      fatal ? "fatal" : "success"
-    ](req, fatal || success)
+//    void this.crate.analysis.Logs[
+//      fatal ? "fatal" : "success"
+//    ](req, fatal || success)
   
     // 输出错误信息
     if (this.configure.debug && fatal) {

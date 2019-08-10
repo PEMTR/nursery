@@ -2,9 +2,18 @@
 # 服务配置
 # ==============
 
-listen = 8080
+listen = 80
 name = "nursery.interface"
 debug = true
+
+
+# ==============
+# 缓存配置
+# ==============
+
+[cache]
+host = "localhost"
+port = 8089
 
 
 # ==============
