@@ -11,9 +11,10 @@ const assert = require("assert").strict
 module.exports = class Animation {
 
   // @new
-  constructor ({ mongo, util }) {
+  constructor ({ mongo, util, temp }) {
     this.mongo = mongo
     this.util = util
+    this.temp = temp
   }
 
   // 获取取水动画列表
@@ -22,18 +23,10 @@ module.exports = class Animation {
   // @returns {array}
   // @public
   async iter ({ skip, limit }) {
-    return await this.quasipaa.Engine("animation.iter", {
-      skip, limit
-    }, async _ => {
-      return await this.mongo.Cos.Animation.aggregate([
-        { $skip: skip },
-        { $limit: limit }
-      ]).toArray()
-    }, async _ => {
-      return {
-        Animation: "all"
-      }
-    })
+    return await this.mongo.Cos.Animation.aggregate([
+      { $skip: skip },
+      { $limit: limit }
+    ]).toArray()
   }
 
   // 获取水杯取水动画
@@ -42,26 +35,17 @@ module.exports = class Animation {
   // @params {object}
   // @public
   async cup ({ userId, cupId }) {
-    return await this.quasipaa.Engine("animation.cup", {
-      user: userId.toString(),
-      cup: cupId.toString()
-    }, async _ => {
-      return await this.mongo.Cos.CupAnimation.aggregate([
-        { $match: {
-          user: userId,
-          cup: cupId
-        } },
-        { $limit: 1 },
-        { $project: {
-          animation: true,
-          update: true
-        } }
-      ]).next()
-    }, async result => {
-      return {
-        CupAnimation: result._id.toString()
-      }
-    })
+    return await this.mongo.Cos.CupAnimation.aggregate([
+      { $match: {
+        user: userId,
+        cup: cupId
+      } },
+      { $limit: 1 },
+      { $project: {
+        animation: true,
+        update: true
+      } }
+    ]).next()
   }
 
   // 设置水杯取水动画

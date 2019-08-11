@@ -11,7 +11,7 @@ const router = express.Router()
 router.get("/", async function (req) {
   let { _id } = req.user
   let userId = req.crate.util.createHexId(_id)
-  return await req.crate.model.mongo.SignIn.signIns({ userId })
+  return await req.crate.model.Mongo.SignIn.signIns({ userId })
 })
 
 

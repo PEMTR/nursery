@@ -10,6 +10,6 @@ const mongo = require("./use/mongo/mod")
 // @class
 module.exports = class Core {
   constructor (crate) {
-    this.mongo = new mongo(crate)
+    this.Mongo = new mongo(crate)
   }
 }

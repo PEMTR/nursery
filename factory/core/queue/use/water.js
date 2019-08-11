@@ -17,7 +17,7 @@ module.exports = class Water {
   // @params {number} [count]
   // @public
   async ExchangeMock ({ user, commodity, count }) {
-    return await this.model.mongo.Commodity.GetMock({
+    return await this.model.Mongo.Commodity.GetMock({
       commodityId: this.util.createHexId(commodity),
       userId: this.util.createHexId(user),
       count
@@ -28,7 +28,7 @@ module.exports = class Water {
   // @params {string} [user]
   // @public
   async SignIn ({ user }) {
-    return await this.model.mongo.Water.SignIn({
+    return await this.model.Mongo.Water.SignIn({
       userId: this.util.createHexId(user)
     })
   }
@@ -37,7 +37,7 @@ module.exports = class Water {
   // @params {string} [user]
   // @public
   async ShareWechatPublicNumber ({ user }) {
-    return await this.model.mongo.Water.ShareWechatPublicNumber({
+    return await this.model.Mongo.Water.ShareWechatPublicNumber({
       userId: this.util.createHexId(user)
     })
   }
