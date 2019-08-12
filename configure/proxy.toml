@@ -5,3 +5,23 @@
 listen = 8088
 name = "nursery.proxy"
 debug = true
+
+
+# ==============
+# ELK配置
+# ==============
+
+[elk]
+node = "http://elk.server.local:9200"
+maxRetries = 3
+requestTimeout = 10000
+name = "nursery.interface"
+
+
+# ==============
+# RabbitMQ配置
+# ==============
+
+[rabbitmq]
+host = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
+prefetch = 1

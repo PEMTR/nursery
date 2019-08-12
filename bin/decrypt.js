@@ -9,8 +9,6 @@ const assert = require("assert").strict
 
 // 加密解密的包装
 // 加密解密用户签名
-//
-// export.
 // @class
 module.exports = class Decrypt {
   
