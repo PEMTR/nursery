@@ -2,7 +2,7 @@
 # 服务配置
 # ==============
 
-listen = 80
+listen = 8080
 name = "nursery.interface"
 debug = true
 

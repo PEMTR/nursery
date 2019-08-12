@@ -27,6 +27,13 @@ module.exports = {
     autorestart: true,
     watch: false,
     max_memory_restart: "1G"
+  }, {
+    name: "nursery.cache",
+    script: "service/cache.js",
+    instances: 1,
+    autorestart: true,
+    watch: false,
+    max_memory_restart: "1G"
   }],
   deploy: {
     production: {

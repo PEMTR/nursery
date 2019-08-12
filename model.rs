@@ -30,6 +30,10 @@ struct Classroom {
   name: String,       // 班级名称
   count: i64,         // 班级水杯数
   techer: User,       // 老师索引
+  standard: {         // 饮水指标
+    water: i64,       // 指标水量
+    number: i32       // 指标次数
+  },
   date: i64,
   update: i64
 }

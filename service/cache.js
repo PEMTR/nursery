@@ -13,6 +13,7 @@ const middlewares = require("../middleware")
 const express = require("lazy_mod/express")
 const factory = require("../factory/cache/mod")
 const routers = require("../router/cache/mod")
+const elasticx = require("../bin/elasticx")
 const code = require("../code.json")
 
 const crate = {}
@@ -26,6 +27,7 @@ crate.dirname = __dirname
 crate.configure = configure
 crate.mongo = new mongod(crate)
 crate.redis = new redis(crate)
+crate.elasticx = new elasticx(crate)
 crate.factory = new factory(crate)
 
 app.use(bodyparse.json())

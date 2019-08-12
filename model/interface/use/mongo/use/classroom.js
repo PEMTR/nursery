@@ -26,6 +26,38 @@ module.exports = class Classroom {
     }
   }
   
+  // 获取班级饮水目标
+  // @params {ObjectId} [cupId]
+  // @params {ObjectId} [userId]
+  // @public
+  async waterStandard ({ cupId, userId }) {
+    return this.util.promise(await this.mongo.Cos.UserCups.aggregate([
+      { $match: {
+        user: userId,
+        cup: cupId
+      } },
+      { $limit: 1 },
+      { $lookup: {
+        from: "Cups",
+        localField: "cup",
+        foreignField: "_id",
+        as: "cup"
+      } },
+      { $unwind: "$cup" },
+      { $lookup: {
+        from: "Classroom",
+        localField: "cup.classroom",
+        foreignField: "_id",
+        as: "classroom"
+      } },
+      { $unwind: "$classroom" },
+      { $project: {
+        water: "$classroom.standard.water",
+        number: "$classroom.standard.number"
+      } }
+    ]).next(), "E.NOTFOUND")
+  }
+  
   // 获取班级水杯饮水量排名
   // @params {ObjectId} [cupId]
   // @params {ObjectId} [userId]
