@@ -25,5 +25,5 @@ password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
 # ==============
 
 [rabbitmq]
-host = "amqp://panda:panda@server.local"
+host = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
 prefetch = 1
