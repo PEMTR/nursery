@@ -10,7 +10,7 @@ const router = express.Router()
 // 获取用户所在家庭所有成员
 router.get("/", async function (req) {
   let { _id } = req.user
-  return await req.crate.model.mongo.Family.users({
+  return await req.crate.model.Mongo.Family.users({
     userId: req.crate.util.createHexId(_id)
   })
 })
@@ -27,7 +27,7 @@ router.delete("/:family/:user", async function (req) {
   })
   
   // 删除成员
-  return await req.crate.model.mongo.Family.remove({
+  return await req.crate.model.Mongo.Family.remove({
     familyId: req.crate.util.createHexId(family),
     fromId: req.crate.util.createHexId(user),
     userId: req.crate.util.createHexId(_id)

@@ -9,7 +9,7 @@ const router = express.Router()
 
 // 获取所有成就列表
 router.get("/all", async function (req) {
-  return await req.crate.model.mongo.Achievement.all()
+  return await req.crate.cache.Achievement.all()
 })
 
 

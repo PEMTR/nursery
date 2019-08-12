@@ -16,7 +16,7 @@ module.exports = class Works {
   // @params {string} cover
   // @public
   async Image (uid, cover) {
-    return await this.model.mongo.Image.WaterCover({
+    return await this.model.Mongo.Image.WaterCover({
       id: this.util.createHexId(uid),
       cover
     })

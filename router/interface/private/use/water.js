@@ -9,7 +9,7 @@ const router = express.Router()
 // 获取用户水滴信息
 router.get("/", async function (req) {
   let { _id } = req.user
-  return await req.crate.model.mongo.Water.find({
+  return await req.crate.model.Mongo.Water.find({
     userId: req.crate.util.createHexId(_id)
   })
 })

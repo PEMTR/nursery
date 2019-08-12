@@ -1,0 +1,15 @@
+[package]
+name = "qstorage"
+version = "0.1.0"
+license = "MIT"
+readme="README.md"
+keywords = [ "object-storage", "kvstore", "oss" ]
+documentation = "https://docs.rs/qstorage"
+repository = "https://github.com/quasipaa/QStorage"
+authors = ["Mr.Panda <xivistudios@gmail.com>"]
+edition = "2018"
+description = """
+File system based object storage, can also be used as a persistent KV database.
+"""
+
+[dependencies]

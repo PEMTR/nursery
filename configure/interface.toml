@@ -2,7 +2,7 @@
 # 服务配置
 # ==============
 
-listen = 80
+listen = 8080
 name = "nursery.interface"
 debug = true
 
@@ -64,7 +64,7 @@ code = "E.PARAMS.TYPE"
 # ==============
 
 [rabbitmq]
-host = "amqp://panda:panda@server.local"
+host = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
 prefetch = 1
 
 

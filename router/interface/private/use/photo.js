@@ -13,10 +13,9 @@ router.get("/:cup", async function (req) {
   let { lte, gte } = req.query
   let { skip, limit } = req.crate.util.pagination(req.query)
   req.crate.schema.eq("pagination", { skip, limit })
-  lte = Number(lte)
-  gte = Number(gte)
+  lte = Number(lte), gte = Number(gte)
   req.crate.schema.eq("private.photo.cup", { cup, lte, gte })
-  return await req.crate.model.mongo.Cups.photo({
+  return await req.crate.model.Mongo.Cups.photo({
     userId: req.crate.util.createHexId(_id),
     cupId: req.crate.util.createHexId(cup),
     lte, gte, skip, limit

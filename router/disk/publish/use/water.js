@@ -17,7 +17,7 @@ router.post("/:cup/image", async function (req) {
   // 保存文件信息到数据库
   let { stream, name } = req.crate.multer.createWriteStream()
   let mime = await req.crate.multer.from(req, stream, "image", /^image\//)
-  let photoId = await req.crate.model.mongo.Image.WaterPublish({ cupId, name, mime })
+  let photoId = await req.crate.model.Mongo.Image.WaterPublish({ cupId, name, mime })
   
   // 推送任务队列处理
   void await req.crate.rabbitx.Send("MediaWorks", {

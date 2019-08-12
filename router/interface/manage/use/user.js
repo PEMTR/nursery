@@ -12,8 +12,8 @@ const router = express.Router()
 // 获取用户信息
 // @GraphQl
 router.get("/", graphqlHTTP(async (req) => ({
-  schema: buildSchema(req.crate.model.graph.User.template),
-  rootValue: req.crate.model.graph.User
+  schema: buildSchema(req.crate.model.Resolver.User.template),
+  rootValue: req.crate.model.Resolver.User
 })))
 
 
