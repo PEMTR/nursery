@@ -6,9 +6,8 @@
 module.exports = class Commodity {
   
   // @new
-  constructor ({ mongo, temp }) {
+  constructor ({ mongo }) {
     this.mongo = mongo
-    this.temp = temp
   }
   
   // 获取所有成就列表

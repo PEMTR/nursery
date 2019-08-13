@@ -11,7 +11,7 @@ const router = express.Router()
 router.get("/", async function (req) {
   let { skip, limit } = req.crate.util.pagination(req.query)
   req.crate.schema.eq("pagination", { skip, limit })
-  return await req.crate.model.Mongo.Audio.iter({ skip, limit })
+  return await req.crate.cache.Audio.iter({ skip, limit })
 })
 
 

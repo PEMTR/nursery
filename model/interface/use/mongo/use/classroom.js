@@ -4,7 +4,6 @@
 // package
 // @package
 const assert = require("assert").strict
-const moment = require("moment")
 
 
 // 班级
@@ -17,20 +16,12 @@ module.exports = class Classroom {
     this.util = util
   }
   
-  // 获取当天时间间隔
-  // @private
-  _daySplit () {
-    return {
-      after: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).valueOf(),
-      before: moment().set({ hour: 23, minute: 59, second: 59, millisecond: 999 }).valueOf()
-    }
-  }
-  
   // 获取班级饮水目标
   // @params {ObjectId} [cupId]
   // @params {ObjectId} [userId]
+  // @params {function} params
   // @public
-  async waterStandard ({ cupId, userId }) {
+  async waterStandard ({ cupId, userId }, params) {
     return this.util.promise(await this.mongo.Cos.UserCups.aggregate([
       { $match: {
         user: userId,
@@ -52,6 +43,8 @@ module.exports = class Classroom {
       } },
       { $unwind: "$classroom" },
       { $project: {
+        _cup: "$cup._id",
+        _classroom: "$classroom._id",
         water: "$classroom.standard.water",
         number: "$classroom.standard.number"
       } }
@@ -61,9 +54,14 @@ module.exports = class Classroom {
   // 获取班级水杯饮水量排名
   // @params {ObjectId} [cupId]
   // @params {ObjectId} [userId]
+  // @params {number} [before]
+  // @params {number} [after]
+  // @params {function} params
   // @public
-  async waterSort ({ cupId, userId }) {
-    let { after, before } = this._daySplit()
+  async waterSort ({ cupId, userId, after, before }, params) {
+    let _day = this.util.DaySplit()
+    before = before || _day.before
+    after = after || _day.after
     
     // 检查水杯是否归属于此用户
     // 并且查询水杯的班级绑定信息
@@ -81,6 +79,9 @@ module.exports = class Classroom {
       } },
       { $unwind: "$Cups" }
     ]).next(), "E.NOTFOUND")
+    
+    // 参数返回
+    params && params(UserCup)
     
     // 查询返回饮水排名
     return await this.mongo.Cos.CupWaters.aggregate([
@@ -105,6 +106,7 @@ module.exports = class Classroom {
         water: true,
         count: { $size: "$group" },
         cup: {
+          _id: true,
           avatar: true,
           username: true
         }

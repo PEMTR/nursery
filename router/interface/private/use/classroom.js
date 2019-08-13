@@ -11,7 +11,7 @@ const router = express.Router()
 router.get("/cup/:cup/sort", async function (req) {
   let { _id } = req.user
   let { cup } = req.params
-  return await req.crate.model.Mongo.Classroom.waterSort({ 
+  return await req.crate.cache.Classroom.waterSort({ 
     userId: req.crate.util.createHexId(_id), 
     cupId: req.crate.util.createHexId(cup)
   })
@@ -22,7 +22,7 @@ router.get("/cup/:cup/sort", async function (req) {
 router.get("/cup/:cup/standard", async function (req) {
   let { _id } = req.user
   let { cup } = req.params
-  return await req.crate.model.Mongo.Classroom.waterStandard({ 
+  return await req.crate.cache.Classroom.waterStandard({ 
     userId: req.crate.util.createHexId(_id), 
     cupId: req.crate.util.createHexId(cup)
   })

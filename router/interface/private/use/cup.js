@@ -18,9 +18,9 @@ router.get("/all", async function (req) {
 
 // 用户设置水杯提醒
 router.put("/:cup/notice", async function (req) {
-  let { boolean } = req.body
-  let { cup } = req.params
   let { _id } = req.user
+  let { cup } = req.params
+  let { boolean } = req.body
   req.crate.schema.eq("private.cup.set.notice", { cup, boolean })
   return await req.crate.model.Mongo.Cups.setNotice({
    cupId: req.crate.util.createHexId(cup),
@@ -32,8 +32,8 @@ router.put("/:cup/notice", async function (req) {
 
 // 获取水杯取水动画
 router.get("/:cup/animation", async function (req) {
-  let { cup } = req.params
   let { _id } = req.user
+  let { cup } = req.params
   req.crate.schema.eq("private.cup.get.animation", req.params)
   return await req.crate.model.Mongo.Animation.cup({
     userId: req.crate.util.createHexId(_id),
@@ -44,8 +44,8 @@ router.get("/:cup/animation", async function (req) {
 
 // 获取水杯取水语音
 router.get("/:cup/audio", async function (req) {
-  let { cup } = req.params
   let { _id } = req.user
+  let { cup } = req.params
   req.crate.schema.eq("private.cup.get.audio", req.params)
   return await req.crate.model.Mongo.Audio.cup({
     userId: req.crate.util.createHexId(_id),
@@ -56,8 +56,8 @@ router.get("/:cup/audio", async function (req) {
 
 // 设置水杯取水动画
 router.put("/:cup/animation/:animation", async function (req) {
-  let { cup, animation } = req.params
   let { _id } = req.user
+  let { cup, animation } = req.params
   req.crate.schema.eq("private.cup.set.animation", req.params)
   return await req.crate.model.Mongo.Animation.cupSet({
     animationId: req.crate.util.createHexId(animation),
@@ -69,8 +69,8 @@ router.put("/:cup/animation/:animation", async function (req) {
 
 // 设置水杯取水语音
 router.put("/:cup/audio/:audio", async function (req) {
-  let { cup, audio } = req.params
   let { _id } = req.user
+  let { cup, audio } = req.params
   req.crate.schema.eq("private.cup.set.audio", req.params)
   return await req.crate.model.Mongo.Audio.cupSet({
     audioId: req.crate.util.createHexId(audio),

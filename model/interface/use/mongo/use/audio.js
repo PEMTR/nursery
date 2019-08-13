@@ -6,8 +6,9 @@
 module.exports = class Audio {
 
   // @new
-  constructor ({ mongo }) {
+  constructor ({ mongo, util }) {
     this.mongo = mongo
+    this.util = util
   }
 
   // 获取取水语音列表
@@ -28,7 +29,7 @@ module.exports = class Audio {
   // @returns {object}
   // @public
   async cup ({ userId, cupId }) {
-    return await this.mongo.Cos.CupAudio.aggregate([
+    return this.util.promise(await this.mongo.Cos.CupAudio.aggregate([
       { $match: {
         user: userId,
         cup: cupId
@@ -38,7 +39,7 @@ module.exports = class Audio {
         audio: true,
         update: true
       } }
-    ]).next()
+    ]).next(), "E.NOTFOUND")
   }
 
   // 设置水杯取水语音

@@ -5,5 +5,5 @@ authors = ["Mr.Panda <xivistudios@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-qstorage = { path = "../bin/qstorage" }
+qstorage = { path = "../../bin/qstorage" }
 rocket = "0.4.2"
