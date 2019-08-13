@@ -64,7 +64,7 @@ code = "E.PARAMS.TYPE"
 # ==============
 
 [rabbitmq]
-host = "amqp://panda:panda@server.local"
+host = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
 prefetch = 1
 
 
