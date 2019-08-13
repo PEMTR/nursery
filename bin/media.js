@@ -57,6 +57,6 @@ exports.VideoScreenHots = function (file, folder, out, skip) {
 // @params {path} out
 // @params {string} size
 // @public
-exports.ImageResize = function (file, out, size) {
+exports.ImageResize = async function (file, out, size) {
   return await thumbnail(file, out, size)
 }
