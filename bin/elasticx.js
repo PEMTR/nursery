@@ -13,6 +13,7 @@ module.exports = class Elasticx {
   // @new
   constructor ({ configure: { elk } }) {
     this._els = new Client(elk)
+    this._pool = []
   }
   
   // 创建索引
@@ -20,7 +21,19 @@ module.exports = class Elasticx {
   // @params {any} body
   // @params {boolean} refresh
   // @public
-  async Index (index, body, refresh = true) {
-    return this._els.index({ index, body, refresh })
+  async Index (index, body, refresh = false) {
+    if (this._pool.length >= 10) {
+      let _bulk = { refresh, body: this._pool }
+      let _result = await this._els.bulk(_bulk)
+      this._pool = []
+      return _result
+    }
+    
+    // 缓冲区未满
+    // 先写入缓冲区
+    this._pool.push(...[
+      { index: { _index: index } },
+      body
+    ])
   }
 }

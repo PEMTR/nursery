@@ -39,4 +39,4 @@ password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5
 node = "http://elk.server.local:9200"
 maxRetries = 3
 requestTimeout = 10000
-name = "nursery.disk"
+name = "nursery.cache"
