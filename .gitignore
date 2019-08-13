@@ -30,5 +30,4 @@ typings/
 .vscode
 */target/
 /static/
-/AppData/
 package-lock.json

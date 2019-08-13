@@ -36,7 +36,7 @@ module.exports = class Logs {
   // @public
   async fatal (req, fatal) {
     let name = "nursery.disk.fatal"
-    return this.elasticx.Index(name, {
+    return await this.elasticx.Index(name, {
       ...this._header(req),
       message: fatal.message,
       name: fatal.name,

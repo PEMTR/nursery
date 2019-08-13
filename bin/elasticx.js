@@ -20,7 +20,7 @@ module.exports = class Elasticx {
   // @params {any} body
   // @params {boolean} refresh
   // @public
-  async Index (index, body, refresh = false) {
+  async Index (index, body, refresh = true) {
     return this._els.index({ index, body, refresh })
   }
 }
