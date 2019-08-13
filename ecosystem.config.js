@@ -2,7 +2,7 @@ module.exports = {
   apps: [{
     name: "nursery.interface",
     script: "service/interface.js",
-    instances: 1,
+    instances: 2,
     autorestart: true,
     watch: false,
     max_memory_restart: "1G"
@@ -16,7 +16,7 @@ module.exports = {
   }, {
     name: "nursery.disk",
     script: "service/disk.js",
-    instances: 1,
+    instances: 2,
     autorestart: true,
     watch: false,
     max_memory_restart: "1G"
@@ -30,7 +30,7 @@ module.exports = {
   }, {
     name: "nursery.cache",
     script: "service/cache.js",
-    instances: 1,
+    instances: 2,
     autorestart: true,
     watch: false,
     max_memory_restart: "1G"
