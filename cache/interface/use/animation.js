@@ -16,10 +16,20 @@ module.exports = class Achievement {
   // @params {number} [limit]
   // @public
   async iter ({ skip, limit }, process) {
-    let _key = "animation.iter"
-    return await this.quasipaa.Engine(_key, {
+    return await this.quasipaa.Engine("animation.iter", {
+      
+      // 翻页参数
       skip, limit
-    }, _ => this.model.Animation.iter({ skip, limit }), async _ => ({
+    }, async _ => {
+      
+      // 数据库模型
+      // 查询动画列表
+      return await this.model.Mongo.Animation.iter({ 
+        skip, limit 
+      })
+    }, async _ => ({
+      
+      // 动画表全表关联
       Animation: "all"
     }))
   }
@@ -29,12 +39,22 @@ module.exports = class Achievement {
   // @params {ObjectId} [cupId]
   // @public
   async cup ({ userId, cupId }, process) {
-    let _key = "animation.cup"
-    return await this.quasipaa.Engine(_key, {
+    return await this.quasipaa.Engine("animation.cup", {
+      
+      // 关联用户和水杯
       user: userId.toString(),
       cup: cupId.toString()
-    }, _ => this.model.Animation.cup({ userId, cupId }), async _v => ({
-      CupAnimation: _v._id.toString()
+    }, async _ => {
+      
+      // 数据库模型
+      // 查询当前用户当前水杯的关联动画
+      return await this.model.Mongo.Animation.cup({ 
+        userId, cupId 
+      })
+    }, async _v => ({
+      
+      // 水杯动画索引关联
+      CupAnimation: String(_v._id)
     }))
   }
 }

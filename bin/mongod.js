@@ -15,7 +15,8 @@ const DEFAULT_OPT = {
   ssl: false,
   noDelay: true,
   keepAlive: true,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 }
 
 

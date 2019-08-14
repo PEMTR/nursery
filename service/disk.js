@@ -30,6 +30,7 @@ const middleware = new middlewares({ configure, code }, crate)
 
 crate.code = code
 crate.util = util
+crate.media = media
 crate.env = process.env
 crate.pid = process.pid
 crate.dirname = __dirname
@@ -39,7 +40,6 @@ crate.multer = new multer(crate)
 crate.rabbitx = new rabbitx(crate)
 crate.elasticx = new elasticx(crate)
 crate.analysis = new analysis(crate)
-crate.media = new media(crate)
 crate.model = new model(crate)
 crate.factory = new factory(crate)
 

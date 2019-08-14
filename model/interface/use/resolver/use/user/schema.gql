@@ -10,6 +10,7 @@ type Cups {
   update: Float
 }
 
+
 # 水杯饮水信息
 type CupWaters {
   number: Int,
@@ -17,12 +18,14 @@ type CupWaters {
   update: Float
 }
 
+
 # 水滴
 type Water {
   count: Int,
   date: Float,
   update: Float
 }
+
 
 # 用户水杯信息
 type Cup {
@@ -34,6 +37,7 @@ type Cup {
   date: Float,
   update: Float
 }
+
 
 # 用户
 type User {
@@ -49,6 +53,7 @@ type User {
   water: Water
 }
 
+
 # 查询条件
 input UserStruct {
   _id: String,
@@ -61,9 +66,8 @@ input UserStruct {
   update: Float
 }
 
+
 type Query {
-  # 获取单个用户
-  user (id: String!): User,
-  # 获取用户列表
-  users (match: UserStruct, skip: Int, limit: Int): [User]
+  user (id: String!): User,  # 获取单个用户
+  users (match: UserStruct, skip: Int, limit: Int): [User]  # 获取用户列表
 }

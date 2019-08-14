@@ -41,12 +41,12 @@ module.exports = class Cache {
     let _akey = "CACHE.MODEL." + coll + ".all"
     let _keys = await this.redis.promise.smembers(_skey)
     let _akeys = await this.redis.promise.smembers(_akey)
-    let _lists = _keys.push(..._akeys)
+    _keys.push(..._akeys)
     
     // 检查是否存在
     // 遍历所有关联项
-    if (Array.isArray(_lists)) {
-      for (let _key of _lists) {
+    if (Array.isArray(_keys)) {
+      for (let _key of _keys) {
         void this.redis.promise.srem(_skey, _key)
         
         // 检查关联是否存在

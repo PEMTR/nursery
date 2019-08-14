@@ -11,6 +11,7 @@ const mongodb = require("mongodb")
 const assert = require("assert").strict
 const crypto = require("crypto")
 const toml = require("toml")
+const moment = require("moment")
 
 
 // 常量
@@ -233,4 +234,15 @@ exports.Retry = async function (int, process) {
   // 到达阈值不成功
   // 抛出错误
   throw _err
+}
+
+
+// 获取当天时间间隔
+// @public
+exports.DaySplit = function () {
+  let _s = { hour: 0, minute: 0, second: 0, millisecond: 0 }
+  let _e = { hour: 23, minute: 59, second: 59, millisecond: 999 }
+  let after = moment().set(_s).valueOf()
+  let before = moment().set(_e).valueOf()
+  return { after, before }
 }

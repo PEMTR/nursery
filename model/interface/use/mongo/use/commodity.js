@@ -21,7 +21,9 @@ module.exports = class Commodity {
   // @public
   async mocks () {
     return this.mongo.Cos.Commodity.aggregate([
-      { $match: { class: 0 } },
+      { $match: { 
+        class: 0 
+      } },
       { $project: {
         type: true,
         univalent: true,

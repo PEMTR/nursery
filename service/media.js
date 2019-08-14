@@ -12,8 +12,8 @@ const factory = require("../factory/media/mod")
 const configure = util.readtoml(NURSERY_MEDIA_CONFFILE)
 
 crate.util = util
+crate.media = media
 crate.configure = configure
-crate.media = new media(crate)
 crate.rabbitx = new rabbitx(crate)
 crate.factory = new factory(crate)
 

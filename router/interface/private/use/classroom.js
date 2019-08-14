@@ -11,10 +11,9 @@ const router = express.Router()
 router.get("/cup/:cup/sort", async function (req) {
   let { _id } = req.user
   let { cup } = req.params
-  return await req.crate.model.Mongo.Classroom.waterSort({ 
-    userId: req.crate.util.createHexId(_id), 
-    cupId: req.crate.util.createHexId(cup)
-  })
+  let userId = req.crate.util.createHexId(_id)
+  let cupId = req.crate.util.createHexId(cup)
+  return await req.crate.cache.Classroom.waterSort({ userId, cupId })
 })
 
 
@@ -22,10 +21,20 @@ router.get("/cup/:cup/sort", async function (req) {
 router.get("/cup/:cup/standard", async function (req) {
   let { _id } = req.user
   let { cup } = req.params
-  return await req.crate.model.Mongo.Classroom.waterStandard({ 
-    userId: req.crate.util.createHexId(_id), 
-    cupId: req.crate.util.createHexId(cup)
-  })
+  let userId = req.crate.util.createHexId(_id)
+  let cupId = req.crate.util.createHexId(cup)
+  return await req.crate.cache.Classroom.waterStandard({ userId, cupId })
+})
+
+
+// 获取活动列表
+router.get("/cup/:cup/trend", async function (req) {
+  let { _id } = req.user
+  let { cup } = req.params
+  let userId = req.crate.util.createHexId(_id)
+  let cupId = req.crate.util.createHexId(cup)
+  let { skip, limit } = req.crate.util.pagination(req.query)
+  return await req.crate.cache.Classroom.trend({ userId, cupId, skip, limit })
 })
 
 

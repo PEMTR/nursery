@@ -1,11 +1,6 @@
 "use strict"
 
 
-// package
-// @package
-const moment = require("moment")
-
-
 // 老师
 // @class
 module.exports = class Teacher {
@@ -16,20 +11,11 @@ module.exports = class Teacher {
     this.util = util
   }
   
-  // 获取当天时间间隔
-  // @private
-  _daySplit () {
-    return {
-      after: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).valueOf(),
-      before: moment().set({ hour: 23, minute: 59, second: 59, millisecond: 999 }).valueOf()
-    }
-  }
-  
   // 获取班级信息
   // @params {ObjectId} [userId]
   // @public
   async detil ({ userId }) {
-    let { after, before } = this._daySplit()
+    let { after, before } = this.util.DaySplit()
     
     // 查找班级
     let classrrom = this.util.promise(await this.mongo.Cos.Classroom.findOne({

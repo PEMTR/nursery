@@ -11,10 +11,9 @@ const assert = require("assert").strict
 module.exports = class Animation {
 
   // @new
-  constructor ({ mongo, util, temp }) {
+  constructor ({ mongo, util }) {
     this.mongo = mongo
     this.util = util
-    this.temp = temp
   }
 
   // 获取取水动画列表

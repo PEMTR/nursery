@@ -1,0 +1,10 @@
+[package]
+name = "cluster"
+version = "0.1.0"
+authors = ["root"]
+edition = "2018"
+
+[dependencies]
+toml = "0.5.3"
+tokio = "0.1.20"
+futures = "0.1.27"
