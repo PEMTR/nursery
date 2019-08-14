@@ -1,42 +1,43 @@
 
 use tokio::net::TcpListener;
-use tokio::net::tcp::Incoming;
-use std::net::SocketAddr;
+use tokio::net::TcpStream;
 use std::error::Error;
-use futures::prelude::*;
-use futures::try_ready;
+use tokio::prelude::*;
+use bytes::BytesMut;
 
 
-struct Server {
-    addr: SocketAddr,
-    listener: Incoming
+struct Socket {
+    socket: TcpStream 
 }
 
 
-impl Server {
-    fn new (address: &'static str) -> Result<Self, Box<dyn Error>> {
-        let addr = address.parse()?;
-        let listener = TcpListener::bind(&addr)?.incoming();
-        Ok(Self { addr, listener })
-    }
-}
-
-
-impl Future for Server {
+impl Future for Socket {
     type Item = ();
     type Error = ();
-
     fn poll (&mut self) -> Poll<Self::Item, Self::Error> {
-        while let Some(stream) = try_ready!(self.listener.poll().map_err(drop)) {
-            
+        let mut buf = BytesMut::with_capacity(512);
+        while let Ok(Async::Ready(len)) = self.socket.read_buf(&mut buf) {
+            buf.truncate(len);
+            println!("{:?}", String::from_utf8_lossy(&buf));
+            let back = BytesMut::from("word");
+            self.socket.poll_write(&back).unwrap();
         }
 
-        Ok(Async::Ready(()))
+        Ok(Async::NotReady)
     }
 }
 
 
 fn main () -> Result<(), Box<dyn Error>> {
-    tokio::run(Server::new("0.0.0.0:8096")?);
+    let addr = "0.0.0.0:8088".parse()?;
+    let server = TcpListener::bind(&addr)?
+        .incoming()
+        .map_err(|e| println!("accept failed = {:?}", e))
+        .for_each(|socket| {
+            tokio::spawn(Socket { socket });
+            Ok(())
+        });
+
+    tokio::run(server);
     Ok(())
 }

@@ -6,5 +6,6 @@ edition = "2018"
 
 [dependencies]
 toml = "0.5.3"
-tokio = "0.1.20"
+tokio = "0.1.22"
 futures = "0.1.27"
+bytes = "0.4.12"
