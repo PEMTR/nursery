@@ -46,6 +46,8 @@ Nightly
 * 外部静态文件统一通过`disk`服务分发和处理.</br>
 * 消息队列RPC特性默认全局1分钟的超时，如超过此限制，将关闭当前任务.(此处限制是为了避免异步栈的无限挂起以及内存溢出)</br>
 * 项目内部`Express`为定制框架，不同于通用源代码，不能替换为通用`Express`.(`lazy_mod/express` 增加了async error hooks和async return hooks)</br>
+* `Elasticsearch` 用来收集服务及系统运行日志和指标，在服务内部使用了bulk写入，以避免管道背压.</br>
+* `Node.JS` 的进程管理将由 `Rust` 来实现，包括 `Cluster`, `Rust` 编写的服务启动主进程，并通过 `Uxin Domain Socket` 来传递 `Net` 管道数据, 其他实现包括进程维护和集群控制.</br>
 
 
 ### 源代码管理
