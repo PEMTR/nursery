@@ -10,9 +10,8 @@ const router = express.Router()
 // 获取用户绑定的水杯列表
 router.get("/all", async function (req) {
   let { _id } = req.user
-  return await req.crate.model.Mongo.Cups.finds({ 
-    userId:  req.crate.util.createHexId(_id)
-  })
+  let userId = req.crate.util.createHexId(_id)
+  return await req.crate.model.Mongo.Cups.finds({ userId })
 })
 
 
@@ -22,11 +21,10 @@ router.put("/:cup/notice", async function (req) {
   let { cup } = req.params
   let { boolean } = req.body
   req.crate.schema.eq("private.cup.set.notice", { cup, boolean })
-  return await req.crate.model.Mongo.Cups.setNotice({
-   cupId: req.crate.util.createHexId(cup),
-   userId: req.crate.util.createHexId(_id),
-   notice: boolean
-  })
+  let notice = boolean
+  let cupId = req.crate.util.createHexId(cup)
+  let userId = req.crate.util.createHexId(_id)
+  return await req.crate.model.Mongo.Cups.setNotice({ cupId, userId, notice })
 })
 
 
@@ -35,10 +33,9 @@ router.get("/:cup/animation", async function (req) {
   let { _id } = req.user
   let { cup } = req.params
   req.crate.schema.eq("private.cup.get.animation", req.params)
-  return await req.crate.model.Mongo.Animation.cup({
-    userId: req.crate.util.createHexId(_id),
-    cupId: req.crate.util.createHexId(cup)
-  })
+  let cupId = req.crate.util.createHexId(cup)
+  let userId = req.crate.util.createHexId(_id)
+  return await req.crate.model.Mongo.Animation.cup({ cupId, userId })
 })
 
 
@@ -47,10 +44,9 @@ router.get("/:cup/audio", async function (req) {
   let { _id } = req.user
   let { cup } = req.params
   req.crate.schema.eq("private.cup.get.audio", req.params)
-  return await req.crate.model.Mongo.Audio.cup({
-    userId: req.crate.util.createHexId(_id),
-    cupId: req.crate.util.createHexId(cup)
-  })
+  let cupId = req.crate.util.createHexId(cup)
+  let userId = req.crate.util.createHexId(_id)
+  return await req.crate.model.Mongo.Audio.cup({ cupId, userId })
 })
 
 
@@ -59,11 +55,10 @@ router.put("/:cup/animation/:animation", async function (req) {
   let { _id } = req.user
   let { cup, animation } = req.params
   req.crate.schema.eq("private.cup.set.animation", req.params)
-  return await req.crate.model.Mongo.Animation.cupSet({
-    animationId: req.crate.util.createHexId(animation),
-    userId: req.crate.util.createHexId(_id),
-    cupId: req.crate.util.createHexId(cup)
-  })
+  let cupId = req.crate.util.createHexId(cup)
+  let userId = req.crate.util.createHexId(_id)
+  let animationId = req.crate.util.createHexId(animation)
+  return await req.crate.model.Mongo.Animation.cupSet({ animationId, cupId, userId })
 })
 
 
@@ -72,11 +67,10 @@ router.put("/:cup/audio/:audio", async function (req) {
   let { _id } = req.user
   let { cup, audio } = req.params
   req.crate.schema.eq("private.cup.set.audio", req.params)
-  return await req.crate.model.Mongo.Audio.cupSet({
-    audioId: req.crate.util.createHexId(audio),
-    userId: req.crate.util.createHexId(_id),
-    cupId: req.crate.util.createHexId(cup)
-  })
+  let cupId = req.crate.util.createHexId(cup)
+  let userId = req.crate.util.createHexId(_id)
+  let audioId = req.crate.util.createHexId(audio)
+  return await req.crate.model.Mongo.Audio.cupSet({ audioId, userId, cupId })
 })
 
 

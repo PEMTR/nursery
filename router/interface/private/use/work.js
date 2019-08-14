@@ -10,9 +10,8 @@ const router = express.Router()
 // 获取任务信息
 router.get("/", async function (req) {
   let { _id } = req.user
-  return await req.crate.model.Mongo.Work.dayWorks({
-    userId: req.crate.util.createHexId(_id)
-  })
+  let userId = req.crate.util.createHexId(_id)
+  return await req.crate.model.Mongo.Work.dayWorks({ userId })
 })
 
 

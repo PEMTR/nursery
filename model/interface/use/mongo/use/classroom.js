@@ -65,7 +65,7 @@ module.exports = class Classroom {
     
     // 检查水杯是否归属于此用户
     // 并且查询水杯的班级绑定信息
-    let UserCup = this.util.promise(await this.mongo.Cos.UserCups.aggregate([
+    let userCup = this.util.promise(await this.mongo.Cos.UserCups.aggregate([
       { $match: {
         user: userId,
         cup: cupId
@@ -75,18 +75,18 @@ module.exports = class Classroom {
         from: "Cups",
         localField: "cup",
         foreignField: "_id",
-        as: "Cups"
+        as: "cup"
       } },
-      { $unwind: "$Cups" }
+      { $unwind: "$cup" }
     ]).next(), "E.NOTFOUND")
     
     // 参数返回
-    params && params(UserCup)
+    params && params(userCup)
     
     // 查询返回饮水排名
     return await this.mongo.Cos.CupWaters.aggregate([
       { $match: {
-        classroom: UserCup.Cups.classroom,
+        classroom: userCup.cup.classroom,
         data: { $gte: after, $lte: before }
       } },
       { $group: {
@@ -113,6 +113,45 @@ module.exports = class Classroom {
       } },
       { $sort: {
         water: 1
+      } }
+    ]).toArray()
+  }
+  
+  // 获取园区活动列表
+  // @params {objectId} [cupId]
+  // @params {onjectId} [userId]
+  // @params {number} [skip]
+  // @params {number} [limit]
+  // @public
+  async trend ({ cupId, userId, skip, limit }) {
+    
+    // 检查水杯是否归属于此用户
+    // 并且查询水杯的班级绑定信息
+    let userCup = this.util.promise(await this.mongo.Cos.UserCups.aggregate([
+      { $match: {
+        user: userId,
+        cup: cupId
+      } },
+      { $limit: 1 },
+      { $lookup: {
+        from: "Cups",
+        localField: "cup",
+        foreignField: "_id",
+        as: "cup"
+      } },
+      { $unwind: "$cup" }
+    ]).next(), "E.NOTFOUND")
+    
+    // 查询园区获取列表
+    return await this.mongo.Cos.ClassroomTrend.aggregate([
+      { $match: {
+        classroom: userCup.cup.classroom
+      } },
+      { $skip: skip },
+      { $limit: limit },
+      { $project: {
+        classroom: false,
+        techer: false
       } }
     ]).toArray()
   }

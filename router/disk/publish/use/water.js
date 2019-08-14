@@ -26,6 +26,7 @@ router.post("/:cup/image", async function (req) {
     name, mime
   })
   
+  // 返回
   return true
 })
 

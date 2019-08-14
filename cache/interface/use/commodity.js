@@ -16,8 +16,17 @@ module.exports = class Commodity {
   // @public
   async mocks () {
     return await this.quasipaa.Engine("commodity.mocks", {
+      
+      // 固定标记
       Commodity: "all"
-    }, _ => this.model.Mongo.Commodity.mocks(), async _ => ({
+    }, async _ => {
+      
+      // 数据库模型
+      // 获取虚拟商品表
+      return await this.model.Mongo.Commodity.mocks()
+    }, async _ => ({
+      
+      // 商品表
       Commodity: "all"
     }))
   }

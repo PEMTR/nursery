@@ -27,13 +27,33 @@ struct User {
 
 // 班级列表
 struct Classroom {
-  name: String,       // 班级名称
-  count: i64,         // 班级水杯数
-  techer: User,       // 老师索引
-  standard: {         // 饮水指标
-    water: i64,       // 指标水量
-    number: i32       // 指标次数
-  },
+  name: String,         // 班级名称
+  count: i64,           // 班级水杯数
+  techer: User,         // 老师索引
+  school: School,       // 学校索引
+  standard.water: i64,  // 指标水量
+  standard.number: i32  // 指标次数
+  date: i64,
+  update: i64
+}
+
+
+// 班级活动表
+struct ClassroomTrend {
+  classroom: Classroom,                           // 班级索引
+  techer: User,                                   // 老师索引
+  detil: Option<String>,                          // 详情
+  files: Option<Vec<HashMap<String, String>>>,    // 文件列表
+  date: i64,
+  update: i64
+}
+
+
+// 学校列表
+struct School {
+  name: String,         // 学校名称
+  count: i64,           // 学校班级数
+  president: User,      // 校长索引
   date: i64,
   update: i64
 }
