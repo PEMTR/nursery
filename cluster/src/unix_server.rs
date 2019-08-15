@@ -4,20 +4,17 @@ use futures::sync::mpsc;
 use std::error::Error;
 use tokio::prelude::*;
 use bytes::BytesMut;
-
-pub type Tx = mpsc::UnboundedSender<BytesMut>;
-pub type Rx = mpsc::UnboundedReceiver<BytesMut>;
+use crate::Tx;
 
 struct Socket {
     stream: UnixStream,
-    tx: Tx,
-    rx: Rx
+    tx: Tx
 }
 
 impl Socket {
     fn new (stream: UnixStream) -> Self {
-        let (tx, rx) = mpsc::unbounded();
-        Self { stream, tx, rx }
+        let (tx, _rx) = mpsc::unbounded();
+        Self { stream, tx }
     }
 }
 
