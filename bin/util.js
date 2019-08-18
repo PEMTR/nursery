@@ -4,8 +4,6 @@
 // package
 // @package
 const fs = require("fs")
-const url = require("url")
-const path = require("path")
 const http = require("http")
 const mongodb = require("mongodb")
 const assert = require("assert").strict
