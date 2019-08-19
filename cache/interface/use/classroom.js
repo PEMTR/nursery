@@ -13,8 +13,9 @@ module.exports = class Classroom {
   }
   
   // 获取班级饮水目标
-  // @params {ObjectId} [cupId]
-  // @params {ObjectId} [userId]
+  // @params {ObjectId} [cupId] 水杯索引
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<object>}
   // @public
   async waterStandard ({ cupId, userId }) {
     return await this.quasipaa.Engine("classroom.water.standard", {
@@ -41,8 +42,9 @@ module.exports = class Classroom {
   }
   
   // 获取班级水杯饮水量排名
-  // @params {ObjectId} [cupId]
-  // @params {ObjectId} [userId]
+  // @params {ObjectId} [cupId] 水杯索引
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<object>}
   // @public
   async waterSort ({ cupId, userId }) {
     let _params = null

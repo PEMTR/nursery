@@ -42,8 +42,8 @@ module.exports = class Queue {
       this._Works(message)
         .then(_ => queue.ack())
         .catch(err => {
-        // queue.nack()
-      })
+          queue.nack()
+        })
     })
   }
 }

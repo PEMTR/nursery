@@ -12,8 +12,9 @@ module.exports = class Audio {
   }
   
   // 获取取水语音列表
-  // @params {number} [skip]
-  // @params {number} [limit]
+  // @params {number} [skip] 跳过
+  // @params {number} [limit] 限制
+  // @return {Promise<object>}
   // @public
   async iter ({ skip, limit }) {
     return await this.quasipaa.Engine("audio.iter", {
@@ -36,8 +37,9 @@ module.exports = class Audio {
   }
   
   // 获取水杯取水语音
-  // @params {ObjectId} [userId]
-  // @params {ObjectId} [cupId]
+  // @params {ObjectId} [userId] 用户索引
+  // @params {ObjectId} [cupId] 水杯索引
+  // @return {Promise<object>}
   // @public
   async cup ({ userId, cupId }) {
     return await this.quasipaa.Engine("audio.cup", {

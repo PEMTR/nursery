@@ -43,7 +43,7 @@ module.exports = class Mongod {
   }
   
   // 设置表
-  // @params {string} key
+  // @params {string} key 表名
   // @private
   _setProxy (key) {
     let _db = this._mongod.db(this._db)
@@ -64,13 +64,13 @@ module.exports = class Mongod {
   }
   
   // 连接数据库
-  // @params {string} [host]
-  // @params {number} [port]
-  // @params {string} [db]
-  // @params {object} [options]
-  // @params {object} [auth]
-  // @params {string} [auth.username]
-  // @params {string} [auth.password]
+  // @params {string} [host] 域名或者地址
+  // @params {number} [port] 端口
+  // @params {string} [db] 数据库
+  // @params {object} [options] 选项
+  // @params {object} [auth] 认证
+  // @params {string} [auth.username] 用户名
+  // @params {string} [auth.password] 密码
   // @private
   _from ({ host, port, db, options, auth }) {
     let _temp = auth ? "mongodb://%s:%s@%s:%s/%s" : "mongodb://%s:%s/%s"
@@ -90,8 +90,9 @@ module.exports = class Mongod {
   }
   
   // 监听
-  // @params {string} event
-  // @params {function} process
+  // @params {string} event 事件
+  // @params {function} process 回调
+  // @return {Promise<void>}
   // @public
   async Watch (event, process) {
     void await this._awitConn()
@@ -99,7 +100,8 @@ module.exports = class Mongod {
   }
   
   // 事务
-  // @params {function} process
+  // @params {async function} process 处理函数
+  // @return {Promise<object>}
   // @public
   async Transfer (process) {
     let _session = this._mongod.startSession(TRANSFER_CONF) // 初始化事务
@@ -133,6 +135,7 @@ module.exports = class Mongod {
   }
   
   // 获取句柄
+  // @return {Proxy<class>}
   // @public
   get Cos () {
     
@@ -154,8 +157,9 @@ module.exports = class Mongod {
   }
   
   // 监听事件
-  // @params {string} event
-  // @params {function} process
+  // @params {string} event 事件
+  // @params {function} process 回调
+  // @return {void}
   // @public
   on (event, process) {
     this._events.on(event, process)

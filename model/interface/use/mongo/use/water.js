@@ -11,8 +11,8 @@ module.exports = class Water {
   }
   
   // 查询用户水滴数
-  // @params {ObjectId} [userId]
-  // @returns {object}
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<object>}
   // @public
   async find ({ userId }) {
     return await this.mongo.Cos.Water.aggregate([

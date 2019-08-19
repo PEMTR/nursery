@@ -8,8 +8,9 @@ const thumbnail = require("simple-thumbnail")
 
 
 // 媒体转码
-// @params {string || stream} input
-// @params {string || stream} out
+// @params {string || stream} input 输入文件
+// @params {string || stream} out 输出文件
+// @return {Promise<void>}
 // @public
 exports.Trans = function (input, out) {
   return new Promise((resolve, reject) => {
@@ -23,7 +24,8 @@ exports.Trans = function (input, out) {
 
 
 // 获取媒体元信息
-// @params {string || stream} file
+// @params {string || stream} file 文件路径
+// @return {Promise<object>}
 // @public
 exports.Meta = function (file) {
   return new Promise((resolve, reject) => {
@@ -34,10 +36,11 @@ exports.Meta = function (file) {
 }
 
 // 视频截图
-// @params {string || stream} file
-// @params {string} floder
-// @params {string || stream} out
-// @params {string} skip
+// @params {string || stream} file 文件路径
+// @params {string} floder 输出目录
+// @params {string} out 输出文件名
+// @params {string} skip 跳过
+// @return {Promise<void>}
 // @public
 exports.VideoScreenHots = function (file, folder, out, skip) {
   return new Promis((resolve, reject) => {
@@ -53,9 +56,10 @@ exports.VideoScreenHots = function (file, folder, out, skip) {
 }
 
 // 缩略图处理
-// @params {path} file
-// @params {path} out
-// @params {string} size
+// @params {path} file 文件路径
+// @params {path} out 输出文件
+// @params {string} size 尺寸
+// @return {Promise<object>}
 // @public
 exports.ImageResize = async function (file, out, size) {
   return await thumbnail(file, out, size)

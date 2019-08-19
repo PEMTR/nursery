@@ -12,8 +12,9 @@ module.exports = class Achievement {
   }
   
   // 获取取水动画列表
-  // @params {number} [skip]
-  // @params {number} [limit]
+  // @params {number} [skip] 跳过
+  // @params {number} [limit] 限制
+  // @return {Promise<object>}
   // @public
   async iter ({ skip, limit }, process) {
     return await this.quasipaa.Engine("animation.iter", {
@@ -35,8 +36,9 @@ module.exports = class Achievement {
   }
   
   // 获取水杯取水动画
-  // @params {ObjectId} [userId]
-  // @params {ObjectId} [cupId]
+  // @params {ObjectId} [userId] 用户索引
+  // @params {ObjectId} [cupId] 水杯索引
+  // @return {Promise<object>}
   // @public
   async cup ({ userId, cupId }, process) {
     return await this.quasipaa.Engine("animation.cup", {

@@ -19,8 +19,9 @@ module.exports = class Multer {
   }
   
   // 创建文件可写流
-  // @params {string} name
-  // @params {string} dir
+  // @params {string} name 文件名
+  // @params {string} dir 输出目录
+  // @return {object}
   // @public
   createWriteStream (name = uuid(), dir) {
     let _dir = dir || this.configure.path
@@ -30,10 +31,11 @@ module.exports = class Multer {
   }
   
   // 处理文件表单请求
-  // @params {Request} req
-  // @params {WriteStream} write
-  // @params {string} key
-  // @params {reg} mmie
+  // @params {Request} req 请求句柄
+  // @params {WriteStream} write 可写流
+  // @params {string} key 键值
+  // @params {reg} mmie 表单类型
+  // @return {Promise<object>}
   // @public
   from (req, write, key, mmie) {
     return new Promise((resolve, reject) => {

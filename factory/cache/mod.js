@@ -60,7 +60,8 @@ module.exports = class Cache {
   }
   
   // 获取
-  // @params {string} key
+  // @params {string} key 索引
+  // @return {Promise<any>}
   // @public
   async Get (key) {
     let _hkey = "CACHE.VALUE." + key
@@ -69,9 +70,10 @@ module.exports = class Cache {
   }
   
   // 设置
-  // @params {string} key
-  // @params {object} model
-  // @params {any} value
+  // @params {string} key 索引
+  // @params {object} model 模式
+  // @params {any} value 数据
+  // @return {Promise<void>}
   // @public
   async Set (key, model, value) {
     let _hkey = "CACHE.VALUE." + key
@@ -92,7 +94,7 @@ module.exports = class Cache {
       // 多绑定
       for (let k of model[coll]) {
         let _skey = "CACHE.MODEL." + coll + "." + k
-        return await this.redis.promise.sadd(_skey, key)
+        void await this.redis.promise.sadd(_skey, key)
       }
     }
   }

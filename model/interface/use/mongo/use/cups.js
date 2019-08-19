@@ -16,8 +16,8 @@ module.exports = class UserCups {
   }
   
   // 查询用户关联水杯列表信息
-  // @params {ObjectId} [user]
-  // @returns {array}
+  // @params {ObjectId} [userId] 用户索引
+  /// @return {Promise<array>}
   // @public
   async finds ({ userId }) {
     return await this.mongo.Cos.UserCups.aggregate([
@@ -62,10 +62,10 @@ module.exports = class UserCups {
   }
   
   // 用户设置水杯提醒
-  // @params {ObjectId} [cupId]
-  // @params {boolean} [notice]
-  // @params {ObjectId} [userId]
-  // @returns {boolean}
+  // @params {ObjectId} [cupId] 水杯索引
+  // @params {boolean} [notice] 通知开关
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<boolean>}
   // @public
   async setNotice ({ cupId, notice, userId }) {
     assert.deepStrictEqual((await this.mongo.Cos.UserCups.updateOne({ 
@@ -80,13 +80,13 @@ module.exports = class UserCups {
   }
   
   // 获取水杯照片
-  // @params {ObjectId} [cupId]
-  // @params {ObjectId} [userId]
-  // @params {number} [lte]
-  // @params {number} [gte]
-  // @params {number} [skip]
-  // @params {number} [limit]
-  // @returns {array}
+  // @params {ObjectId} [cupId] 水杯索引
+  // @params {ObjectId} [userId] 用户索引
+  // @params {number} [lte] 时间小于限制
+  // @params {number} [gte] 时间大于限制
+  // @params {number} [skip] 跳过
+  // @params {number} [limit] 限制
+  // @return {Promise<array>}
   // @public
   async photo ({ userId, cupId, lte, gte, skip, limit }) {
     

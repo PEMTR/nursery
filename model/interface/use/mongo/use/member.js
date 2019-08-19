@@ -11,8 +11,8 @@ module.exports = class Member {
   }
   
   // 获取用户会员信息
-  // @params {ObjectId} [userId]
-  // @returns {object}
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<object>}
   // @public
   async find ({ userId }) {
     return await this.mongo.Cos.Member.aggregate([

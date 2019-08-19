@@ -128,7 +128,7 @@ module.exports =  class Rabbitx {
   }
 
   // 消息转Buffer
-  // @params {any} message
+  // @params {any} message 消息
   // @private
   _stringify (message) {
     
@@ -157,7 +157,7 @@ module.exports =  class Rabbitx {
   }
 
   // Buffer转消息
-  // @params {any} message
+  // @params {any} message 消息数据
   // @private
   _parse (message) {
     return {
@@ -192,7 +192,7 @@ module.exports =  class Rabbitx {
   }
 
   // 消息处理
-  // @params {any} message
+  // @params {any} message 消息
   // @private
   _ack (message) {
     return new Proxy({}, {
@@ -205,7 +205,7 @@ module.exports =  class Rabbitx {
   }
   
   // 检查主题
-  // @params {string} topic
+  // @params {string} topic 主题
   // @private
   async _checkTopic (topic) {
     void await this._awitConn()
@@ -225,7 +225,7 @@ module.exports =  class Rabbitx {
   }
   
   // 检查交易主题
-  // @params {string} topic
+  // @params {string} topic 主题
   // @private
   async _checkTransferTopic (topic) {
     
@@ -239,8 +239,8 @@ module.exports =  class Rabbitx {
   }
   
   // 交易回调处理
-  // @params {string} topic
-  // @params {object} message
+  // @params {string} topic 主题
+  // @params {object} message 消息
   // @private
   async _transferBackProcess (topic, message) {
     
@@ -269,7 +269,7 @@ module.exports =  class Rabbitx {
   }
   
   // 检查交易回调监听
-  // @params {string} topic
+  // @params {string} topic 主题
   // @private
   _checkTransferListen (topic) {
     
@@ -299,9 +299,9 @@ module.exports =  class Rabbitx {
   }
   
   // 交易消费处理
-  // @params {string} topic
-  // @params {object} message
-  // @params {promise function} process
+  // @params {string} topic 主题
+  // @params {object} message 消息
+  // @params {async function} process 处理函数
   // @private
   async _transferProcess (topic, message, process) {
     let _uid = null
@@ -360,8 +360,9 @@ module.exports =  class Rabbitx {
   }
   
   // 监听交易
-  // @params {string} topic
-  // @params {promise function} process
+  // @params {string} topic 主题
+  // @params {async function} process 消息处理函数
+  // @return {Promise<void>}
   // @public
   async OnTransfer (topic, process) {
     let _backTopic = await this._checkTransferTopic(topic)
@@ -382,8 +383,9 @@ module.exports =  class Rabbitx {
   }
   
   // 发送交易
-  // @params {string} topic
-  // @params {any} message
+  // @params {string} topic 主题
+  // @params {any} message 消息
+  // @return {Promise<boolean>}
   // @public
   async SendTransfer (topic, message) {
     let _uid = uuid()
@@ -418,8 +420,9 @@ module.exports =  class Rabbitx {
   }
 
   // 推送
-  // @params {string} topic
-  // @params {any} message
+  // @params {string} topic 主题
+  // @params {any} message 消息
+  // @return {Promise<boolean>}
   // @public
   async Send (topic, message) {
     void await this._checkTopic(topic)
@@ -429,8 +432,9 @@ module.exports =  class Rabbitx {
   }
 
   // 监听
-  // @params {string} topic
-  // @params {function} process
+  // @params {string} topic 主题
+  // @params {function} process 消息处理函数
+  // @return {Promise<void>}
   // @public
   async On (topic, process) {
     void await this._checkTopic(topic)
@@ -448,8 +452,9 @@ module.exports =  class Rabbitx {
   }
   
   // 绑定事件
-  // @params {string} event
-  // @params {function} process
+  // @params {string} event 事件
+  // @params {function} process 事件处理
+  // @return {Promise<void>}
   // @public
   on (event, process) {
     this._events(event, process)

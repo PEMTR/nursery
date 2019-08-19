@@ -17,7 +17,8 @@ module.exports = class SignIn {
   }
   
   // 获取签到信息
-  // @params {ObjectId} [userId]
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<array>}
   // @public
   async signIns ({ userId }) {
     let gte = moment().day(1).hour(0).minute(0).second(0).valueOf()
@@ -25,7 +26,10 @@ module.exports = class SignIn {
     return await this.mongo.Cos.UserSignIn.aggregate([
       { $match: { 
         user: userId,
-        update: { $gte: gte, $lte: lte }
+        update: { 
+          $gte: gte, 
+          $lte: lte 
+        }
       } },
       { $project: {
         _date: { $toDate: "$update" }
