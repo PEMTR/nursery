@@ -17,9 +17,10 @@ module.exports = class Classroom {
   }
   
   // 获取班级饮水目标
-  // @params {ObjectId} [cupId]
-  // @params {ObjectId} [userId]
-  // @params {function} params
+  // @params {ObjectId} [cupId] 水杯索引
+  // @params {ObjectId} [userId] 用户索引
+  // @params {function} params 内部参数传递
+  // @return {Promise<object>}
   // @public
   async waterStandard ({ cupId, userId }, params) {
     return this.util.promise(await this.mongo.Cos.UserCups.aggregate([
@@ -52,11 +53,12 @@ module.exports = class Classroom {
   }
   
   // 获取班级水杯饮水量排名
-  // @params {ObjectId} [cupId]
-  // @params {ObjectId} [userId]
-  // @params {number} [before]
-  // @params {number} [after]
-  // @params {function} params
+  // @params {ObjectId} [cupId] 水杯索引
+  // @params {ObjectId} [userId] 用户索引
+  // @params {number} [before] 开始时间
+  // @params {number} [after] 结束时间
+  // @params {function} params 内部参数传递
+  // @return {Promise<array>}
   // @public
   async waterSort ({ cupId, userId, after, before }, params) {
     let _day = this.util.DaySplit()
@@ -118,10 +120,11 @@ module.exports = class Classroom {
   }
   
   // 获取园区活动列表
-  // @params {objectId} [cupId]
-  // @params {onjectId} [userId]
-  // @params {number} [skip]
-  // @params {number} [limit]
+  // @params {objectId} [cupId] 水杯索引
+  // @params {onjectId} [userId] 用户索引
+  // @params {number} [skip] 跳过
+  // @params {number} [limit] 限制
+  // @return {Promise<array>}
   // @public
   async trend ({ cupId, userId, skip, limit }) {
     

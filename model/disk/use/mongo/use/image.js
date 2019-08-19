@@ -16,9 +16,10 @@ module.exports = class Image {
   }
   
   // 上传取水照片
-  // @params {ObjectId} [cupId]
-  // @params {string} [name]
-  // @params {string} [mime]
+  // @params {ObjectId} [cupId] 水杯索引
+  // @params {string} [name] 文件名
+  // @params {string} [mime] 文件类型
+  // @return {Promise<void>}
   // @public
   async WaterPublish ({ cupId, name, mime }) {
     let data = {
@@ -38,8 +39,9 @@ module.exports = class Image {
   }
   
   // 更新取水照片缩略图
-  // @params {ObjectId} [id]
-  // @params {Object} [cover]
+  // @params {ObjectId} [id] 水杯照片索引
+  // @params {Object} [cover] 缩略图文件名
+  // @return {Promise<void>}
   // @public
   async WaterCover ({ id, cover }) {
     assert.deepStrictEqual((await this.mongo.Cos.CupPhoto.updateOne({

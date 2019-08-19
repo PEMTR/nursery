@@ -22,7 +22,7 @@ module.exports = class Redis {
   }
   
   // 链接
-  // @params {object} redis
+  // @params {object} redis 实例
   // @private
   _connect (redis) {
     this.self = createClient(redis)
@@ -37,7 +37,7 @@ module.exports = class Redis {
   }
   
   // 绑定promise
-  // @params {string} key 
+  // @params {string} key 方法
   // @private
   _bind (key) {
     this._promise[key] = promisify(this.self[key])
@@ -45,6 +45,7 @@ module.exports = class Redis {
   }
   
   // 获取promise
+  // @return {Promise<class>}
   // @public
   get promise () {
     
@@ -66,8 +67,9 @@ module.exports = class Redis {
   }
   
   // 绑定事件
-  // @params {string} event
-  // @params {function} process
+  // @params {string} event 事件
+  // @params {function} process 事件处理
+  // @return {Promise<void>}
   // @public
   on (event, process) {
     this._events(event, process)

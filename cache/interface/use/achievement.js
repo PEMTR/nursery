@@ -12,6 +12,7 @@ module.exports = class Achievement {
   }
   
   // 获取所有成就列表
+  // @return {Promise<object>}
   // @public
   async all () {
     return await this.quasipaa.Engine("achievement.all", {
@@ -35,7 +36,8 @@ module.exports = class Achievement {
   }
   
   // 获取用户所有成就
-  // @params {ObjectId} [userId]
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<object>}
   // @public
   async user ({ userId }) {
     return await this.quasipaa.Engine("achievement.user", {

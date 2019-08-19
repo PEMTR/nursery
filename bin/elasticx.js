@@ -17,9 +17,10 @@ module.exports = class Elasticx {
   }
   
   // 创建索引
-  // @params {string} index
-  // @params {any} body
-  // @params {boolean} refresh
+  // @params {string} index 索引
+  // @params {any} body 内容
+  // @params {boolean} refresh 是否强制刷新
+  // @return {Promise<T for object, void>}
   // @public
   async Index (index, body, refresh = false) {
     if (this._pool.length >= 10) {

@@ -15,8 +15,8 @@ const ajv = require("ajv")
 module.exports = class Schema {
   
   // @new
-  // @params {boolean} option = true
-  // @params {string} code
+  // @params {boolean} option = true 选项
+  // @params {string} code 错误码
   constructor (option = true, code) {
     this.error = new Error(this.code)
     this.Validator = new ajv()
@@ -26,8 +26,9 @@ module.exports = class Schema {
   }
   
   // 绑定模板
-  // @params {string} key
-  // @params {object} temp
+  // @params {string} key 索引
+  // @params {object} temp 模板
+  // @return {void}
   // @public
   bind (key, temp) {
     this.map[key] = {
@@ -37,8 +38,9 @@ module.exports = class Schema {
   }
   
   // 验证
-  // @params {string} key
-  // @params {any} params
+  // @params {string} key 索引
+  // @params {any} params 参数
+  // @return {boolean}
   // @public
   schema (key, params) {
     if (!this.option) {
@@ -60,16 +62,16 @@ module.exports = class Schema {
   }
   
   // 自定义类型
-  // @params {string} format
-  // @params {function} handle
+  // @params {string} format 类型名称
+  // @params {function} handle 处理
   // @public
   type (format, handle) {
     this.Validator.addFormat(format, handle)
   }
 
   // 自定义关键字
-  // @params {string} keyword
-  // @params {function} handle
+  // @params {string} keyword 关键字名称
+  // @params {function} handle 处理
   // @public
   keyword (keyword, handle) {
     this.Validator.addKeyword(keyword, handle)

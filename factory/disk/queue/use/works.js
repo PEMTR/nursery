@@ -12,13 +12,12 @@ module.exports = class Works {
   }
   
   // 图片处理
-  // @params {string} uid
-  // @params {string} cover
+  // @params {string} uid 水杯照片索引
+  // @params {string} cover 图片文件名
+  // @return {Promise<any>}
   // @public
   async Image (uid, cover) {
-    return await this.model.Mongo.Image.WaterCover({
-      id: this.util.createHexId(uid),
-      cover
-    })
+    let id = this.util.createHexId(uid)
+    return await this.model.Mongo.Image.WaterCover({ id, cover })
   }
 }

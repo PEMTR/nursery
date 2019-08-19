@@ -11,7 +11,7 @@ module.exports = class Commodity {
   }
   
   // 获取所有成就列表
-  // @returns {array}
+  // @return {Promise<array>}
   // @public
   async all () {
     return await this.mongo.Cos.AchievementClass.aggregate([
@@ -35,8 +35,8 @@ module.exports = class Commodity {
   }
   
   // 获取用户所有成就
-  // @params {ObjectId} [userId]
-  // @returns {array}
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<array>}
   // @public
   async user ({ userId }) {
     return await this.mongo.Cos.UserAchievements.aggregate([ 

@@ -12,9 +12,9 @@ module.exports = class Audio {
   }
 
   // 获取取水语音列表
-  // @params {number} [skip]
-  // @params {number} [limit]
-  // @returns {array}
+  // @params {number} [skip] 跳过
+  // @params {number} [limit] 限制
+  // @return {Promise<array>}
   // @public
   async iter ({ skip, limit }) {
     return await this.mongo.Cos.Audio.aggregate([
@@ -24,9 +24,9 @@ module.exports = class Audio {
   }
 
   // 获取水杯取水语音
-  // @params {ObjectId} [userId]
-  // @params {ObjectId} [cupId]
-  // @returns {object}
+  // @params {ObjectId} [userId] 用户索引
+  // @params {ObjectId} [cupId] 水杯索引
+  // @return {Promise<object>}
   // @public
   async cup ({ userId, cupId }) {
     return this.util.promise(await this.mongo.Cos.CupAudio.aggregate([
@@ -43,10 +43,10 @@ module.exports = class Audio {
   }
 
   // 设置水杯取水语音
-  // @params {ObjectId} [userId]
-  // @params {ObjectId} [cupId]
-  // @params {ObjectId} [audioId]
-  // @params {boolean}
+  // @params {ObjectId} [userId] 用户索引
+  // @params {ObjectId} [cupId] 水杯索引
+  // @params {ObjectId} [audioId] 语音索引
+  // @return {Promise<boolean>}
   // @public
   async cupSet ({ userId, cupId, audioId  }) {
 

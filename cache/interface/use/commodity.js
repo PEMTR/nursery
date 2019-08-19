@@ -12,7 +12,7 @@ module.exports = class Commodity {
   }
   
   // 获取虚拟商品列表
-  // @returns {array}
+  // @return {Promise<object>}
   // @public
   async mocks () {
     return await this.quasipaa.Engine("commodity.mocks", {

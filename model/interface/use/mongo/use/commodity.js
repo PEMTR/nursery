@@ -17,7 +17,7 @@ module.exports = class Commodity {
   }
   
   // 获取虚拟商品列表
-  // @returns {array}
+  // @return {Promise<array>}
   // @public
   async mocks () {
     return this.mongo.Cos.Commodity.aggregate([

@@ -20,8 +20,8 @@ module.exports = class Quasipaa {
   }
   
   // 返回处理
-  // @params {buffer} buf
-  // @params {string} format
+  // @params {buffer} buf 数据
+  // @params {string} format 格式化
   // @private
   _as (buf, format) {
     switch (format) {
@@ -38,7 +38,7 @@ module.exports = class Quasipaa {
   }
   
   // 请求头
-  // @params {number} len
+  // @params {number} len 正文长度
   // @private
   _header (len) {
     return {
@@ -48,8 +48,8 @@ module.exports = class Quasipaa {
   }
   
   // 请求选项
-  // @params {string} method
-  // @params {number} len
+  // @params {string} method 请求方法
+  // @params {number} len 正文长度
   // @private
   _option (method, len) {
     return {
@@ -62,9 +62,9 @@ module.exports = class Quasipaa {
   }
   
   // 请求
-  // @params {string} method
-  // @params {object} body
-  // @params {string} format
+  // @params {string} method 请求方法
+  // @params {object} body 正文
+  // @params {string} format 格式化
   // @private
   _request (method, body, format) {
     return new Promise((resolve, reject) => {
@@ -88,10 +88,11 @@ module.exports = class Quasipaa {
   }
   
   // 缓存处理类
-  // @params {string} key
-  // @params {object} params
-  // @params {function} process
-  // @params {function} models
+  // @params {string} key 索引
+  // @params {object} params 参数
+  // @params {async function} process 数据处理函数 
+  // @params {async function} models 模型处理函数
+  // @return {Promise<any>}
   // @public
   async Engine (name, params, process, models) {
     let _md5 = this.util.md5(JSON.stringify(params))

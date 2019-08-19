@@ -11,7 +11,7 @@ module.exports = class Logs {
   }
   
   // 标准请求头处理
-  // @params {Request} req
+  // @params {Request} req 请求句柄
   // @private
   _header (req) {
     return {
@@ -31,8 +31,9 @@ module.exports = class Logs {
   }
   
   // 请求处理失败
-  // @params {Request} req
-  // @params {Error} fatal
+  // @params {Request} req 请求句柄
+  // @params {Error} fatal 请求错误
+  // @return {Promise<object>}
   // @public
   async fatal (req, fatal) {
     let name = "nursery.cache.fatal"
@@ -47,8 +48,9 @@ module.exports = class Logs {
   }
   
   // 请求处理成功
-  // @params {Request} req
-  // @params {object} success
+  // @params {Request} req 请求句柄
+  // @params {object} success 响应
+  // @return {Promise<object>}
   // @public
   async success (req, success) {
     let name = "nursery.cache.success"

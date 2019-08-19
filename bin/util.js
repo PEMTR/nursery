@@ -5,10 +5,10 @@
 // @package
 const fs = require("fs")
 const http = require("http")
+const toml = require("toml")
 const mongodb = require("mongodb")
 const assert = require("assert").strict
 const crypto = require("crypto")
-const toml = require("toml")
 const moment = require("moment")
 
 
@@ -213,24 +213,8 @@ exports.Integer = function (number) {
 // @params {function} process
 // @public
 exports.Retry = async function (int, process) {
-  let _number = 0
-  let _err = null
-  
-  // 循环指定阈值
-  while (_number < int) {
-    try {
-      
-      // 尝试运行函数
-      // 成功回调并结束循环
-      return await process(_number)
-    } catch (err) {
-      _number += 1
-      _err = err
-    }
-  }
-  
-  // 到达阈值不成功
-  // 抛出错误
+  let _n = 0, _err = null, _r = e => { _n += 1, _err = e }
+  while (_n < int) { try { return await process(_n) } catch (e) { _r(e) } }
   throw _err
 }
 

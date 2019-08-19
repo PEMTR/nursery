@@ -17,10 +17,10 @@ module.exports = class Commodity {
   }
   
   // 用户获取虚拟商品
-  // @params {ObjectId} [userId]
-  // @params {ObjectId} [commodityId]
-  // @params {number} [count]
-  // @returns {ObjectId}
+  // @params {ObjectId} [userId] 用户索引
+  // @params {ObjectId} [commodityId] 商品索引
+  // @params {number} [count] 总数
+  // @return {Promise<ObjectId>}
   // @public
   async GetMock ({ userId, commodityId, count }) {
     return await this.mongo.Transfer(async session => {

@@ -12,25 +12,18 @@ const moment = require("moment")
 module.exports = class Water {
   
   // @new
-  constructor ({ mongo }) {
+  constructor ({ mongo, util }) {
     this.mongo = mongo
-  }
-  
-  // 获取当天时间间隔
-  // @private
-  _daySplit () {
-    return {
-      after: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).valueOf(),
-      before: moment().set({ hour: 23, minute: 59, second: 59, millisecond: 999 }).valueOf()
-    }
+    this.util = util
   }
   
   // 用户签到
-  // @params {ObjectId} [userId]
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<boolean>}
   // @public
   async SignIn ({ userId }) {
     return await this.mongo.Transfer(async session => {
-      let { after, before } = this._daySplit()
+      let { after, before } = this.util.DaySplit()
 
       // 检查用户当前有无签到
       assert.deepStrictEqual(await this.mongo.Cos.UserSignIn.find({
@@ -66,7 +59,8 @@ module.exports = class Water {
   }
   
   // 分享公众号
-  // @params {ObjectId} [userId]
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<boolean>}
   // @public
   async ShareWechatPublicNumber ({ userId }) {
     return await this.mongo.Transfer(async session => {

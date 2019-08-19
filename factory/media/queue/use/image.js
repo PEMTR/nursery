@@ -20,8 +20,8 @@ module.exports = class Image {
   }
   
   // 更新文件名
-  // @params {string} old
-  // @params {string} name
+  // @params {string} old 老文件
+  // @params {string} name 新文件
   // @private
   _rename (old, name) {
     return new Promise((resolve, reject) => {
@@ -32,9 +32,10 @@ module.exports = class Image {
   }
   
   // 任务
-  // @params {string} name
-  // @params {string} mime
-  // @params {string} uid
+  // @params {string} name 文件名
+  // @params {string} mime 文件类型
+  // @params {string} uid 任务标识
+  // @return {Promise<void>}
   // @public
   async process (name, mime, uid) {
     

@@ -17,8 +17,8 @@ module.exports = class Commodity {
   }
   
   // 获取家庭成员列表
-  // @params {ObjectId} [userId]
-  // @return {object}
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<object>}
   // @public
   async users ({ userId }) {
     
@@ -70,10 +70,10 @@ module.exports = class Commodity {
   }
   
   // 删除家庭成员
-  // @params {ObjectId} familyId
-  // @params {ObjectId} fromId
-  // @params {ObjectId} userId
-  // @returns {boolean}
+  // @params {ObjectId} familyId 家庭索引
+  // @params {ObjectId} fromId 用户索引
+  // @params {ObjectId} userId 用户索引
+  // @return {Promise<boolean>}
   // @public
   async remove ({ familyId, fromId, userId }) {
     

@@ -12,7 +12,8 @@ module.exports = class Teacher {
   }
   
   // 获取班级信息
-  // @params {ObjectId} [userId]
+  // @params {ObjectId} [userId] 用户索引
+  // @return {Promise<object>}
   // @public
   async detil ({ userId }) {
     let { after, before } = this.util.DaySplit()

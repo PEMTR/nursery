@@ -43,7 +43,7 @@ module.exports = class Decrypt {
     let redisData = JSON.stringify({ token, ...user })
     void await this.redis.promise.set("USERDATA." + id, redisData)
 
-    // 回调
+    // 返回Token
     return token
   }
 
@@ -68,7 +68,7 @@ module.exports = class Decrypt {
     let userData = JSON.parse(data)
     assert.deepStrictEqual(userData.token, token, "E.AUTH")
 
-    // 回调用户信息
+    // 返回用户信息
     return userData
   }
 }

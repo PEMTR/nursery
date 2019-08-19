@@ -17,9 +17,9 @@ module.exports = class Animation {
   }
 
   // 获取取水动画列表
-  // @params {number} [skip]
-  // @params {number} [limit]
-  // @returns {array}
+  // @params {number} [skip] 跳过
+  // @params {number} [limit] 限制
+  // @return {Promise<array>}
   // @public
   async iter ({ skip, limit }) {
     return await this.mongo.Cos.Animation.aggregate([
@@ -29,9 +29,9 @@ module.exports = class Animation {
   }
 
   // 获取水杯取水动画
-  // @params {ObjectId} [userId]
-  // @params {ObjectId} [cupId]
-  // @params {object}
+  // @params {ObjectId} [userId] 用户索引
+  // @params {ObjectId} [cupId] 水杯索引
+  // @return {Promise<object>}
   // @public
   async cup ({ userId, cupId }) {
     return await this.mongo.Cos.CupAnimation.aggregate([
@@ -48,10 +48,10 @@ module.exports = class Animation {
   }
 
   // 设置水杯取水动画
-  // @params {ObjectId} [userId]
-  // @params {ObjectId} [cupId]
-  // @params {ObjectId} [animationId]
-  // @params {boolean}
+  // @params {ObjectId} [userId] 用户索引
+  // @params {ObjectId} [cupId] 水杯索引
+  // @params {ObjectId} [animationId] 动画索引
+  // @return {Promise<boolean>}
   // @public
   async cupSet ({ userId, cupId, animationId  }) {
 
