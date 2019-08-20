@@ -12,7 +12,7 @@ router.get("/mock/:commodity/:count", async function (req) {
   req.params.count = Number(req.params.count)
   let { commodity, count } = req.params
   let { _id } = req.user
-  req.crate.schema.eq("private.commodity.user.get.mock", { count, commodity })
+  req.crate.schema.eq("private.commodity.user.get.mock", req.params)
   return await req.crate.rabbitx.SendTransfer("CoreWater", {
     data: { commodity, count, user: _id, count },
     type: "ExchangeMock"

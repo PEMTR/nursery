@@ -8,7 +8,7 @@ const router = express.Router()
 
 
 // 路由表
-router.use("/water", require("./use/water"))
+router.use("/cup", require("./use/cup"))
 
 
 // export.
