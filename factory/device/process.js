@@ -6,15 +6,18 @@
 module.exports = class Process {
   
   // @new
-  constructor () {
-    
+  constructor ({ model }) {
+    this.model = model
   }
   
   // 取水完成
   // @params {number} [count] 饮水量
   // @params {string} [uid] 水杯编号
+  // @return {Promise<void>}
   // @public
   async WaterBefore ({ count, uid }) {
-    
+    void await this.model.mongo.Cups.WaterBefore({
+      count, uid
+    })
   }
 }

@@ -6,6 +6,15 @@
 const process = require("./process")
 
 
+// 消息类型
+// 处理函数方法对照
+// @const
+const TYPINGS = [
+  "WaterBefore",  // 取水完成
+  null,           // 占位
+]
+
+
 // 设备类
 // @class
 module.exports = class Device {
@@ -22,9 +31,8 @@ module.exports = class Device {
   // @private
   async _Devices (message) {
     let _data = message.as("json")
-    return this.Process[[
-      "WaterBefore"
-    ][_data.type]](_data)
+    let _name = TYPINGS[_data.type]
+    return this.Process[_name](_data)
   }
   
   // 绑定

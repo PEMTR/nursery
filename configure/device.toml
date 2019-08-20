@@ -1,0 +1,29 @@
+# ==============
+# 服务配置
+# ==============
+
+name = "nursery.device"
+
+
+# ==============
+# MongoDB配置
+# ==============
+
+[mongo]
+host = "server.local"
+port = 27017
+db = "nursery"
+
+# 数据库认证
+[mongo.auth]
+username = "nursery"
+password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
+
+
+# ==============
+# RabbitMQ配置
+# ==============
+
+[rabbitmq]
+host = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
+prefetch = 1
