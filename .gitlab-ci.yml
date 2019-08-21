@@ -1,38 +1,46 @@
-stages:
-  - build
-  - test
-  - deploy
+image: node:latest
 
-default:
-  image: node:latest
-  before_script:
-    - npm i
-    - cd page && npm i
+before_script:
+  - npm install
 
-page_build:
-  stage: build
-  script: npm run build
-  
 service_cache_test:
   stage: test
-  script: node service/cache.js
+  script:
+    - node service/cache.js
+  only:
+  - master
   
 service_core_test:
   stage: test
-  script: node service/core.js
+  script:
+    - node service/core.js
+  only:
+  - master
   
 service_device_test:
   stage: test
-  script: node service/device.js
+  script:
+    - node service/device.js
+  only:
+  - master
   
 service_disk_test:
   stage: test
-  script: node service/disk.js
+  script:
+    - node service/disk.js
+  only:
+  - master
   
 service_interface_test:
   stage: test
-  script: node service/interface.js
+  script:
+    - node service/interface.js
+  only:
+  - master
   
 service_media_test:
   stage: test
-  script: node service/media.js
+  script:
+    - node service/media.js
+  only:
+  - master
