@@ -3,7 +3,9 @@
 
 
 ### 版本
-Nightly
+(Nightly) </br>
+[![pipeline status](http://gitlab.quasipaa.cn/quasipaa/nursery/badges/master/pipeline.svg)](http://gitlab.quasipaa.cn/quasipaa/nursery/commits/master)
+[![coverage report](http://gitlab.quasipaa.cn/quasipaa/nursery/badges/master/coverage.svg)](http://gitlab.quasipaa.cn/quasipaa/nursery/commits/master)
 
 
 ### 计划

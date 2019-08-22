@@ -1,38 +1,62 @@
-stages:
-  - build
-  - test
-  - deploy
+# 基础镜像使用node镜像
+# 因为是纯node服务
+image: node:latest
 
-default:
-  image: node:latest
-  before_script:
-    - npm i
-    - cd page && npm i
+# 缓存模块目录
+# 加快处理速度
+cache:
+  paths:
+    - node_modules/
 
-page_build:
-  stage: build
-  script: npm run build
-  
+# 准备工作
+# 安装所有依赖模块
+before_script:
+  - npm install
+
+# 缓存服务
 service_cache_test:
   stage: test
-  script: node service/cache.js
-  
+  script:
+    - node service/cache.js
+  only:
+  - master
+
+# 核心服务
 service_core_test:
   stage: test
-  script: node service/core.js
-  
+  script:
+    - node service/core.js
+  only:
+  - master
+
+# 设备服务
 service_device_test:
   stage: test
-  script: node service/device.js
-  
+  script:
+    - node service/device.js
+  only:
+  - master
+
+# 存储服务
 service_disk_test:
   stage: test
-  script: node service/disk.js
-  
+  script:
+    - node service/disk.js
+  only:
+  - master
+
+# 接口服务
 service_interface_test:
   stage: test
-  script: node service/interface.js
-  
+  script:
+    - node service/interface.js
+  only:
+  - master
+
+# 多媒体处理服务
 service_media_test:
   stage: test
-  script: node service/media.js
+  script:
+    - node service/media.js
+  only:
+  - master
