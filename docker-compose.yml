@@ -1,0 +1,60 @@
+version: "3"
+services:
+  mongod_rs2:
+    image: mongod:latest
+    deploy:
+      replicas: 1
+    expose:
+      - 27017
+  mongod_rs1:
+    image: mongod:latest
+    deploy:
+      replicas: 1
+    expose:
+      - 27017
+  mongod_rs0:
+    image: mongod:latest
+    deploy:
+      replicas: 1
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+  rabbitmq:
+    image: rabbitx:latest
+    hostname: panda
+    environment:
+      - RABBITMQ_USER=panda
+      - RABBITMQ_PWD=panda
+    expose:
+      - 25672
+      - 15672
+      - 4369
+      - 5672
+      - 1883
+    ports:
+      - 15672:15672
+      - 1883:1883
+      - 5672:5672
+  redis:
+    image: redix:latest
+    environment:
+      - REDIS_PWD=MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm====
+    deploy:
+      replicas: 1
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
+  elasticsearch:
+    image: elasticx:latest
+    expose:
+      - 9200
+    ports:
+      - 9200:9200
+  kibana:
+    image: kibana:latest
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
