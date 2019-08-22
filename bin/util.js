@@ -8,6 +8,7 @@ const url = require("url")
 const path = require("path")
 const http = require("http")
 const toml = require("toml")
+const https = require("https")
 const mongodb = require("mongodb")
 const assert = require("assert").strict
 const crypto = require("crypto")
@@ -153,9 +154,10 @@ exports.isEmail = function (email) {
 // @param {stream} write 写入流
 // @returns {Promise}
 // @public
-exports.save = async function (uri, write) {
+exports.save = function (uri, write) {
   return new Promise((resolve, reject) => {
-    http.request(uri, res => res.pipe(write))
+    let x = uri.includes("https://") ? https : http
+    x.get(uri, res => res.pipe(write))
       .on("error", reject)
       .on("finish", resolve)
   })
