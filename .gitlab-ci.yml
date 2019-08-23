@@ -2,6 +2,12 @@
 # 因为是纯node服务
 image: node:latest
 
+# 定义包含的阶段
+stages:
+  - build
+  - test
+  - deploy
+
 # 缓存模块目录
 # 加快处理速度
 cache:
@@ -11,52 +17,71 @@ cache:
 # 准备工作
 # 安装所有依赖模块
 before_script:
+  - chmod +x .autodevops/before.sh
+  - .autodevops/before.sh
   - npm install
 
 # 缓存服务
 service_cache_test:
   stage: test
+  only:
+    - master
+  tags:
+    - dev
   script:
     - node service/cache.js
-  only:
-  - master
 
 # 核心服务
 service_core_test:
   stage: test
+  allow_failure: true
+  only:
+    - master
+  tags:
+    - dev
   script:
     - node service/core.js
-  only:
-  - master
 
 # 设备服务
 service_device_test:
   stage: test
+  allow_failure: true
+  only:
+    - master
+  tags:
+    - dev
   script:
     - node service/device.js
-  only:
-  - master
 
 # 存储服务
 service_disk_test:
   stage: test
+  allow_failure: true
+  only:
+    - master
+  tags:
+    - dev
   script:
     - node service/disk.js
-  only:
-  - master
 
 # 接口服务
 service_interface_test:
   stage: test
+  allow_failure: true
+  only:
+    - master
+  tags:
+    - dev
   script:
     - node service/interface.js
-  only:
-  - master
 
 # 多媒体处理服务
 service_media_test:
   stage: test
+  allow_failure: true
+  only:
+    - master
+  tags:
+    - dev
   script:
     - node service/media.js
-  only:
-  - master

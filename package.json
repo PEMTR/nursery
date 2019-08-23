@@ -29,6 +29,7 @@
     "express-xml-bodyparser": "^0.3.0",
     "fluent-ffmpeg": "^2.1.2",
     "graphql": "^14.4.2",
+    "json-to-pretty-yaml": "^1.2.2",
     "lazy_mod": "^0.1.1",
     "moment": "^2.24.0",
     "mongodb": "^3.3.0-beta2",
