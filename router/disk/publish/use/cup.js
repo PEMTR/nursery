@@ -3,14 +3,17 @@
 
 // package
 // @package
+const assert = require("assert").strict
 const express = require("lazy_mod/express")
 const router = express.Router()
 
 
 // 上传取水照片
 router.post("/image", async function (req) {
-  let { cups } = req.query
+  let { cups = "" } = req.query
   let _arrs = [...new Set(cups.split(","))]
+  
+  assert.deepStrictEqual(_arrs.length > 0, true, "E.PARAMS.TYPE")
   
 //  // 创建文件可写流
 //  // PIPE 可写流

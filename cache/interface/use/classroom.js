@@ -48,6 +48,7 @@ module.exports = class Classroom {
   // @public
   async waterSort ({ cupId, userId }) {
     let _params = null
+    let { after, before } = this.util.DaySplit()
     return await this.quasipaa.Engine("classroom.water.sort", {
       user: userId.toString(),
       cup: cupId.toString(),
@@ -56,15 +57,9 @@ module.exports = class Classroom {
       
       // 获取当天开始时间和结束时间
       // 查询班级当前的饮水情况
-      let { after, before } = this.util.DaySplit()
       return await this.model.Mongo.Classroom.waterStandard({ 
         cupId, userId, after, before 
-      }, _p => {
-        
-        // 模型内部函数传递运行时
-        // 传递用户水杯关联
-        _params = _p
-      })
+      }, _p => { _params = _p })
     }, async _v => ({
       
       // 用户水杯表
@@ -73,6 +68,36 @@ module.exports = class Classroom {
       UserCups: String(_params._id),
       CupWaters: _v.map(({ _id }) => String(_id)),
       Cups: _v.map(({ cup: { _id } }) => String(_id))
+    }))
+  }
+  
+  // 获取活动列表
+  // @params {ObjectId} [cupId] 水杯索引
+  // @params {ObjectId} [userId] 用户索引
+  // @params {number} [skip] 跳过
+  // @params {number} [limit] 限制
+  // @return {Promise<array>}
+  // @public
+  async trend ({ userId, cupId, skip, limit }) {
+    let _params = null
+    return await this.quasipaa.Engine("classroom.water.sort", {
+      user: userId.toString(),
+      cup: cupId.toString(),
+      after, before
+    }, async _ => {
+      
+      // 获取园区活动列表
+      return await this.model.Mongo.Classroom.trend({ 
+        userId, cupId, skip, limit
+      }, _p => { _params = _p })
+    }, async _v => ({
+      
+      // 用户水杯表
+      // 水杯饮水表
+      // 水杯表
+      UserCups: String(_params._id),
+      Cups: String(_params.cup._id),
+      ClassroomTrend: _v.map(({ _id }) => String(_id)),
     }))
   }
 }
