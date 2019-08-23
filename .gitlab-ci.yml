@@ -24,8 +24,6 @@ service_cache_test:
   stage: test
   allow_failure: true
   only:
-    - master
-    - dev
     - merge_requests
   tags:
     - dev
@@ -37,8 +35,6 @@ service_core_test:
   stage: test
   allow_failure: true
   only:
-    - master
-    - dev
     - merge_requests
   tags:
     - dev
@@ -50,8 +46,6 @@ service_device_test:
   stage: test
   allow_failure: true
   only:
-    - master
-    - dev
     - merge_requests
   tags:
     - dev
@@ -63,8 +57,6 @@ service_disk_test:
   stage: test
   allow_failure: true
   only:
-    - master
-    - dev
     - merge_requests
   tags:
     - dev
@@ -76,8 +68,6 @@ service_interface_test:
   stage: test
   allow_failure: true
   only:
-    - master
-    - dev
     - merge_requests
   tags:
     - dev
@@ -89,8 +79,6 @@ service_media_test:
   stage: test
   allow_failure: true
   only:
-    - master
-    - dev
     - merge_requests
   tags:
     - dev

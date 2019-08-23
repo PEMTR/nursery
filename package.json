@@ -13,7 +13,8 @@
   },
   "scripts": {
     "docker-build": "docker build --tag=$1 .",
-    "testing": "./node_modules/mocha/bin/mocha --require intelli-espower-loader ./unit_testing/main.js"
+    "testing": "./node_modules/mocha/bin/mocha --require intelli-espower-loader ./unit_testing/*.js",
+    "test": "jest"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.2.0",
@@ -41,8 +42,9 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "intelli-espower-loader": "^1.0.1",
-    "mocha": "^6.2.0",
-    "power-assert": "^1.6.1"
+    "jest": "^24.9.0"
+  },
+  "jest": {
+    
   }
 }
