@@ -1,4 +1,4 @@
-image: ubuntu:18.04
+image: node:latest
 
 # 定义包含的阶段
 stages:
