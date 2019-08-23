@@ -14,7 +14,7 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 EOF
 
 apt update && apt full-upgrade -y
-apt install git curl tar
+apt install -y git curl tar
 cd /usr/local/src
 curl -O https://nodejs.org/dist/v10.16.3/node-v10.16.3-linux-x64.tar.xz
 tar xvf node-v10.16.3-linux-x64.tar.xz
