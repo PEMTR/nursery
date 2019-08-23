@@ -23,7 +23,7 @@ before_script:
 service_cache_test:
   stage: test
   only:
-    - master
+    - merge_requests
   tags:
     - dev
   script:
@@ -34,7 +34,7 @@ service_core_test:
   stage: test
   allow_failure: true
   only:
-    - master
+    - merge_requests
   tags:
     - dev
   script:
@@ -45,7 +45,7 @@ service_device_test:
   stage: test
   allow_failure: true
   only:
-    - master
+    - merge_requests
   tags:
     - dev
   script:
@@ -56,7 +56,7 @@ service_disk_test:
   stage: test
   allow_failure: true
   only:
-    - master
+    - merge_requests
   tags:
     - dev
   script:
@@ -67,7 +67,7 @@ service_interface_test:
   stage: test
   allow_failure: true
   only:
-    - master
+    - merge_requests
   tags:
     - dev
   script:
@@ -78,7 +78,7 @@ service_media_test:
   stage: test
   allow_failure: true
   only:
-    - master
+    - merge_requests
   tags:
     - dev
   script:
