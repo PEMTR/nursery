@@ -1,6 +1,4 @@
-# 基础镜像使用node镜像
-# 因为是纯node服务
-image: node:latest
+image: ubuntu:18.04
 
 # 定义包含的阶段
 stages:
