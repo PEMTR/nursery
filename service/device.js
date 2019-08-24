@@ -22,3 +22,4 @@ crate.model = new model(crate)
 crate.factory = new factory(crate)
 
 process.title = configure.name
+module.exports = crate

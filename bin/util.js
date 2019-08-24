@@ -102,12 +102,12 @@ exports.isValidOID = function (id) {
 
 
 // 判断是否超时
-// @param {number} date
-// @param {number} fdate
+// @param {number} date 到达时间
+// @param {number} timeout 超时
 // @returns {boolean}
 // @public
-exports.timeout = function (date, fdate) {
-  return date >= (Date.now() - fdate)
+exports.timeout = function (date, timeout) {
+  return date < (Date.now() - timeout)
 }
 
 

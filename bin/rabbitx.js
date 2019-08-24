@@ -16,10 +16,11 @@ module.exports =  class Rabbitx {
   constructor ({ configure: { rabbitmq } }) {
     this._events = new events.EventEmitter()
     this.configure = rabbitmq
+    this._connect = null
     this._context = null
     this._listens = {}
     this._map = {}
-    this._connect()
+    this._conn()
     this._timoutLoop()
   }
   
@@ -66,18 +67,18 @@ module.exports =  class Rabbitx {
   // 连接到服务器
   // 检查队列
   // @private
-  async _connect () {
+  async _conn () {
     
     // 链接到消息队列服务器，创建通道
     // 并且给定预取值，默认为预取1条消息
-    let _connect = await amqplib.connect(this.configure.host)
-    this._context = await _connect.createChannel()
+    this._connect = await amqplib.connect(this.configure.host)
+    this._context = await this._connect.createChannel()
     this._context.prefetch(this.configure.prefetch || 1)
     
     // 链接
     // 关闭事件
     // 重连
-    _connect.on("close", (...args) => {
+    this._connect.on("close", (...args) => {
       this._events.emit("connect.close", ...args)
       this._connect()
     })
@@ -85,20 +86,20 @@ module.exports =  class Rabbitx {
     // 链接
     // 错误事件
     // 重连
-    _connect.on("error", (...args) => {
+    this._connect.on("error", (...args) => {
       this._events.emit("connect.error", ...args)
       this._connect()
     })
     
     // 链接
     // 阻止事件
-    _connect.on("blocked", (...args) => {
+    this._connect.on("blocked", (...args) => {
       this._events.emit("connect.blocked", ...args)
     })
     
     // 链接
     // 资源释放事件
-    _connect.on("unblocked", (...args) => {
+    this._connect.on("unblocked", (...args) => {
       this._events.emit("connect.blocked", ...args)
     })
     
@@ -186,6 +187,13 @@ module.exports =  class Rabbitx {
         if (format === "json") {
           let str = message.content.toString()
           return JSON.parse(str)
+        }
+        
+        // 转Boolean
+        // 转字符串
+        if (format === "boolean") {
+          let str = message.content.toString()
+          return str === "true"
         }
       }
     }
@@ -359,6 +367,19 @@ module.exports =  class Rabbitx {
     }
   }
   
+  // 准备完成
+  // @return {Promise<void>}
+  // @public
+  async ready () {
+    void await this._awitConn()
+  }
+  
+  // 关闭
+  // @public
+  async close () {
+    return await this._connect.close()
+  }
+  
   // 监听交易
   // @params {string} topic 主题
   // @params {async function} process 消息处理函数
@@ -387,34 +408,34 @@ module.exports =  class Rabbitx {
   // @params {any} message 消息
   // @return {Promise<boolean>}
   // @public
-  async SendTransfer (topic, message) {
-    let _uid = uuid()
-    let _backTopic = await this._checkTransferTopic(topic)
-    let _message = this._stringify(message)
-    let _body = { message: _message, uid: _uid }
-    let _buf = Buffer.from(JSON.stringify(_body))
-    this._context.sendToQueue(topic, _buf)
-    this._checkTransferListen(_backTopic, _uid)
-    
-    // 事件报告
-    this._events.emit("send.transfer", {
-      topic, message
-    })
-    
-    // 初始化消息对象
-    // 并且记录消息创建时间
-    // 此处是为了处理超时的函数
-    this._listens[_backTopic][_uid] = { 
-      process: null,
-      date: Date.now() 
-    }
-    
-    // 返回Promise
-    // 并且给当前UID消息给定闭包处理函数
-    // 当回调完成的时候处理回调信息
-    return new Promise((reslove, reject) => {
-      this._listens[_backTopic][_uid].process = function ({ error, success }) {
-        error ? reject(new Error(error)) : reslove(success)
+  SendTransfer (topic, message) {
+    return new Promise(async (reslove, reject) => {
+      let _uid = uuid()
+      let _backTopic = await this._checkTransferTopic(topic)
+      let _message = this._stringify(message)
+      let _body = { message: _message, uid: _uid }
+      let _buf = Buffer.from(JSON.stringify(_body))
+      this._context.sendToQueue(topic, _buf)
+      this._checkTransferListen(_backTopic, _uid)
+
+      // 事件报告
+      this._events.emit("send.transfer", {
+        topic, message
+      })
+
+      // 初始化消息对象
+      // 并且记录消息创建时间
+      // 此处是为了处理超时的函数
+      this._listens[_backTopic][_uid] = { 
+        process: null,
+        date: Date.now() 
+      }
+      
+      // 返回Promise
+      // 并且给当前UID消息给定闭包处理函数
+      // 当回调完成的时候处理回调信息
+      this._listens[_backTopic][_uid].process = ({ error, success }) => {
+        error ? reject(new Error(error)) : reslove(this._parse({ content: success }))
       }
     })
   }

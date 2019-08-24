@@ -12,9 +12,9 @@ const cluster = require("cluster")
 // @params {string} pid
 // @params {any} msg
 // @private
-function Broad (work) {
+const Broad = work => {
   work.on("error", console.error)
-  work.on("message", function (msg) {
+  work.on("message", msg => {
     for (let id in cluster.workers) {
       let _work = cluster.workers[id]
       (id !== work.id) && _work.send(msg)
@@ -45,4 +45,12 @@ if (cluster.isMaster) {
   // 启动指定服务入口
   let _model = process.argv[2]
   require("./service/" + _model + ".js")
+}
+
+
+// 有无自动退出
+if (typeof process.argv[4] === "string") {
+  setTimeout(_ => {
+    process.exit(0)
+  }, Number(process.argv[4]) || 20000)
 }

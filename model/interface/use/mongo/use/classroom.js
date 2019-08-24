@@ -124,9 +124,10 @@ module.exports = class Classroom {
   // @params {onjectId} [userId] 用户索引
   // @params {number} [skip] 跳过
   // @params {number} [limit] 限制
+  // @params {function} params 内部参数传递
   // @return {Promise<array>}
   // @public
-  async trend ({ cupId, userId, skip, limit }) {
+  async trend ({ cupId, userId, skip, limit }, params) {
     
     // 检查水杯是否归属于此用户
     // 并且查询水杯的班级绑定信息
@@ -144,6 +145,9 @@ module.exports = class Classroom {
       } },
       { $unwind: "$cup" }
     ]).next(), "E.NOTFOUND")
+    
+    // 参数返回
+    params && params(userCup)
     
     // 查询园区获取列表
     return await this.mongo.Cos.ClassroomTrend.aggregate([
