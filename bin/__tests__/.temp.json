@@ -1,0 +1,19 @@
+{
+      "title": "test",
+      "description": "test in validate",
+      "type": "object",
+      "required": [
+          "name",
+          "age"
+      ],
+      "properties": {
+          "name": {
+              "type": "string"
+          },
+          "age": {
+              "type": "integer",
+              "max": 100,
+              "min": 1
+          }
+      }
+  }

@@ -17,10 +17,10 @@ router.get("/", async function (req) {
 
 // 分享小象公众号
 router.post("/share/wechat", async function (req) {
-  return await req.crate.rabbitx.SendTransfer("CoreWater", {
+  return (await req.crate.rabbitx.SendTransfer("CoreWater", {
     type: "ShareWechatPublicNumber",
     data: { user: req.user._id }
-  })
+  })).as("boolean")
 })
 
 

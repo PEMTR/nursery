@@ -134,6 +134,19 @@ module.exports = class Mongod {
     }
   }
   
+  // 等待
+  // @return {Promise<this>}
+  // @public
+  async ready () {
+    void await this._awitConn()
+  }
+  
+  // 关闭
+  // @public
+  close () {
+    this._mongod.close()
+  }
+  
   // 获取句柄
   // @return {Proxy<class>}
   // @public

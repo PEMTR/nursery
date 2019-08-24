@@ -18,6 +18,17 @@ before_script:
   - chmod +x .autodevops/before.sh
   - .autodevops/before.sh
   - npm install
+  
+# binary
+binary_test:
+  stage: test
+  allow_failure: true
+  only:
+    - merge_requests
+  tags:
+    - dev
+  script:
+    - npm run testing
 
 # 缓存服务
 service_cache_test:

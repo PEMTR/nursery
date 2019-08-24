@@ -134,4 +134,4 @@ test("重试函数", async function () {
   }) } catch {}
   expect(_out).toBe(1)
   expect(_limit).toBe(3)
-})
+}, 10000)
