@@ -2,20 +2,41 @@
   "name": "nursery",
   "version": "0.0.1",
   "main": "main.js",
-  "description": "小象喝水项目服务集群",
+  "license": "MIT",
+  "description": "Kindergarten project service cluster.",
   "author": "Mr.Panda <xivistudios@gmail.com> (https://github.com/quasipaa)",
   "homepage": "https://github.com/quasipaa/nursery",
-  "license": "MIT",
-  "keywords": [],
   "repository": {
     "type": "git",
     "url": "https://github.com/quasipaa/nursery"
   },
   "scripts": {
     "docker-build": "docker build --tag=$1 .",
-    "testing": "./node_modules/mocha/bin/mocha --require intelli-espower-loader ./unit_testing/*.js",
-    "test": "jest"
+    "testing": "jest"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "rootDir": "./",
+    "roots": [
+      "./"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.js",
+      "!**/node_modules/**"
+    ]
+  },
+  "keywords": [
+    "node.js",
+    "mongodb",
+    "rabbitmq",
+    "oss",
+    "elk",
+    "docker",
+    "gitlab"
+  ],
   "dependencies": {
     "@elastic/elasticsearch": "^7.2.0",
     "@sentry/node": "^5.5.0",
@@ -43,8 +64,5 @@
   },
   "devDependencies": {
     "jest": "^24.9.0"
-  },
-  "jest": {
-    
   }
 }
