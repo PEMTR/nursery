@@ -1,0 +1,8 @@
+# ==============
+# Redis配置
+# ==============
+
+[redis]
+host = "server.local"
+port = 6379
+password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
