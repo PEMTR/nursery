@@ -1,13 +1,9 @@
 "use strict"
 
-
-// package
-// @package
 const validate = require("../validate")
 const validatx = new validate(true, "e.validate")
 
-
-test("validate", function () {
+test("validate", () => {
   let _temp = require("./.temp.json")
   let _data = { name: "panda", age: 10 }
   validatx.bind("test", _temp)
