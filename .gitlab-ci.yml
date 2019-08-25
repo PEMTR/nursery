@@ -27,5 +27,6 @@ binary_test:
     - merge_requests
   tags:
     - dev
+    - local-dev
   script:
     - npm run testing
