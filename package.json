@@ -12,7 +12,8 @@
   },
   "scripts": {
     "docker-build": "docker build --tag=$1 .",
-    "testing": "jest"
+    "testing": "jest",
+    "test-watch": "jest --watchAll"
   },
   "jest": {
     "testEnvironment": "node",
@@ -24,8 +25,9 @@
       "./"
     ],
     "testMatch": [
-      "**/__tests__/**/*.js",
-      "!**/node_modules/**"
+      "**/.testing/**/*.js",
+      "!**/node_modules/**",
+      "!**/.crate.js"
     ]
   },
   "keywords": [

@@ -86,7 +86,7 @@
 * `router` 路由类.</br>
 * `schema` 接口校验类.</br>
 * `service` 服务入口.</br>
-* `__tests__` 单元测试.</br>
+* `.testing` 单元测试.</br>
 * `.dockerignore` Docker 忽略规则.</br>
 * `.alinode.json` AliNode 性能基线和监控服务配置.</br>
 * `.gitlab-ci.yml` GitLab CI/CD 配置.</br>
