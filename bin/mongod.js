@@ -75,7 +75,8 @@ module.exports = class Mongod {
   _from ({ host, port, db, options, auth }) {
     let _temp = auth ? "mongodb://%s:%s@%s:%s/%s" : "mongodb://%s:%s/%s"
     let _args = auth ? [ auth.username, auth.password, host, port, db ] : [ host, port, db ]
-    this.self.MongoClient.connect(util.format(_temp, ..._args), options || DEFAULT_OPT).then(mongod => {
+    let _opts = [ util.format(_temp, ..._args), options || DEFAULT_OPT ]
+    this.self.MongoClient.connect(..._opts).then(mongod => {
       this._mongod = mongod
       this._db = db
       
