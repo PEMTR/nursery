@@ -19,6 +19,7 @@ const factory = require("../factory/disk/mod")
 const middlewares = require("../middleware")
 const elasticx = require("../bin/elasticx")
 const rabbitx = require("../bin/rabbitx")
+const referer = require("../bin/referer")
 const media = require("../bin/media")
 const code = require("../code")
 
@@ -40,6 +41,7 @@ crate.multer = new multer(crate)
 crate.rabbitx = new rabbitx(crate)
 crate.elasticx = new elasticx(crate)
 crate.analysis = new analysis(crate)
+crate.referer = new referer(crate)
 crate.model = new model(crate)
 crate.factory = new factory(crate)
 
@@ -50,4 +52,3 @@ app.use(middleware.hooks())
 
 server.listen(configure.listen)
 process.title = configure.name
-module.exports = crate

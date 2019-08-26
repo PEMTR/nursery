@@ -4,7 +4,6 @@
 // package
 // @package
 const mongo = require("./use/mongo/mod")
-const redis = require("./use/redis/mod")
 const resolver = require("./use/resolver/mod")
 
 
@@ -13,7 +12,6 @@ const resolver = require("./use/resolver/mod")
 module.exports = class Interface {
   constructor (crate) {
     this.Mongo = new mongo(crate)
-    this.Redis = new redis(crate)
     this.Resolver = new resolver(crate)
   }
 }

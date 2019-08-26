@@ -48,3 +48,13 @@ name = "nursery.disk"
 [rabbitmq]
 host = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
 prefetch = 1
+
+
+# ==============
+# 防盗链配置
+# ==============
+
+[referer]
+host = "localhost"
+expires = 900000
+root = "/mnt/d/project/nursery/AppData"

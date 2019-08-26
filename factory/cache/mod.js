@@ -36,7 +36,15 @@ module.exports = class Cache {
   // @params {objectid} [documentKey._id] 索引
   // @private
   async _process (target) {
-    let { ns: { coll }, documentKey: { _id } } = target
+    let { ns: { coll }, documentKey: { _id } = {} } = target
+    
+    // 为空
+    // 不继续执行
+    if (!_id) {
+      return false
+    }
+    
+    // 处理缓存模型
     let _skey = "CACHE.MODEL." + coll + "." + _id.toString()
     let _akey = "CACHE.MODEL." + coll + ".all"
     let _keys = await this.redis.promise.smembers(_skey)

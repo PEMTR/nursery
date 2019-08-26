@@ -34,7 +34,7 @@ module.exports = class Image {
   // 任务
   // @params {string} name 文件名
   // @params {string} mime 文件类型
-  // @params {string} uid 任务标识
+  // @params {Array<string>} uid 任务标识
   // @return {Promise<void>}
   // @public
   async process (name, mime, uid) {

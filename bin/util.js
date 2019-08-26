@@ -232,3 +232,18 @@ exports.DaySplit = function () {
   let before = moment().set(_e).valueOf()
   return { after, before }
 }
+
+
+// 写入响应流
+// @params {stream} write
+// @params {string} path
+// @return {Promise<void>}
+// @private
+exports.WriteStream = function (write, path) {
+  return new Promise((resolve, reject) => {
+    fs.createReadStream(path)
+      .on("error", reject)
+      .on("end", resolve)
+      .pipe(write)
+  })
+}
