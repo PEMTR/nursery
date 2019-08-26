@@ -23,12 +23,11 @@ module.exports = class Referer {
   // @params {string} dir 路径
   // @return {string}
   // @private
-  _safePath (dir) {
+  safe_path (dir) {
     let _dir = path.resolve(dir)
     
     // 检查是否被包含
-    // 如果不被包含
-    // 抛出错误
+    // 如果不被包含则抛出错误
     if (!_dir.startsWith(this._root)) {
       throw new Error("path unsafe.")
     }
@@ -43,7 +42,7 @@ module.exports = class Referer {
   // @return {Promise<void>}
   // @public
   async stream (file, stream) {
-    let _dirname = this._safePath(file)
+    let _dirname = this.safe_path(file)
     return await this.util.WriteStream(stream, _dirname)
   }
 }

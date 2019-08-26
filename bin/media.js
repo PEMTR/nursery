@@ -12,28 +12,21 @@ const thumbnail = require("simple-thumbnail")
 // @params {string || stream} out 输出文件
 // @return {Promise<void>}
 // @public
-exports.Trans = function (input, out) {
-  return new Promise((resolve, reject) => {
-    ffmpeg(input)
-      .on("error", reject)
-      .on("end", resolve)
-      .output(out)
-      .run()
-  })
-}
+exports.trans = (input, out) => new Promise((resolve, reject) => {
+  ffmpeg(input).on("error", reject).on("end", resolve).output(out).run()
+})
 
 
 // 获取媒体元信息
 // @params {string || stream} file 文件路径
 // @return {Promise<object>}
 // @public
-exports.Meta = function (file) {
-  return new Promise((resolve, reject) => {
-    ffmpeg(file).ffprobe((err, result) => {
-      err ? reject(err) : resolve(result)
-    })
+exports.meta = file => new Promise((resolve, reject) => {
+  ffmpeg(file).ffprobe((err, result) => {
+    err ? reject(err) : resolve(result)
   })
-}
+})
+
 
 // 视频截图
 // @params {string || stream} file 文件路径
@@ -42,18 +35,12 @@ exports.Meta = function (file) {
 // @params {string} skip 跳过
 // @return {Promise<void>}
 // @public
-exports.VideoScreenHots = function (file, folder, out, skip) {
-  return new Promis((resolve, reject) => {
-    ffmpeg(file)
-      .on("error", reject)
-      .on("end", resolve)
-      .screenshots({
-        timestamps: [ skip ],
-        filename: out,
-        folder
-      })
+exports.screenhots = (file, folder, out, skip) => new Promis((resolve, reject) => {
+  ffmpeg(file).on("error", reject).on("end", resolve).screenshots({
+    timestamps: [ skip ], filename: out, folder
   })
-}
+})
+
 
 // 缩略图处理
 // @params {path} file 文件路径
@@ -61,6 +48,6 @@ exports.VideoScreenHots = function (file, folder, out, skip) {
 // @params {string} size 尺寸
 // @return {Promise<object>}
 // @public
-exports.ImageResize = async function (file, out, size) {
+exports.resize = async (file, out, size) => {
   return await thumbnail(file, out, size)
 }
