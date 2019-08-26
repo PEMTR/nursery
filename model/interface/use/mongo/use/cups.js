@@ -11,8 +11,9 @@ const assert = require("assert").strict
 module.exports = class UserCups {
    
   // @new
-  constructor ({ mongo }) {
+  constructor ({ mongo, util }) {
     this.mongo = mongo
+    this.util = util
   }
   
   // 查询用户关联水杯列表信息
@@ -100,8 +101,7 @@ module.exports = class UserCups {
     return await this.mongo.Cos.CupPhoto.aggregate([
       { $match: {
         cup: cupId,
-        $lte: lte,
-        $gte: gte
+        date: { $lte: lte, $gte: gte }
       } },
       { $skip: skip },
       { $limit: limit },
