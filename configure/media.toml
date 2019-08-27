@@ -11,7 +11,7 @@ name = "nursery.media"
 
 [stage]
 path = "/mnt/d/project/nursery/AppData"
-size = "280x?"
+size = 280
 
 
 # ==============

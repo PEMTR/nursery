@@ -4,7 +4,7 @@
 // package
 // @package
 const ffmpeg = require("fluent-ffmpeg")
-const thumbnail = require("simple-thumbnail")
+const sharp = require("sharp")
 
 
 // 媒体转码
@@ -45,9 +45,9 @@ exports.screenhots = (file, folder, out, skip) => new Promis((resolve, reject) =
 // 缩略图处理
 // @params {path} file 文件路径
 // @params {path} out 输出文件
-// @params {string} size 尺寸
+// @params {number} size 尺寸
 // @return {Promise<object>}
 // @public
 exports.resize = async (file, out, size) => {
-  return await thumbnail(file, out, size)
+  return await sharp(file).resize(size).png().toFile(out)
 }
