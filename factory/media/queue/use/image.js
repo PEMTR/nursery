@@ -50,7 +50,7 @@ module.exports = class Image {
     
     // 处理缩略图
     // 重命名文件，消除后缀
-    void await this.media.ImageResize(inputpath, outpath, size)
+    void await this.media.resize(inputpath, outpath, size)
     void await this._rename(outpath, path.join(dir, outuid))
     
     // 推送到回调队列
