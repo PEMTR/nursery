@@ -157,9 +157,9 @@ exports.isEmail = function (email) {
 exports.save = function (url, write) {
   return new Promise((resolve, reject) => {
     let ctx = url.includes("https://") ? https : http
-    let req = ctx.get(url, res => res.pipe(write))
-    req.on("finish", resolve)
-    req.on("error", reject)
+    ctx.get(url, res => res.pipe(write))
+    write.on("finish", resolve)
+    write.on("error", reject)
   })
 }
 
