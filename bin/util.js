@@ -150,16 +150,16 @@ exports.isEmail = function (email) {
 
 
 // 下载文件
-// @param {string} uri 下载地址
+// @param {string} url 下载地址
 // @param {stream} write 写入流
 // @returns {Promise}
 // @public
-exports.save = function (uri, write) {
+exports.save = function (url, write) {
   return new Promise((resolve, reject) => {
-    let x = uri.includes("https://") ? https : http
-    x.get(uri, res => res.pipe(write))
-      .on("error", reject)
-      .on("finish", resolve)
+    let ctx = url.includes("https://") ? https : http
+    let req = ctx.get(url, res => res.pipe(write))
+    req.on("finish", resolve)
+    req.on("error", reject)
   })
 }
 
