@@ -1,0 +1,26 @@
+{
+      "title": "test",
+      "description": "test in validate",
+      "type": "object",
+      "required": [
+          "username",
+          "password"
+      ],
+      "properties": {
+          "username": {
+              "type": "string"
+          },
+          "password": {
+              "type": "string"
+          },
+          "status": {
+              "type": "integer",
+              "max": 100,
+              "min": 1
+          },
+          "phone": {
+              "type": "string",
+              "format": "phone"
+          }
+      }
+  }

@@ -17,10 +17,10 @@ router.get("/", async function (req) {
 
 // 用户签到
 router.post("/", async function (req) {
-  return await req.crate.rabbitx.SendTransfer("CoreWater", {
+  return (await req.crate.rabbitx.SendTransfer("CoreWater", {
     data: { user: req.user._id },
     type: "SignIn"
-  })
+  })).as("boolean")
 })
 
 

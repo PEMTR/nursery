@@ -33,6 +33,8 @@
 * [x] 接口文档.</br>
 * [ ] 系统文档.</br>
 * [x] 项目CI/CD.</br>
+* [x] 单元测试.</br>
+* [ ] 继承测试.</br>
 
 
 ### 概述
@@ -72,6 +74,7 @@
 
 
 ### 结构
+* `.autodevops` 自动继承相关.</br>
 * `analysis` 性能指标及日志类.</br>
 * `bin` 动态依赖库.</br>
 * `cache` 缓存类.</br>
@@ -83,7 +86,7 @@
 * `router` 路由类.</br>
 * `schema` 接口校验类.</br>
 * `service` 服务入口.</br>
-* `unit_testing` 单元测试.</br>
+* `.testing` 单元测试.</br>
 * `.dockerignore` Docker 忽略规则.</br>
 * `.alinode.json` AliNode 性能基线和监控服务配置.</br>
 * `.gitlab-ci.yml` GitLab CI/CD 配置.</br>

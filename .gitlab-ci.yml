@@ -1,4 +1,4 @@
-image: ubuntu:18.04
+image: node:latest
 
 # 定义包含的阶段
 stages:
@@ -18,68 +18,15 @@ before_script:
   - chmod +x .autodevops/before.sh
   - .autodevops/before.sh
   - npm install
-
-# 缓存服务
-service_cache_test:
-  stage: test
-  only:
-    - master
-  tags:
-    - dev
-  script:
-    - node service/cache.js
-
-# 核心服务
-service_core_test:
+  
+# binary
+binary_test:
   stage: test
   allow_failure: true
   only:
-    - master
+    - merge_requests
   tags:
     - dev
+    - local-dev
   script:
-    - node service/core.js
-
-# 设备服务
-service_device_test:
-  stage: test
-  allow_failure: true
-  only:
-    - master
-  tags:
-    - dev
-  script:
-    - node service/device.js
-
-# 存储服务
-service_disk_test:
-  stage: test
-  allow_failure: true
-  only:
-    - master
-  tags:
-    - dev
-  script:
-    - node service/disk.js
-
-# 接口服务
-service_interface_test:
-  stage: test
-  allow_failure: true
-  only:
-    - master
-  tags:
-    - dev
-  script:
-    - node service/interface.js
-
-# 多媒体处理服务
-service_media_test:
-  stage: test
-  allow_failure: true
-  only:
-    - master
-  tags:
-    - dev
-  script:
-    - node service/media.js
+    - npm run testing

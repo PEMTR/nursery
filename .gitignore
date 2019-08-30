@@ -32,3 +32,4 @@ typings/
 /static/
 /AppData/
 package-lock.json
+/coverage/

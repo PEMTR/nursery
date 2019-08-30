@@ -2,19 +2,43 @@
   "name": "nursery",
   "version": "0.0.1",
   "main": "main.js",
-  "description": "小象喝水项目服务集群",
+  "license": "MIT",
+  "description": "Kindergarten project service cluster.",
   "author": "Mr.Panda <xivistudios@gmail.com> (https://github.com/quasipaa)",
   "homepage": "https://github.com/quasipaa/nursery",
-  "license": "MIT",
-  "keywords": [],
   "repository": {
     "type": "git",
     "url": "https://github.com/quasipaa/nursery"
   },
   "scripts": {
-    "run": "node main.js",
-    "docker-build": "docker build --tag=$1 ."
+    "docker-build": "docker build --tag=$1 .",
+    "testing": "jest",
+    "test-watch": "jest --watchAll"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "rootDir": "./",
+    "roots": [
+      "./"
+    ],
+    "testMatch": [
+      "**/.testing/**/*.js",
+      "!**/node_modules/**",
+      "!**/.crate.js"
+    ]
+  },
+  "keywords": [
+    "node.js",
+    "mongodb",
+    "rabbitmq",
+    "oss",
+    "elk",
+    "docker",
+    "gitlab"
+  ],
   "dependencies": {
     "@elastic/elasticsearch": "^7.2.0",
     "@sentry/node": "^5.5.0",
@@ -39,5 +63,8 @@
     "signale": "^1.4.0",
     "simple-thumbnail": "^1.5.6",
     "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
   }
 }

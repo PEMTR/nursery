@@ -18,6 +18,7 @@ module.exports = class Redis {
     this._promise = {}
     this._proxy = null
     this.self = null
+    this._con = false
     this._connect(redis)
   }
   
@@ -26,11 +27,15 @@ module.exports = class Redis {
   // @private
   _connect (redis) {
     this.self = createClient(redis)
+    this.self.on("ready", _ => {
+      this._con = true
+    })
     
     // 错误事件
     // 报告
     // 重连
     this.self.on("error", err => {
+      this._con = false
       this._events.emit("error", err)
       this._connect(redis)
     })
@@ -66,12 +71,33 @@ module.exports = class Redis {
     return this._proxy
   }
   
+  // 等待准备
+  // @return {Promise<this>}
+  // @public
+  ready () {
+    return new Promise((resolve, _) => {
+      let _loop = setInterval(_ => {
+        if (this._con === true) {
+          clearInterval(_loop)
+          resolve()
+        }
+      }, 500)
+    })
+  }
+  
+  // 关闭
+  // @return {void}
+  // @public
+  close () {
+    this.self.quit()
+  }
+  
   // 绑定事件
   // @params {string} event 事件
   // @params {function} process 事件处理
   // @return {Promise<void>}
   // @public
   on (event, process) {
-    this._events(event, process)
+    this._events.on(event, process)
   }
 }

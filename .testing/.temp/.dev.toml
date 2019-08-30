@@ -1,0 +1,61 @@
+# ==============
+# MongoDB配置
+# ==============
+
+[mongo]
+host = "server.local"
+port = 27017
+db = "nursery"
+
+# 数据库认证
+[mongo.auth]
+username = "nursery"
+password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
+
+
+# ==============
+# Redis配置
+# ==============
+
+[redis]
+host = "server.local"
+port = 6379
+password = "MGE1MTA0OGMzMzBkNjE4YzgwZDJiZTdhOGM4ZTI3MTMwOGJmZjZiOTJiYTFkZjhjZDY5YWE1NzQzOTkwMjc0Mm===="
+
+
+# ==============
+# 加密配置
+# ==============
+
+[crypto]
+method = "aes256"
+password = "ZDQxZTQ4OGM4MTg4ZDkYzljNjYIyNzcy"
+
+
+# ==============
+# RabbitMQ配置
+# ==============
+
+[rabbitmq]
+host = "amqp://panda:panda@server.local"
+prefetch = 1
+
+
+# ==============
+# 缓存配置
+# ==============
+
+[cache]
+host = "localhost"
+port = 8089
+
+
+# ==============
+# ELK配置
+# ==============
+
+[elk]
+node = "http://elk.server.local:9200"
+maxRetries = 3
+requestTimeout = 10000
+name = "nursery.interface"
