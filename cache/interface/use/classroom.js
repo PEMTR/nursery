@@ -80,10 +80,9 @@ module.exports = class Classroom {
   // @public
   async trend ({ userId, cupId, skip, limit }) {
     let _params = null
-    return await this.quasipaa.Engine("classroom.water.sort", {
+    return await this.quasipaa.Engine("classroom.trend", {
       user: userId.toString(),
-      cup: cupId.toString(),
-      after, before
+      cup: cupId.toString()
     }, async _ => {
       
       // 获取园区活动列表
