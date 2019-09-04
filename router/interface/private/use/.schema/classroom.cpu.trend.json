@@ -1,0 +1,24 @@
+{
+    "title": "private.classroom.cpu",
+    "description": "获取活动列表",
+    "type": "object",
+    "required": [
+        "cup"
+    ],
+    "properties": {
+        "cup": {
+            "type": "string",
+            "format": "objectId"
+        },
+        "page": {
+            "type": "integer",
+            "max": 999,
+            "min": 1
+        },
+        "limit": {
+            "type": "integer",
+            "max": 100,
+            "min": 1
+        }
+    }
+}

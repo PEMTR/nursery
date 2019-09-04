@@ -10,15 +10,16 @@ const router = express.Router()
 
 // 兑换虚拟商品
 router.get("/mock/:commodity/:count", Schema({
-  temp: require("./.schema/private.commodity.user.get.mock.json")
+  temp: require("./.schema/commodity.user.get.mock.json")
 }, async function (req) {
-  let { _id } = req.user
   req.params.count = Number(req.params.count)
-  return { ...req.params, _id }
+  return req.params
 }), async function (req) {
-  return await req.crate.broker.call("v1.Water.ExchangeMock", req.ctx, { 
-    nodeID: "core"
-  })
+  let { _id } = req.user
+  let { commodity, count } = req.ctx
+  return await req.crate.broker.call("v1.Water.ExchangeMock", {
+    commodity, count, user: _id
+  }, { nodeID: "core" })
 })
 
 

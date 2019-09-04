@@ -3,6 +3,7 @@
 
 // package
 // @package
+const { Schema } = require("lazy_mod/validate")
 const express = require("lazy_mod/express")
 const router = express.Router()
 
@@ -16,12 +17,13 @@ router.get("/all", async function (req) {
 
 
 // 用户设置水杯提醒
-router.put("/:cup/notice", async function (req) {
+router.put("/:cup/notice/:notice", Schema({
+  temp: require("./.schema/cpu.json")
+}, async function (req) {
+  return req.params
+}), async function (req) {
   let { _id } = req.user
   let { cup } = req.params
-  let { boolean } = req.body
-  req.crate.schema.eq("private.cup.set.notice", { cup, boolean })
-  let notice = boolean
   let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
   return await req.crate.model.Mongo.Cups.setNotice({ cupId, userId, notice })
@@ -29,10 +31,13 @@ router.put("/:cup/notice", async function (req) {
 
 
 // 获取水杯取水动画
-router.get("/:cup/animation", async function (req) {
+router.get("/:cup/animation", Schema({
+  temp: require("./.schema/cpu.json")
+}, async function (req) {
+  return req.params
+}), async function (req) {
   let { _id } = req.user
   let { cup } = req.params
-  req.crate.schema.eq("private.cup.get.animation", req.params)
   let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
   return await req.crate.model.Mongo.Animation.cup({ cupId, userId })
@@ -40,10 +45,13 @@ router.get("/:cup/animation", async function (req) {
 
 
 // 获取水杯取水语音
-router.get("/:cup/audio", async function (req) {
+router.get("/:cup/audio", Schema({
+  temp: require("./.schema/cpu.json")
+}, async function (req) {
+  return req.params
+}), async function (req) {
   let { _id } = req.user
   let { cup } = req.params
-  req.crate.schema.eq("private.cup.get.audio", req.params)
   let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
   return await req.crate.model.Mongo.Audio.cup({ cupId, userId })
@@ -54,7 +62,6 @@ router.get("/:cup/audio", async function (req) {
 router.put("/:cup/animation/:animation", async function (req) {
   let { _id } = req.user
   let { cup, animation } = req.params
-  req.crate.schema.eq("private.cup.set.animation", req.params)
   let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
   let animationId = req.crate.util.createHexId(animation)
@@ -66,7 +73,6 @@ router.put("/:cup/animation/:animation", async function (req) {
 router.put("/:cup/audio/:audio", async function (req) {
   let { _id } = req.user
   let { cup, audio } = req.params
-  req.crate.schema.eq("private.cup.set.audio", req.params)
   let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
   let audioId = req.crate.util.createHexId(audio)
