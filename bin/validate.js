@@ -25,6 +25,41 @@ module.exports = class Schema {
     this.map = {}
   }
   
+  // 路由中间件
+  // @return {function}
+  // @public
+  express () {
+    return (req, _, next) => {
+      req._validate_ = this
+      next()
+    }
+  }
+  
+  // 模式
+  // @param {object} [temp] 模板
+  // @param {function} process 处理函数
+  // @return {function}
+  // @public
+  // @static
+  static Schema ({ temp }, process) {
+    return async (req, _, next) => {
+      let { title } = temp
+      
+      // 检查是否绑定
+      // 如果未绑定就直接绑定
+      if (!req._validate_.map[title]) {
+        req._validate_.bind(title, temp)
+      }
+      
+      // 处理数据
+      // 校验参数
+      // 递交
+      req.ctx = await process(req)
+      req._validate_.schema(title, req.ctx)
+      next()
+    }
+  }
+  
   // 绑定模板
   // @params {string} key 索引
   // @params {object} temp 模板

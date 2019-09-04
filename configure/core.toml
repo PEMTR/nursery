@@ -1,8 +1,18 @@
 # ==============
-# 服务配置
+# 配置
 # ==============
 
 name = "nursery.core"
+
+
+# ==============
+# 服务配置
+# ==============
+[service]
+nodeID = "core"
+transporter = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
+logLevel = "debug"
+requestTimeout = 5000
 
 
 # ==============
@@ -18,12 +28,3 @@ db = "nursery"
 [mongo.auth]
 username = "nursery"
 password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
-
-
-# ==============
-# RabbitMQ配置
-# ==============
-
-[rabbitmq]
-host = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
-prefetch = 1

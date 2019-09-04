@@ -7,8 +7,8 @@ module.exports = class Water {
   
   // @new
   constructor ({ util, model }) {
-    this.util = util
     this.model = model
+    this.util = util
   }
   
   // 水滴兑换虚拟商品

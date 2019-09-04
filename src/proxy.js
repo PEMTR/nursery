@@ -36,5 +36,3 @@ app.use(middleware.filter(), routers)
 app.use(middleware.hooks())
 
 server.listen(configure.listen)
-process.title = configure.name
-module.exports = crate

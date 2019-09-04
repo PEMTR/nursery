@@ -13,10 +13,10 @@ const schema = require("../schema/interface/mod")
 const model = require("../model/interface/mod")
 const cache = require("../cache//interface/mod")
 const analysis = require("../analysis/interface/mod")
+const { ServiceBroker } = require("moleculer")
 const middlewares = require("../middleware")
 const quasipaa = require("../bin/quasipaa")
 const elasticx = require("../bin/elasticx")
-const rabbitx = require("../bin/rabbitx")
 const decrypt = require("../bin/decrypt")
 const wechat = require("../bin/wechat")
 const mongod = require("../bin/mongod")
@@ -28,10 +28,12 @@ const crate = {}
 const app = express()
 const configure = util.readtoml(NURSERY_INTERFACE_CONFFILE)
 const middleware = new middlewares({ configure, code }, crate)
+const broker = new ServiceBroker(configure.service)
 const server = http.createServer(app)
 
 crate.code = code
 crate.util = util
+crate.broker = broker
 crate.pid = process.pid
 crate.env = process.env
 crate.dirname = __dirname
@@ -43,7 +45,6 @@ crate.decrypt = new decrypt(crate)
 crate.wechat = new wechat(crate)
 crate.model = new model(crate)
 crate.schema = new schema(crate)
-crate.rabbitx = new rabbitx(crate)
 crate.elasticx = new elasticx(crate)
 crate.analysis = new analysis(crate)
 crate.cache = new cache(crate)
@@ -54,5 +55,4 @@ app.use(middleware.filter(), routers)
 app.use(middleware.hooks())
 
 server.listen(configure.listen)
-process.title = configure.name
-module.exports = crate
+broker.start()

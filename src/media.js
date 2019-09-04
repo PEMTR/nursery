@@ -16,6 +16,3 @@ crate.media = media
 crate.configure = configure
 crate.rabbitx = new rabbitx(crate)
 crate.factory = new factory(crate)
-
-process.title = configure.name
-module.exports = crate

@@ -20,6 +20,3 @@ crate.rabbitx = new rabbitx(crate)
 crate.mongo = new mongod(crate)
 crate.model = new model(crate)
 crate.factory = new factory(crate)
-
-process.title = configure.name
-module.exports = crate

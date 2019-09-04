@@ -1,10 +1,20 @@
 # ==============
-# 服务配置
+# 配置
 # ==============
 
 listen = 8080
 name = "nursery.interface"
 debug = true
+
+
+# ==============
+# 服务配置
+# ==============
+[service]
+nodeID = "interface"
+transporter = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
+logLevel = "debug"
+requestTimeout = 5000
 
 
 # ==============
@@ -57,15 +67,6 @@ password = "ZDQxZTQ4OGM4MTg4ZDkYzljNjYIyNzcy"
 [schema]
 status = true
 code = "E.PARAMS.TYPE"
-
-
-# ==============
-# RabbitMQ配置
-# ==============
-
-[rabbitmq]
-host = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
-prefetch = 1
 
 
 # ==============
