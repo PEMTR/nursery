@@ -4,8 +4,6 @@
 // package
 // @package
 const fs = require("fs")
-const url = require("url")
-const path = require("path")
 const http = require("http")
 const toml = require("toml")
 const https = require("https")
