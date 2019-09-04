@@ -236,7 +236,7 @@ exports.DaySplit = function () {
 // @params {stream} write
 // @params {string} path
 // @return {Promise<void>}
-// @private
+// @public
 exports.WriteStream = function (write, path) {
   return new Promise((resolve, reject) => {
     fs.createReadStream(path)
@@ -244,4 +244,14 @@ exports.WriteStream = function (write, path) {
       .on("end", resolve)
       .pipe(write)
   })
+}
+
+
+// 转Boolean
+// @param {*any} any
+// @public
+exports.toBoolean = function (any) {
+  any = typeof any === "string" ? any === "true" : any
+  any = Boolean(any)
+  return any
 }

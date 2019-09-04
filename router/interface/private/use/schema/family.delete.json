@@ -1,17 +1,17 @@
 {
-    "title": "private.cup.set.animation",
-    "description": "设置水杯取水动画",
+    "title": "private.family.delete",
+    "description": "删除家庭成员",
     "type": "object",
     "required": [
-        "cup",
-        "animation"
+        "family",
+        "user"
     ],
     "properties": {
-        "cup": {
+        "family": {
             "type": "string",
             "format": "objectId"
         },
-        "animation": {
+        "user": {
             "type": "string",
             "format": "objectId"
         }

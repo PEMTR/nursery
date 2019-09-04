@@ -10,7 +10,7 @@ const router = express.Router()
 
 // 兑换虚拟商品
 router.get("/mock/:commodity/:count", Schema({
-  temp: require("./.schema/commodity.user.get.mock.json")
+  temp: require("./schema/commodity.user.get.mock.json")
 }, async function (req) {
   req.params.count = Number(req.params.count)
   return req.params

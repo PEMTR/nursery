@@ -18,65 +18,80 @@ router.get("/all", async function (req) {
 
 // 用户设置水杯提醒
 router.put("/:cup/notice/:notice", Schema({
-  temp: require("./.schema/cpu.json")
+  temp: require("./schema/cup.notice.json")
 }, async function (req) {
+  req.crate.util.toBoolean(req.params.notice)
   return req.params
 }), async function (req) {
   let { _id } = req.user
-  let { cup } = req.params
-  let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
-  return await req.crate.model.Mongo.Cups.setNotice({ cupId, userId, notice })
+  let cupId = req.crate.util.createHexId(req.ctx.cup)
+  return await req.crate.model.Mongo.Cups.setNotice({
+    notice: req.ctx.notice,
+    cupId, userId
+  })
 })
 
 
 // 获取水杯取水动画
 router.get("/:cup/animation", Schema({
-  temp: require("./.schema/cpu.json")
+  temp: require("./schema/cup.json")
 }, async function (req) {
   return req.params
 }), async function (req) {
   let { _id } = req.user
-  let { cup } = req.params
-  let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
-  return await req.crate.model.Mongo.Animation.cup({ cupId, userId })
+  let cupId = req.crate.util.createHexId(req.ctx.cup)
+  return await req.crate.model.Mongo.Animation.cup({ 
+    cupId, userId 
+  })
 })
 
 
 // 获取水杯取水语音
 router.get("/:cup/audio", Schema({
-  temp: require("./.schema/cpu.json")
+  temp: require("./schema/cup.json")
 }, async function (req) {
   return req.params
 }), async function (req) {
   let { _id } = req.user
-  let { cup } = req.params
-  let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
-  return await req.crate.model.Mongo.Audio.cup({ cupId, userId })
+  let cupId = req.crate.util.createHexId(req.ctx.cup)
+  return await req.crate.model.Mongo.Audio.cup({
+    cupId, userId 
+  })
 })
 
 
 // 设置水杯取水动画
-router.put("/:cup/animation/:animation", async function (req) {
+router.put("/:cup/animation/:animation", Schema({
+  temp: require("./schema/cup.animation.json")
+}, async function (req) {
+  return req.params
+}), async function (req) {
   let { _id } = req.user
-  let { cup, animation } = req.params
-  let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
-  let animationId = req.crate.util.createHexId(animation)
-  return await req.crate.model.Mongo.Animation.cupSet({ animationId, cupId, userId })
+  let cupId = req.crate.util.createHexId(req.ctx.cup)
+  let animationId = req.crate.util.createHexId(req.ctx.animation)
+  return await req.crate.model.Mongo.Animation.cupSet({ 
+    animationId, cupId, userId 
+  })
 })
 
 
 // 设置水杯取水语音
-router.put("/:cup/audio/:audio", async function (req) {
+router.put("/:cup/audio/:audio", Schema({
+  temp: require("./schema/cup.audio.json")
+}, async function (req) {
+  return req.params
+}), async function (req) {
   let { _id } = req.user
-  let { cup, audio } = req.params
-  let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
-  let audioId = req.crate.util.createHexId(audio)
-  return await req.crate.model.Mongo.Audio.cupSet({ audioId, userId, cupId })
+  let cupId = req.crate.util.createHexId(req.ctx.cup)
+  let audioId = req.crate.util.createHexId(req.ctx.audio)
+  return await req.crate.model.Mongo.Audio.cupSet({ 
+    audioId, userId, cupId 
+  })
 })
 
 

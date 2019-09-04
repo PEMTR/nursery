@@ -1,14 +1,18 @@
 {
-    "title": "private.cup.get.audio",
-    "description": "获取水杯取水语音",
+    "title": "private.cpu.notice",
+    "description": "水杯通知",
     "type": "object",
     "required": [
-        "cup"
+        "cup",
+        "notice"
     ],
     "properties": {
         "cup": {
             "type": "string",
             "format": "objectId"
+        },
+        "notice": {
+            "type": "boolean"
         }
     }
 }

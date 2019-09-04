@@ -3,7 +3,9 @@
     "description": "获取水杯取水照片",
     "type": "object",
     "required": [
-        "cup"
+        "cup",
+        "lte",
+        "gte"
     ],
     "properties": {
         "cup": {
@@ -15,6 +17,16 @@
         },
         "gte": {
             "type": "integer"
+        },
+        "page": {
+            "type": "integer",
+            "max": 999,
+            "min": 1
+        },
+        "limit": {
+            "type": "integer",
+            "max": 100,
+            "min": 1
         }
     }
 }
