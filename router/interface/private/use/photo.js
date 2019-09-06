@@ -9,7 +9,11 @@ const router = express.Router()
 
 // 获取水杯取水照片
 router.get("/:cup", Schema({
-  temp: require("./schema/photo.cup.json")
+  cup: { type: "objectId" },
+  lte: { type: "number", integer: true, mim: 1 },
+  gte: { type: "number", integer: true, mim: 1 },
+  page: { type: "number", integer: true, max: 999, mim: 1, optional: true },
+  limit: { type: "number", integer: true, max: 100, mim: 1, optional: true }
 }, async function (req) {
   req.query.page = Number(req.query.page)
   req.query.limit = Number(req.query.limit)

@@ -10,7 +10,7 @@ name = "nursery.core"
 # ==============
 [service]
 nodeID = "core"
-transporter = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
+transporter = "nats://server.local:4222"
 logLevel = "debug"
 requestTimeout = 5000
 

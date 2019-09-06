@@ -1,9 +1,18 @@
 # ==============
-# 服务配置
+# 配置
 # ==============
 
-listen = 8089
 name = "nursery.cache"
+
+
+# ==============
+# 服务配置
+# ==============
+[service]
+nodeID = "cache"
+transporter = "nats://server.local:4222"
+logLevel = "debug"
+requestTimeout = 5000
 
 
 # ==============

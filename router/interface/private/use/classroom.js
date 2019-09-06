@@ -10,7 +10,7 @@ const router = express.Router()
 
 // 获取班级饮水量排名
 router.get("/cup/:cup/sort", Schema({
-  temp: require("./schema/cpu.json")
+  cup: { type: "objectId" }
 }, async function (req) {
   return req.params
 }), async function (req) {
@@ -26,7 +26,7 @@ router.get("/cup/:cup/sort", Schema({
 
 // 获取班级饮水目标
 router.get("/cup/:cup/standard", Schema({
-  temp: require("./schema/cpu.json")
+  cup: { type: "objectId" }
 }, async function (req) {
   return req.params
 }), async function (req) {
@@ -41,7 +41,9 @@ router.get("/cup/:cup/standard", Schema({
 
 // 获取活动列表
 router.get("/cup/:cup/trend", Schema({
-  temp: require("./schema/classroom.cpu.trend.json")
+  cup: { type: "objectId" },
+  page: { type: "number", integer: true, max: 999, mim: 1, optional: true },
+  limit: { type: "number", integer: true, max: 100, mim: 1, optional: true }
 }, async function (req) {
   req.query.page = Number(req.query.page)
   req.query.limit = Number(req.query.limit)

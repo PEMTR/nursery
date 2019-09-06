@@ -10,7 +10,7 @@ const router = express.Router()
 
 // 获取水杯关联设备水质信息
 router.get("/cup/:cup/water/quality", Schema({
-  temp: require("./schema/cup.json")
+  cup: { type: "objectId" }
 }, async function (req) {
   return req.params
 }), async function (req) {

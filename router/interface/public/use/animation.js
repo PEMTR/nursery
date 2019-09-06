@@ -10,7 +10,8 @@ const router = express.Router()
 
 // 获取取水动画列表
 router.get("/", Schema({
-  temp: require("./schema/pagination.json")
+  page: { type: "number", integer: true, max: 999, mim: 1, optional: true },
+  limit: { type: "number", integer: true, max: 100, mim: 1, optional: true }
 }, async function (req) {
   req.query.page = Number(req.query.page)
   req.query.limit = Number(req.query.limit)

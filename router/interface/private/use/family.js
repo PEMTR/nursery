@@ -18,7 +18,8 @@ router.get("/", async function (req) {
 
 // 删除家庭成员
 router.delete("/:family/:user", Schema({
-  temp: require("./scheam/family.delete.json")
+  family: { type: "objectId" },
+  user: { type: "objectId" }
 }, async function (req) {
   return req.params
 }), async function (req) {

@@ -18,7 +18,8 @@ router.get("/all", async function (req) {
 
 // 用户设置水杯提醒
 router.put("/:cup/notice/:notice", Schema({
-  temp: require("./schema/cup.notice.json")
+  cup: { type: "objectId" },
+  notice: { type: "boolean" }
 }, async function (req) {
   req.crate.util.toBoolean(req.params.notice)
   return req.params
@@ -35,7 +36,7 @@ router.put("/:cup/notice/:notice", Schema({
 
 // 获取水杯取水动画
 router.get("/:cup/animation", Schema({
-  temp: require("./schema/cup.json")
+  cup: { type: "objectId" }
 }, async function (req) {
   return req.params
 }), async function (req) {
@@ -50,7 +51,7 @@ router.get("/:cup/animation", Schema({
 
 // 获取水杯取水语音
 router.get("/:cup/audio", Schema({
-  temp: require("./schema/cup.json")
+  cup: { type: "objectId" }
 }, async function (req) {
   return req.params
 }), async function (req) {
@@ -65,7 +66,8 @@ router.get("/:cup/audio", Schema({
 
 // 设置水杯取水动画
 router.put("/:cup/animation/:animation", Schema({
-  temp: require("./schema/cup.animation.json")
+  cup: { type: "objectId" },
+  animation: { type: "objectId" }
 }, async function (req) {
   return req.params
 }), async function (req) {
@@ -81,7 +83,8 @@ router.put("/:cup/animation/:animation", Schema({
 
 // 设置水杯取水语音
 router.put("/:cup/audio/:audio", Schema({
-  temp: require("./schema/cup.audio.json")
+  cup: { type: "objectId" },
+  audio: { type: "objectId" }
 }, async function (req) {
   return req.params
 }), async function (req) {
