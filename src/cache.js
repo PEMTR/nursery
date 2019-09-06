@@ -15,10 +15,9 @@ const elasticx = require("../bin/elasticx")
 
 const crate = {}
 const configure = util.readtoml(NURSERY_CACHE_CONFGILE)
-const middleware = new middlewares({ configure, code }, crate)
 const broker = new ServiceBroker(configure.service)
 
-crate.code = code
+crate.util = util
 crate.dirname = __dirname
 crate.configure = configure
 crate.mongo = new mongod(crate)

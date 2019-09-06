@@ -40,7 +40,8 @@
         "gitlab"
     ],
     "devDependencies": {
-        "jest": "^24.9.0"
+        "jest": "^24.9.0",
+        "moleculer-repl": "^0.5.7"
     },
     "dependencies": {
         "@elastic/elasticsearch": "^7.2.0",

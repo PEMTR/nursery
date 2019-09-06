@@ -11,7 +11,7 @@ name = "nursery.core"
 [service]
 nodeID = "core"
 transporter = "nats://server.local:4222"
-logLevel = "debug"
+logLevel = "info"
 requestTimeout = 5000
 
 

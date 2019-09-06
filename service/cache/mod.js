@@ -21,7 +21,7 @@ module.exports = class Water {
       // 获取缓存
       // @param {string} key 索引
       // @public
-      Get: async (key) => {
+      Get: async ({ params: { key } }) => {
         return await this.crate.factory.Get(key)
       },
       
@@ -30,7 +30,7 @@ module.exports = class Water {
       // @param {object} model 模式绑定
       // @param {any} value 数据
       // @public
-      Set: async (key, model, value) => {
+      Set: async ({ params: { key, model, value } }) => {
         void await this.crate.factory.Set(key, model, value)
         return true
       }
