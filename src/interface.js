@@ -54,7 +54,7 @@ schema.type("ip", util.isValidIP)
 
 app.use(cookieparse(), bodyparse.json(), schema.express())
 app.use(bodyparse.urlencoded({ extended: true }))
-app.use(middleware.filter(), routers)
+app.use("/interface", middleware.filter(), routers)
 app.use(middleware.hooks())
 
 server.listen(configure.listen)
