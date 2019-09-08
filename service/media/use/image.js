@@ -31,10 +31,10 @@ module.exports = class Image {
     })
   }
   
-  // 动作
+  // 事件
   // @return {object}
   // @public
-  get actions () {
+  get events () {
     
     // 任务
     // @params {string} name 文件名
@@ -55,14 +55,12 @@ module.exports = class Image {
 
       // 处理缩略图
       // 重命名文件，消除后缀
+      // 完成推送
       void await this.crate.media.resize(inputpath, outpath, size)
       void await this._rename(outpath, path.join(dir, outuid))
-
-//      // 推送到回调队列
-//      this.rabbitx.Send("MediaWorksCallBack", {
-//        uid, out: outuid,
-//        type: "Image"
-//      })
+      this.crate.broker.emit("Image", {
+        uid, cover: outuid
+      }, "Disk", { nodeID: "disk" })
     }
   }
 }
