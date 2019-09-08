@@ -7,12 +7,15 @@ const {
 const crate = {}
 const util = require("../bin/util")
 const media = require("../bin/media")
-const rabbitx = require("../bin/rabbitx")
-const factory = require("../factory/media/mod")
+const { ServiceBroker } = require("moleculer")
+const service = require("../service/media/mod")
 const configure = util.readtoml(NURSERY_MEDIA_CONFFILE)
+const broker = new ServiceBroker(configure.service)
 
 crate.util = util
 crate.media = media
+crate.broker = broker
 crate.configure = configure
-crate.rabbitx = new rabbitx(crate)
-crate.factory = new factory(crate)
+
+broker.createService(new service.image(crate))
+broker.start()

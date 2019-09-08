@@ -8,11 +8,16 @@ name = "nursery.core"
 # ==============
 # 服务配置
 # ==============
+
 [service]
 nodeID = "core"
 transporter = "nats://server.local:4222"
 logLevel = "info"
 requestTimeout = 5000
+
+# 服务注册配置
+[service.registry]
+strategy = "RoundRobin"
 
 
 # ==============
