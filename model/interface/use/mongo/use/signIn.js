@@ -11,7 +11,7 @@ const assert = require("assert").strict
 // @class
 module.exports = class SignIn {
   
-  // @new
+  // @constructor
   constructor ({ mongo }) {
     this.mongo = mongo
   }

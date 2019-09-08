@@ -3,7 +3,8 @@
 
 // package
 // @package
-const { Schema } = require("lazy_mod/validate")
+const { Zone } = require("@mod/quasipaa")
+const { Schema } = require("@mod/validator")
 const express = require("lazy_mod/express")
 const router = express.Router()
 
@@ -16,10 +17,16 @@ router.get("/", Schema({
   req.query.page = Number(req.query.page)
   req.query.limit = Number(req.query.limit)
   return req.query
-}), async function (req) {
+}), Zone("audio.iter", async function (req) {
+  return req.ctx
+}, async function (req) {
   let { skip, limit } = req.crate.util.pagination(req.ctx)
-  return await req.crate.cache.Audio.iter({ skip, limit })
-})
+  return await req.crate.model.Mongo.Audio.iter({ skip, limit })
+}, async function () {
+  return {
+    Audio: "all"
+  }
+}))
 
 
 // export.

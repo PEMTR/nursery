@@ -18,7 +18,7 @@ const querystring = require("querystring")
 // @class
 class Pay {
   
-  // @new
+  // @constructor
   // @params {class} util 工具模块
   // @params {object} configure 配置
   constructor ({ util, configure }) {
@@ -49,7 +49,7 @@ class Pay {
 // @class
 class AliPay extends Pay {
   
-  // @new
+  // @constructor
   constructor (crate) {
     super(crate)
     this.loadKey()
@@ -190,7 +190,7 @@ class AliPay extends Pay {
 // @class
 class WxPay extends Pay {
   
-  // @new
+  // @constructor
   constructor (crate) {
     super(crate)
     this.loadKey()

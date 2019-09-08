@@ -14,7 +14,7 @@ const uuid = require("uuid/v4")
 // @class
 module.exports = class Schema {
   
-  // @new
+  // @constructor
   // @params {boolean} option = true 选项
   // @params {string} code 错误码
   constructor (option = true, code) {

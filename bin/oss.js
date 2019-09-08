@@ -12,7 +12,7 @@ const oss = require("ali-oss")
 // @class
 module.exports = class Oss {
   
-  // @new
+  // @constructor
   constructor ({ redis, configure }) {
     this.store = new oss(configure.oss)
     this.configure = configure.oss

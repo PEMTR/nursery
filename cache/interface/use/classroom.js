@@ -5,7 +5,7 @@
 // @class
 module.exports = class Classroom {
   
-  // @new
+  // @constructor
   constructor ({ quasipaa, model, util }) {
     this.quasipaa = quasipaa
     this.model = model

@@ -19,7 +19,7 @@ const TYPINGS = [
 // @class
 module.exports = class Device {
   
-  // @new
+  // @constructor
   constructor (crate) {
     this.Process = new process(crate)
     this.rabbitx = crate.rabbitx

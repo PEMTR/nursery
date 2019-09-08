@@ -12,7 +12,7 @@ const querystring = require("querystring")
 // @class
 module.exports = class Wechat {
   
-  // @new
+  // @constructor
   constructor ({ util, configure, redis }) {
     this.configure = configure
     this.redis = redis

@@ -4,9 +4,9 @@ const {
   NURSERY_DEVICE_CONFGILE = "./configure/device.toml"
 } = process.env
 
-const util = require("../bin/util")
-const mongod = require("../bin/mongod")
-const rabbitx = require("../bin/rabbitx")
+const util = require("@mod/util")
+const mongod = require("@mod/mongod")
+const rabbitx = require("@mod/rabbitx")
 const model = require("../model/device/mod")
 const factory = require("../factory/device/mod")
 

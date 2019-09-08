@@ -10,7 +10,7 @@ const assert = require("assert").strict
 // @class
 module.exports = class Animation {
 
-  // @new
+  // @constructor
   constructor ({ mongo, util }) {
     this.mongo = mongo
     this.util = util

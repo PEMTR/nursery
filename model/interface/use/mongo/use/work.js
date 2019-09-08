@@ -5,7 +5,7 @@
 // @class
 module.exports = class Work {
   
-  // @new
+  // @constructor
   constructor ({ mongo, util }) {
     this.mongo = mongo
     this.util = util

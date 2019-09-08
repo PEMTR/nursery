@@ -3,7 +3,7 @@
 
 // package
 // @package
-const { Schema } = require("lazy_mod/validate")
+const { Schema } = require("@mod/validator")
 const express = require("lazy_mod/express")
 const router = express.Router()
 

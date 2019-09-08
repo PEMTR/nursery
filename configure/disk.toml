@@ -27,7 +27,7 @@ strategy = "RoundRobin"
 # ==============
 
 [stage]
-path = "/mnt/d/project/nursery/AppData"
+path = "/mnt/e/project/nursery/AppData"
 
 
 # ==============

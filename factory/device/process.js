@@ -5,7 +5,7 @@
 // @class
 module.exports = class Process {
   
-  // @new
+  // @constructor
   constructor ({ model }) {
     this.model = model
   }

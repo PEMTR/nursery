@@ -25,7 +25,7 @@ module.exports = class Mongo {
   
   // 实现多继承
   // 模拟多继承子类
-  // @new
+  // @constructor
   constructor (crate) {
     this.User = new user(crate)
     this.Member = new member(crate)

@@ -10,7 +10,7 @@ const assert = require("assert").strict
 // @class
 module.exports = class UserCups {
    
-  // @new
+  // @constructor
   constructor ({ mongo, util }) {
     this.mongo = mongo
     this.util = util

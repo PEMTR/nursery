@@ -4,8 +4,8 @@ const {
   NURSERY_MEDIA_CONFFILE = "./configure/media.toml"
 } = process.env
 
-const util = require("../bin/util")
-const media = require("../bin/media")
+const util = require("@mod/util")
+const media = require("@mod/media")
 const { ServiceBroker } = require("moleculer")
 const service = require("../service/media/mod")
 

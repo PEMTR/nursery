@@ -12,7 +12,7 @@ const events = require("events")
 // @class
 module.exports = class Redis {
   
-  // @new
+  // @constructor
   constructor ({ configure: { redis } }) {
     this._events = new events.EventEmitter()
     this._promise = {}

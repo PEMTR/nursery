@@ -3,7 +3,8 @@
 
 // package
 // @package
-const { Schema } = require("lazy_mod/validate")
+const { Zone } = require("@mod/quasipaa")
+const { Schema } = require("@mod/validator")
 const express = require("lazy_mod/express")
 const router = express.Router()
 
@@ -39,14 +40,18 @@ router.get("/:cup/animation", Schema({
   cup: { type: "objectId" }
 }, async function (req) {
   return req.params
-}), async function (req) {
-  let { _id } = req.user
-  let userId = req.crate.util.createHexId(_id)
+}), Zone("cup.animation", async function (req) {
+  req.ctx.user = req.user._id
+  return req.ctx
+}, async function (req) {
   let cupId = req.crate.util.createHexId(req.ctx.cup)
-  return await req.crate.model.Mongo.Animation.cup({ 
-    cupId, userId 
-  })
-})
+  let userId = req.crate.util.createHexId(req.ctx.user)
+  return await req.crate.model.Mongo.Animation.cup({ cupId, userId })
+}, async function (data) {
+  return {
+    CupAnimation: String(data._id)
+  }
+}))
 
 
 // 获取水杯取水语音
@@ -54,14 +59,18 @@ router.get("/:cup/audio", Schema({
   cup: { type: "objectId" }
 }, async function (req) {
   return req.params
-}), async function (req) {
-  let { _id } = req.user
-  let userId = req.crate.util.createHexId(_id)
+}), Zone("cup.audio", async function (req) {
+  req.ctx.user = req.user._id
+  return req.ctx
+}, async function (req) {
   let cupId = req.crate.util.createHexId(req.ctx.cup)
-  return await req.crate.model.Mongo.Audio.cup({
-    cupId, userId 
-  })
-})
+  let userId = req.crate.util.createHexId(req.ctx.user)
+  return await req.crate.model.Mongo.Audio.cup({ cupId, userId })
+}, async function (data) {
+  return {
+    CupAudio: String(data._id)
+  }
+}))
 
 
 // 设置水杯取水动画

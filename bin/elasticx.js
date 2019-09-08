@@ -10,7 +10,7 @@ const { Client } = require("@elastic/elasticsearch")
 // @class
 module.exports = class Elasticx {
   
-  // @new
+  // @constructor
   constructor ({ configure: { elk } }) {
     this._els = new Client(elk)
     this._pool = []

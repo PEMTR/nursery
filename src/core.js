@@ -4,8 +4,8 @@ const {
   NURSERY_CORE_CONFGILE = "./configure/core.toml"
 } = process.env
 
-const util = require("../bin/util")
-const mongod = require("../bin/mongod")
+const util = require("@mod/util")
+const mongod = require("@mod/mongod")
 const model = require("../model/core/mod")
 const service = require("../service/core/mod")
 const { ServiceBroker } = require("moleculer")

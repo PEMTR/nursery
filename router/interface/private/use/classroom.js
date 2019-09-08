@@ -3,7 +3,8 @@
 
 // package
 // @package
-const { Schema } = require("lazy_mod/validate")
+const { Zone } = require("@mod/quasipaa")
+const { Schema } = require("@mod/validator")
 const express = require("lazy_mod/express")
 const router = express.Router()
 
@@ -13,15 +14,26 @@ router.get("/cup/:cup/sort", Schema({
   cup: { type: "objectId" }
 }, async function (req) {
   return req.params
-}), async function (req) {
-  let { _id } = req.user
-  let { cup } = req.params
-  let userId = req.crate.util.createHexId(_id)
+}), Zone("classroom.water.sort", async function (req) {
+  let { after, before } = req.crate.util.DaySplit()
+  req.ctx.user = req.user._id
+  req.ctx.before = before
+  req.ctx.after = after
+  return req.ctx
+}, async function (req, _, _, ctx) {
+  let { after, before } = req.ctx
   let cupId = req.crate.util.createHexId(req.ctx.cup)
-  return await req.crate.cache.Classroom.waterSort({
-    userId, cupId
-  })
-})
+  let userId = req.crate.util.createHexId(req.ctx.user)
+  return await req.crate.model.Mongo.Classroom.waterSort({ 
+    userId, cupId, after, before 
+  }, ctx)
+}, async function (data, ctx) {
+  return {
+    UserCups: String(ctx._id),
+    CupWaters: data.map(({ _id }) => String(_id)),
+    Cups: data.map(({ cup: { _id } }) => String(_id))
+  }
+}))
 
 
 // 获取班级饮水目标
@@ -29,14 +41,20 @@ router.get("/cup/:cup/standard", Schema({
   cup: { type: "objectId" }
 }, async function (req) {
   return req.params
-}), async function (req) {
-  let { _id } = req.user
-  let userId = req.crate.util.createHexId(_id)
+}), Zone("classroom.water.standard", async function (req) {
+  req.ctx.user = req.user._id
+  return req.ctx
+}, async function (req) {
   let cupId = req.crate.util.createHexId(req.ctx.cup)
-  return await req.crate.cache.Classroom.waterStandard({
-    userId, cupId
-  })
-})
+  let userId = req.crate.util.createHexId(req.ctx.user)
+  return await req.crate.model.Mongo.Classroom.waterStandard({ userId, cupId })
+}, async function (data) {
+  return {
+    Classroom: String(data._classroom),
+    UserCups: String(data._id),
+    Cups: String(data._cup)
+  }
+}))
 
 
 // 获取活动列表

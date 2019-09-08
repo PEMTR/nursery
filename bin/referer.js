@@ -11,7 +11,7 @@ const fs = require("fs")
 // @class
 module.exports = class Referer {
   
-  // @new
+  // @constructor
   constructor ({ configure: { referer }, redis, util }) {
     this._root = path.resolve(referer.root)
     this.configure = referer

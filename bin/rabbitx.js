@@ -12,7 +12,7 @@ const events = require("events")
 // @class
 module.exports =  class Rabbitx {
 
-  // @new
+  // @constructor
   constructor ({ configure: { rabbitmq } }) {
     this._events = new events.EventEmitter()
     this.configure = rabbitmq

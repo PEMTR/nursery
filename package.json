@@ -13,7 +13,9 @@
     "scripts": {
         "docker-build": "docker build --tag=$1 .",
         "testing": "jest",
-        "test-watch": "jest --watchAll"
+        "test-watch": "jest --watchAll",
+        "install": "npm i --unsafe-perm=true",
+        "init": "cp -r ./bin ./node_modules/@mod/"
     },
     "jest": {
         "testEnvironment": "node",
@@ -62,7 +64,6 @@
         "moleculer": "^0.13.10",
         "moment": "^2.24.0",
         "mongodb": "^3.3.0-beta2",
-        "multer": "^1.4.1",
         "nats": "^1.3.0",
         "saslprep": "^1.0.3",
         "sharp": "^0.23.0",

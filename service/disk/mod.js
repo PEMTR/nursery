@@ -5,7 +5,7 @@
 // @class
 module.exports = class Works {
   
-  // @new
+  // @constructor
   constructor (crate) {
     this.crate = crate
     this.name = "Disk"

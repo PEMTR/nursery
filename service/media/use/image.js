@@ -12,7 +12,7 @@ const uuid = require("uuid/v4")
 // @class
 module.exports = class Image {
   
-  // @new
+  // @constructor
   constructor (crate) {
     this.crate = crate
     this.name = "Image"

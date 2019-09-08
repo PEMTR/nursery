@@ -33,7 +33,7 @@ const TRANSFER_CONF = {
 // @class
 module.exports = class Mongod {
   
-  // @new
+  // @constructor
   constructor ({ configure: { mongo } }) {
     this._events = new events.EventEmitter()
     this.self = MongoDB
