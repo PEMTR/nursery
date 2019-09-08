@@ -12,6 +12,7 @@ const redis = require("../bin/redis")
 const util = require("../bin/util")
 const multer = require("../bin/multer")
 const mongo = require("../bin/mongod")
+const { ServiceBroker } = require("moleculer")
 const analysis = require("../analysis/disk/mod")
 const routers = require("../router/disk/mod")
 const model = require("../model/disk/mod")
@@ -28,10 +29,12 @@ const app = express()
 const server = http.createServer(app)
 const configure = util.readtoml(NURSERY_DISK_CONFFILE)
 const middleware = new middlewares({ configure, code }, crate)
+const broker = new ServiceBroker(configure.service)
 
 crate.code = code
 crate.util = util
 crate.media = media
+crate.broker = broker
 crate.env = process.env
 crate.pid = process.pid
 crate.dirname = __dirname
@@ -50,4 +53,6 @@ app.use(bodyparse.urlencoded({ extended: true }))
 app.use(middleware.filter(), routers)
 app.use(middleware.hooks())
 
+broker.createService(new service.water(crate))
 server.listen(configure.listen)
+broker.start()

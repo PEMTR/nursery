@@ -4,11 +4,12 @@ const {
   NURSERY_MEDIA_CONFFILE = "./configure/media.toml"
 } = process.env
 
-const crate = {}
 const util = require("../bin/util")
 const media = require("../bin/media")
 const { ServiceBroker } = require("moleculer")
 const service = require("../service/media/mod")
+
+const crate = {}
 const configure = util.readtoml(NURSERY_MEDIA_CONFFILE)
 const broker = new ServiceBroker(configure.service)
 
