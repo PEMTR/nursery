@@ -7,21 +7,21 @@ const ffmpeg = require("fluent-ffmpeg")
 const sharp = require("sharp")
 
 
-// 多媒体处理
+// Multimedia processing.
 // @object
 module.exports = {
   
-  // 媒体转码
-  // @params {string || stream} input 输入文件
-  // @params {string || stream} out 输出文件
+  // Video transcoding.
+  // @params {string || stream} input Input file.
+  // @params {string || stream} out Output file.
   // @return {Promise<void>}
   // @public
   trans: (input, out) => new Promise((resolve, reject) => {
     ffmpeg(input).on("error", reject).on("end", resolve).output(out).run()
   }),
   
-  // 获取媒体元信息
-  // @params {string || stream} file 文件路径
+  // Get media meta information.
+  // @params {string || stream} file File path.
   // @return {Promise<object>}
   // @public
   meta: file => new Promise((resolve, reject) => {
@@ -30,11 +30,11 @@ module.exports = {
     })
   }),
 
-  // 视频截图
-  // @params {string || stream} file 文件路径
-  // @params {string} floder 输出目录
-  // @params {string} out 输出文件名
-  // @params {string} skip 跳过
+  // Video screenshot.
+  // @params {string || stream} file File path.
+  // @params {string} floder Output directory.
+  // @params {string} out Output file name.
+  // @params {string} skip Skip length.
   // @return {Promise<void>}
   // @public
   screenhots: (file, folder, out, skip) => new Promis((resolve, reject) => {
@@ -43,10 +43,10 @@ module.exports = {
     })
   }),
 
-  // 缩略图处理
-  // @params {path} file 文件路径
-  // @params {path} out 输出文件
-  // @params {number} size 尺寸
+  // Thumbnail processing.
+  // @params {path} file File path.
+  // @params {path} out Output file.
+  // @params {number} size Thumbnail size.
   // @return {Promise<object>}
   // @public
   resize: async (file, out, size) => {

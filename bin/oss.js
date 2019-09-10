@@ -8,7 +8,7 @@ const util = require("util")
 const oss = require("ali-oss")
 
 
-// 对象存储类
+// Object storage.
 // @class
 module.exports = class Oss {
   
@@ -19,7 +19,7 @@ module.exports = class Oss {
     this.redis = redis
   }
   
-  // 获取bucket
+  // Get bucket info.
   // @returns {array}
   // @public
   async buckets () {
@@ -27,8 +27,7 @@ module.exports = class Oss {
     return buckets
   }
   
-  // 获取文件列表
-  // 指定bucket
+  // Get bucket files.
   // @param {string} bucket
   // @param {number} limit
   // @returns {array}
@@ -40,11 +39,11 @@ module.exports = class Oss {
       marker: skip
     })
 
-    // 返回文件列表
+    // return files.
     return objects
   }
 
-  // 获取文件地址
+  // Get file path.
   // @param {string} bucket
   // @param {string} name
   // @returns {string}
@@ -56,24 +55,24 @@ module.exports = class Oss {
       return cache
     }
 
-    // 没有缓存
-    // 请求服务器
+    // no cache.
+    // request server.
     this.store.useBucket(bucket)
     let path = await this.store.signatureUrl(name, { 
       expires: this.configure.expires / 1000,
       method: "GET"
     })
-
-    // 刷新缓存
-    // 过期时间
+    
+    // timeout.
+    // refresh cache.
     let expires = this.configure.expires / 1000 - 60
     void await this.redis.promise.set(key, path, "EX", expires)
 
-    // 返回
+    // return file path.
     return path
   }
 
-  // 上传文件
+  // Upload file.
   // @param {string} bucket
   // @param {string} name
   // @param {stream} stream
@@ -84,7 +83,7 @@ module.exports = class Oss {
     return await this.store.putStream(name, stream, meta || null)
   }
 
-  // 删除文件
+  // Remove file.
   // @param {string} bucket
   // @param {string} name
   // @returns {object}

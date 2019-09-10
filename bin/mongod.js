@@ -8,8 +8,8 @@ const events = require("events")
 const util = require("util")
 
 
-// 常量
-// 默认连接配置
+// @const
+// Default connection configuration.
 const DEFAULT_OPT = {
   poolSize: 10,
   ssl: false,
@@ -20,8 +20,8 @@ const DEFAULT_OPT = {
 }
 
 
-// 常量
-// 默认事务级别
+// @const
+// Default transaction level.
 const TRANSFER_CONF = {
   readConcern: { level: "snapshot" },
   writeConcern: { w: "majority" },
@@ -42,15 +42,15 @@ module.exports = class Mongod {
     this._Cos = {}
   }
   
-  // 设置表
-  // @params {string} key 表名
+  // Setting up documentation.
+  // @params {string} key Documentation name.
   // @private
   _setProxy (key) {
     let _db = this._mongod.db(this._db)
     this._Cos[key] = _db.collection(key)
   }
   
-  // 等待连接完成
+  // Wait for the connection to complete.
   // @private
   _awitConn () {
     return new Promise((resolve, _) => {
@@ -63,14 +63,14 @@ module.exports = class Mongod {
     })
   }
   
-  // 连接数据库
-  // @params {string} [host] 域名或者地址
-  // @params {number} [port] 端口
-  // @params {string} [db] 数据库
-  // @params {object} [options] 选项
-  // @params {object} [auth] 认证
-  // @params {string} [auth.username] 用户名
-  // @params {string} [auth.password] 密码
+  // Connect to the database.
+  // @params {string} [host] Domain name or address.
+  // @params {number} [port] Port.
+  // @params {string} [db] Database.
+  // @params {object} [options]
+  // @params {object} [auth] Authentication.
+  // @params {string} [auth.username]
+  // @params {string} [auth.password]
   // @private
   _from ({ host, port, db, options, auth }) {
     let _temp = auth ? "mongodb://%s:%s@%s:%s/%s" : "mongodb://%s:%s/%s"
@@ -80,9 +80,9 @@ module.exports = class Mongod {
       this._mongod = mongod
       this._db = db
       
-      // 错误事件
-      // 事件报告
-      // 重连
+      // error event.
+      // event report.
+      // reconnection.
       mongod.on("error", (...args) => {
         this._events.emit("error", ...args)
         this._from({ host, port, db, options, auth })
@@ -90,9 +90,9 @@ module.exports = class Mongod {
     })
   }
   
-  // 监听
-  // @params {string} event 事件
-  // @params {function} process 回调
+  // Listen for database data changes.
+  // @params {string} event
+  // @params {function} process Callback.
   // @return {Promise<void>}
   // @public
   async Watch (event, process) {
@@ -100,63 +100,61 @@ module.exports = class Mongod {
     this._mongod.db(this._db).watch().on(event, process)
   }
   
-  // 事务
-  // @params {async function} process 处理函数
+  // Transaction.
+  // @params {async function} process Transaction function.
   // @return {Promise<object>}
   // @public
   async Transfer (process) {
-    let _session = this._mongod.startSession(TRANSFER_CONF) // 初始化事务
-    _session.startTransaction() // 初始化交易
+    let _session = this._mongod.startSession(TRANSFER_CONF) // Initialize session.
+    _session.startTransaction() // Initialize transaction.
     try {
 
-      // 传递事务句柄
-      // 运行事务
-      // 提交事务
-      // 返回回调结果
+      // pass transaction handle.
+      // running a transaction.
+      // submit transaction.
+      // return callback result.
       let _result = await process(_session)
       void await _session.commitTransaction();
       _session.endSession()
       return _result
     } catch (err) {
       
-      // 事件报告
-      // 事务错误
+      // event report.
+      // transaction error.
       this._events.emit("error.transfer", {
         error: err
       })
 
-      // 事务错误
-      // 关闭事务
-      // 关闭交易
-      // 返回错误
+      // transaction error.
+      // close transaction.
+      // close session.
+      // return error.
       void await _session.abortTransaction()
       _session.endSession()
       throw err
     }
   }
   
-  // 等待
+  // Wait.
   // @return {Promise<this>}
   // @public
   async ready () {
     void await this._awitConn()
   }
   
-  // 关闭
+  // Close.
   // @public
   close () {
     this._mongod.close()
   }
   
-  // 获取句柄
+  // Get handle.
   // @return {Proxy<class>}
   // @public
   get Cos () {
     
-    // 检查代理
-    // 是否初始化
-    // 初始化代理
-    // 绑定表
+    // check if the proxy is initialized.
+    // Initialize the proxy and bind the document.
     if (!this._proxy) {
       this._proxy = new Proxy(this._Cos, {
         get: (promise, key) => {
@@ -166,13 +164,13 @@ module.exports = class Mongod {
       })
     }
     
-    // 返回代理实例
+    // return proxy instance.
     return this._proxy
   }
   
-  // 监听事件
-  // @params {string} event 事件
-  // @params {function} process 回调
+  // Listening event.
+  // @params {string} event
+  // @params {function} process
   // @return {void}
   // @public
   on (event, process) {

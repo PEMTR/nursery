@@ -9,7 +9,7 @@ const busboy = require("busboy")
 const uuid = require("uuid/v4")
 
 
-// 表单处理
+// File upload form processing.
 // @class
 module.exports = class Multer {
   
@@ -18,9 +18,9 @@ module.exports = class Multer {
     this.configure = stage
   }
   
-  // 创建文件可写流
-  // @params {string} name 文件名
-  // @params {string} dir 输出目录
+  // Create a file writable stream.
+  // @params {string} name File name.
+  // @params {string} dir Output directory.
   // @return {Promise<object>}
   // @public
   createWriteStream (name = uuid(), dir) {
@@ -36,11 +36,11 @@ module.exports = class Multer {
     })
   }
   
-  // 处理文件表单请求
-  // @params {Request} req 请求句柄
-  // @params {WriteStream} write 可写流
-  // @params {string} key 键值
-  // @params {reg} mmie 表单类型
+  // Processing file form requests.
+  // @params {Request} req Express request handle.
+  // @params {WriteStream} write Writable stream.
+  // @params {string} key Form key.
+  // @params {reg} mmie Form type.
   // @return {Promise<object>}
   // @public
   from (req, write, key, mmie) {
