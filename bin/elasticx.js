@@ -16,10 +16,10 @@ module.exports = class Elasticx {
     this._pool = []
   }
   
-  // 创建索引
-  // @params {string} index 索引
-  // @params {any} body 内容
-  // @params {boolean} refresh 是否强制刷新
+  // Create index.
+  // @params {string} index
+  // @params {any} body
+  // @params {boolean} refresh Whether to force a refresh.
   // @return {Promise<T for object, void>}
   // @public
   async Index (index, body, refresh = false) {
@@ -30,8 +30,8 @@ module.exports = class Elasticx {
       return _result
     }
     
-    // 缓冲区未满
-    // 先写入缓冲区
+    // buffer is not full.
+    // write buffer first.
     this._pool.push(...[
       { index: { _index: index } },
       body

@@ -14,19 +14,17 @@ const assert = require("assert").strict
 const querystring = require("querystring")
 
 
-// 支付类
+// Pay.
 // @class
 class Pay {
   
   // @constructor
-  // @params {class} util 工具模块
-  // @params {object} configure 配置
   constructor ({ util, configure }) {
     this.configure = configure
     this.util = util
   }
   
-  // 生成随机字符串
+  // Generate a random string.
   // @params {number} len
   // @returns {string}
   // @private
@@ -34,7 +32,7 @@ class Pay {
     return crypto.randomBytes(len / 2).toString("hex").toUpperCase()
   }
   
-  // ASCII字节序
+  // ASCII ordering.
   // @params {object} params
   // @private
   paramsSort (params) {
@@ -45,7 +43,7 @@ class Pay {
 }
 
 
-// 支付宝类
+// AliPay.
 // @class
 class AliPay extends Pay {
   
@@ -55,7 +53,7 @@ class AliPay extends Pay {
     this.loadKey()
   }
   
-  // 加载证书
+  // Load certificate.
   // @private
   LoadKey () {
     let { alipay } = this.configure
@@ -65,14 +63,14 @@ class AliPay extends Pay {
     this.alipayAppPrivateKey = fs.readFileSync(alipay.keys.appPrivate)
   }
   
-  // 生成时间字符串
+  // Generate time string.
   // @params {number} data
   // @private
   moment (date) {
     return moment(date).format("YYYY-MM-DD hh:mm:ss")
   }
   
-  // 生成订单号
+  // Generate order number.
   // @params {string} type
   // @private
   tradeNumber (type) {
@@ -81,7 +79,7 @@ class AliPay extends Pay {
     return type + time + rand 
   }
   
-  // 对象传查询字符串
+  // Object to query string.
   // @params {object} params
   // @private
   queryString (params, strs = []) {
@@ -89,7 +87,7 @@ class AliPay extends Pay {
     return strs.join("&")
   }
 
-  // 对象转查询字符串（带编码）
+  // Object to query string (with encoding).
   // @params {object} params
   // @private
   queryStringDecode (params, strs = []) {
@@ -97,7 +95,7 @@ class AliPay extends Pay {
     return strs.join("&")
   }
   
-  // 请求参数签名
+  // Request parameter signature.
   // @params {object} params
   // @private
   sign (params) {
@@ -112,7 +110,7 @@ class AliPay extends Pay {
     }
   }
 
-  // 公共请求参数
+  // Public request parameter.
   // @params {string} method
   // @params {object} params
   // @private
@@ -129,8 +127,8 @@ class AliPay extends Pay {
     }
   }
   
-  // 统一收单下单并支付页面接口
-  // @params {number} [amount] 金额
+  // Unified order and payment.
+  // @params {number} [amount]
   // @params {string} [name] 商品名称
   // @params {string} [body] 商品描述
   // @params {string} [referer] 发起地址

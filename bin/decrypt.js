@@ -7,8 +7,8 @@ const uuid = require("uuid/v4")
 const assert = require("assert").strict
 
 
-// 加密解密的包装
-// 加密解密用户签名
+// Encrypted and decrypted package.
+// Encrypt and decrypt user signature.
 // @class
 module.exports = class Decrypt {
   
@@ -19,8 +19,8 @@ module.exports = class Decrypt {
     this.util = util
   }
   
-  // 生成用户token
-  // @param {object} user 用户信息
+  // Generate user token.
+  // @param {object} user User info.
   // @returns {object}
   // @public
   async toUserAuthToken (user) {
@@ -32,24 +32,24 @@ module.exports = class Decrypt {
     let key = this.configure.crypto.password
     let type = this.configure.crypto.method
 
-    // 加密用户id
-    // 检查加密是否成功
+    // encrypt user id.
+    // check if the encryption is successful.
     let decrypt = this.util.decrypt({ text: uid, iv, key, type })
     assert.deepStrictEqual(this.util.isNullValue(decrypt), true, "E.AUTH")
 
-    // 生成token
-    // 写入redis
+    // generate token.
+    // write redis.
     let token = Buffer.from(decrypt + " " + id).toString("base64")
     let redisData = JSON.stringify({ token, ...user })
     void await this.redis.promise.set("USERDATA." + id, redisData)
 
-    // 返回Token
+    // return Token.
     return token
   }
 
-  // 解密用户token
-  // 取出redis数据
-  // @param {string} token 用户token
+  // Decrypt user token.
+  // Get redis data.
+  // @param {string} token User token.
   // @returns {object}
   // @public
   async parseUserAuthToken (token) {
@@ -58,17 +58,17 @@ module.exports = class Decrypt {
     assert.deepStrictEqual(this.util.isNullValue(text), true, "E.AUTH")
     assert.deepStrictEqual(this.util.isNullValue(id), true, "E.AUTH")
 
-    // 提取redis数据
-    // 验证redis数据
+    // get redis data.
+    // encrypt redis data.
     let data = await this.redis.promise.get("USERDATA." + id)
     assert.deepStrictEqual(this.util.isNullValue(data), true, "E.AUTH")
 
-    // 验证token是否强一致
-    // 抽取存储在redis的token对比
+    // verify that the token is consistent.
+    // extract tokens stored in redis and compare them.
     let userData = JSON.parse(data)
     assert.deepStrictEqual(userData.token, token, "E.AUTH")
 
-    // 返回用户信息
+    // return user info.
     return userData
   }
 }
