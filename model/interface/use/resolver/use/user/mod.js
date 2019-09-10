@@ -11,7 +11,7 @@ const path = require("path")
 // @class
 class Cups {
   
-  // @new
+  // @constructor
   // @params {class} crate
   // @params {object} data
   constructor (crate, data) {
@@ -41,7 +41,7 @@ class Cups {
 // @class
 class User {
   
-  // @new
+  // @constructor
   // @params {class} crate
   // @params {object} data
   constructor (crate, data) {
@@ -73,7 +73,7 @@ class User {
 // @class
 module.exports = class {
   
-  // @new
+  // @constructor
   // @params {class} crate
   constructor (crate) {
     let schema_file = path.join(__dirname, "schema.gql")

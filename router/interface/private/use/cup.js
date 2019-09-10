@@ -3,6 +3,8 @@
 
 // package
 // @package
+const { Zone } = require("@mod/quasipaa")
+const { Schema } = require("@mod/validator")
 const express = require("lazy_mod/express")
 const router = express.Router()
 
@@ -16,61 +18,92 @@ router.get("/all", async function (req) {
 
 
 // 用户设置水杯提醒
-router.put("/:cup/notice", async function (req) {
+router.put("/:cup/notice/:notice", Schema({
+  cup: { type: "objectId" },
+  notice: { type: "boolean" }
+}, async function (req) {
+  req.crate.util.toBoolean(req.params.notice)
+  return req.params
+}), async function (req) {
   let { _id } = req.user
-  let { cup } = req.params
-  let { boolean } = req.body
-  req.crate.schema.eq("private.cup.set.notice", { cup, boolean })
-  let notice = boolean
-  let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
-  return await req.crate.model.Mongo.Cups.setNotice({ cupId, userId, notice })
+  let cupId = req.crate.util.createHexId(req.ctx.cup)
+  return await req.crate.model.Mongo.Cups.setNotice({
+    notice: req.ctx.notice,
+    cupId, userId
+  })
 })
 
 
 // 获取水杯取水动画
-router.get("/:cup/animation", async function (req) {
-  let { _id } = req.user
-  let { cup } = req.params
-  req.crate.schema.eq("private.cup.get.animation", req.params)
-  let cupId = req.crate.util.createHexId(cup)
-  let userId = req.crate.util.createHexId(_id)
+router.get("/:cup/animation", Schema({
+  cup: { type: "objectId" }
+}, async function (req) {
+  return req.params
+}), Zone("cup.animation", async function (req) {
+  req.ctx.user = req.user._id
+  return req.ctx
+}, async function (req) {
+  let cupId = req.crate.util.createHexId(req.ctx.cup)
+  let userId = req.crate.util.createHexId(req.ctx.user)
   return await req.crate.model.Mongo.Animation.cup({ cupId, userId })
-})
+}, async function (data) {
+  return {
+    CupAnimation: String(data._id)
+  }
+}))
 
 
 // 获取水杯取水语音
-router.get("/:cup/audio", async function (req) {
-  let { _id } = req.user
-  let { cup } = req.params
-  req.crate.schema.eq("private.cup.get.audio", req.params)
-  let cupId = req.crate.util.createHexId(cup)
-  let userId = req.crate.util.createHexId(_id)
+router.get("/:cup/audio", Schema({
+  cup: { type: "objectId" }
+}, async function (req) {
+  return req.params
+}), Zone("cup.audio", async function (req) {
+  req.ctx.user = req.user._id
+  return req.ctx
+}, async function (req) {
+  let cupId = req.crate.util.createHexId(req.ctx.cup)
+  let userId = req.crate.util.createHexId(req.ctx.user)
   return await req.crate.model.Mongo.Audio.cup({ cupId, userId })
-})
+}, async function (data) {
+  return {
+    CupAudio: String(data._id)
+  }
+}))
 
 
 // 设置水杯取水动画
-router.put("/:cup/animation/:animation", async function (req) {
+router.put("/:cup/animation/:animation", Schema({
+  cup: { type: "objectId" },
+  animation: { type: "objectId" }
+}, async function (req) {
+  return req.params
+}), async function (req) {
   let { _id } = req.user
-  let { cup, animation } = req.params
-  req.crate.schema.eq("private.cup.set.animation", req.params)
-  let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
-  let animationId = req.crate.util.createHexId(animation)
-  return await req.crate.model.Mongo.Animation.cupSet({ animationId, cupId, userId })
+  let cupId = req.crate.util.createHexId(req.ctx.cup)
+  let animationId = req.crate.util.createHexId(req.ctx.animation)
+  return await req.crate.model.Mongo.Animation.cupSet({ 
+    animationId, cupId, userId 
+  })
 })
 
 
 // 设置水杯取水语音
-router.put("/:cup/audio/:audio", async function (req) {
+router.put("/:cup/audio/:audio", Schema({
+  cup: { type: "objectId" },
+  audio: { type: "objectId" }
+}, async function (req) {
+  return req.params
+}), async function (req) {
   let { _id } = req.user
-  let { cup, audio } = req.params
-  req.crate.schema.eq("private.cup.set.audio", req.params)
-  let cupId = req.crate.util.createHexId(cup)
   let userId = req.crate.util.createHexId(_id)
-  let audioId = req.crate.util.createHexId(audio)
-  return await req.crate.model.Mongo.Audio.cupSet({ audioId, userId, cupId })
+  let cupId = req.crate.util.createHexId(req.ctx.cup)
+  let audioId = req.crate.util.createHexId(req.ctx.audio)
+  return await req.crate.model.Mongo.Audio.cupSet({ 
+    audioId, userId, cupId 
+  })
 })
 
 

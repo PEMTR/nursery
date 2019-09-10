@@ -3,42 +3,35 @@
 
 // package
 // @package
+const { Schema } = require("@mod/validator")
 const express = require("lazy_mod/express")
 const router = express.Router()
 const path = require("path")
-const fs = require("fs")
-
-
-// 写入响应流
-// @params {stream} write
-// @params {string} path
-// @return {Promise<void>}
-// @private
-function WriteStream (write, path) {
-  return new Promise((resolve, reject) => {
-    fs.createReadStream(path)
-      .on("error", reject)
-      .on("end", resolve)
-      .pipe(write)
-  })
-}
 
 
 // 获取取水动画
-router.get("/:cup/animation", async function (req, res) {
-  let name = "test.mp4"
-  let _dir = req.crate.configure.stage.path
-  let _path = path.join(_dir, name)
-  void await WriteStream(res, _path)
+router.get("/:cup/animation/:name", Schema({
+  cup: { type: "objectId" },
+  name: { type: "string" }
+}, async function (req) {
+  return req.params
+}), async function (req, res) {
+  let { stage } = req.crate.configure
+  let filePath = path.join(stage.path, req.ctx.name)
+  void await req.crate.util.WriteStream(res, filePath)
 })
 
 
 // 获取取水语音
-router.get("/:cup/audio", async function (req, res) {
-  let name = "test.mp3"
-  let _dir = req.crate.configure.stage.path
-  let _path = path.join(_dir, name)
-  void await WriteStream(res, _path)
+router.get("/:cup/audio/:name", Schema({
+  cup: { type: "objectId" },
+  name: { type: "string" }
+}, async function (req) {
+  return req.params
+}), async function (req, res) {
+  let { stage } = req.crate.configure
+  let filePath = path.join(stage.path, req.ctx.name)
+  void await req.crate.util.WriteStream(res, filePath)
 })
 
 

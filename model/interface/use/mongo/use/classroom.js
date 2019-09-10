@@ -10,7 +10,7 @@ const assert = require("assert").strict
 // @class
 module.exports = class Classroom {
   
-  // @new
+  // @constructor
   constructor ({ mongo, util }) {
     this.mongo = mongo
     this.util = util
@@ -57,17 +57,14 @@ module.exports = class Classroom {
   // @params {ObjectId} [userId] 用户索引
   // @params {number} [before] 开始时间
   // @params {number} [after] 结束时间
-  // @params {function} params 内部参数传递
+  // @params {object} ctx 内部参数传递
   // @return {Promise<array>}
   // @public
-  async waterSort ({ cupId, userId, after, before }, params) {
-    let _day = this.util.DaySplit()
-    before = before || _day.before
-    after = after || _day.after
+  async waterSort ({ cupId, userId, after, before }, ctx) {
     
     // 检查水杯是否归属于此用户
     // 并且查询水杯的班级绑定信息
-    let userCup = this.util.promise(await this.mongo.Cos.UserCups.aggregate([
+    ctx = this.util.promise(await this.mongo.Cos.UserCups.aggregate([
       { $match: {
         user: userId,
         cup: cupId
@@ -82,13 +79,10 @@ module.exports = class Classroom {
       { $unwind: "$cup" }
     ]).next(), "E.NOTFOUND")
     
-    // 参数返回
-    params && params(userCup)
-    
     // 查询返回饮水排名
     return await this.mongo.Cos.CupWaters.aggregate([
       { $match: {
-        classroom: userCup.cup.classroom,
+        classroom: ctx.cup.classroom,
         data: { $gte: after, $lte: before }
       } },
       { $group: {

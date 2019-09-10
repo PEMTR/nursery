@@ -16,6 +16,7 @@ const audio = require("./use/audio")
 const signin = require("./use/signIn")
 const work = require("./use/work")
 const teacher = require("./use/teacher")
+const device = require("./use/device")
 
 
 // 数据库
@@ -24,7 +25,7 @@ module.exports = class Mongo {
   
   // 实现多继承
   // 模拟多继承子类
-  // @new
+  // @constructor
   constructor (crate) {
     this.User = new user(crate)
     this.Member = new member(crate)
@@ -39,5 +40,6 @@ module.exports = class Mongo {
     this.SignIn = new signin(crate)
     this.Work = new work(crate)
     this.Teacher = new teacher(crate)
+    this.Device = new device(crate)
   }
 }

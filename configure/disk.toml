@@ -8,11 +8,26 @@ debug = true
 
 
 # ==============
+# 服务配置
+# ==============
+
+[service]
+nodeID = "disk"
+transporter = "nats://server.local:4222"
+logLevel = "info"
+requestTimeout = 5000
+
+# 服务注册配置
+[service.registry]
+strategy = "RoundRobin"
+
+
+# ==============
 # 存储配置
 # ==============
 
 [stage]
-path = "/mnt/d/project/nursery/AppData"
+path = "/mnt/e/project/nursery/AppData"
 
 
 # ==============
@@ -48,3 +63,13 @@ name = "nursery.disk"
 [rabbitmq]
 host = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
 prefetch = 1
+
+
+# ==============
+# 防盗链配置
+# ==============
+
+[referer]
+host = "localhost"
+expires = 900000
+root = "/mnt/d/project/nursery/AppData"

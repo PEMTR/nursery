@@ -1,8 +1,23 @@
 # ==============
-# 服务配置
+# 配置
 # ==============
 
 name = "nursery.core"
+
+
+# ==============
+# 服务配置
+# ==============
+
+[service]
+nodeID = "core"
+transporter = "nats://server.local:4222"
+logLevel = "info"
+requestTimeout = 5000
+
+# 服务注册配置
+[service.registry]
+strategy = "RoundRobin"
 
 
 # ==============
@@ -18,12 +33,3 @@ db = "nursery"
 [mongo.auth]
 username = "nursery"
 password = "6FlBWz4C4ScUb+UFNCLrGbveFk426Wa3Sh91aJRGhKQ="
-
-
-# ==============
-# RabbitMQ配置
-# ==============
-
-[rabbitmq]
-host = "amqp://nursery:MTMwOGJmZjZiOTJiYTFkZjh@server.local"
-prefetch = 1

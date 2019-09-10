@@ -1,35 +1,35 @@
 module.exports = {
   apps: [{
     name: "nursery.interface",
-    script: "service/interface.js",
+    script: "src/interface.js",
     instances: 2,
     autorestart: true,
     watch: false,
     max_memory_restart: "1G"
   }, {
     name: "nursery.core",
-    script: "service/core.js",
+    script: "src/core.js",
     instances: 1,
     autorestart: true,
     watch: false,
     max_memory_restart: "1G"
   }, {
     name: "nursery.disk",
-    script: "service/disk.js",
+    script: "src/disk.js",
     instances: 2,
     autorestart: true,
     watch: false,
     max_memory_restart: "1G"
   }, {
     name: "nursery.media",
-    script: "service/media.js",
+    script: "src/media.js",
     instances: 1,
     autorestart: true,
     watch: false,
     max_memory_restart: "1G"
   }, {
     name: "nursery.cache",
-    script: "service/cache.js",
+    script: "src/cache.js",
     instances: 2,
     autorestart: true,
     watch: false,
@@ -38,13 +38,6 @@ module.exports = {
     name: "nursery.guard",
     script: "guard/mod.js",
     instances: 1,
-    autorestart: true,
-    watch: false,
-    max_memory_restart: "1G"
-  }, {
-    name: "nursery.device",
-    script: "service/device.js",
-    instances: 2,
     autorestart: true,
     watch: false,
     max_memory_restart: "1G"

@@ -148,16 +148,16 @@ exports.isEmail = function (email) {
 
 
 // 下载文件
-// @param {string} uri 下载地址
+// @param {string} url 下载地址
 // @param {stream} write 写入流
 // @returns {Promise}
 // @public
-exports.save = function (uri, write) {
+exports.save = function (url, write) {
   return new Promise((resolve, reject) => {
-    let x = uri.includes("https://") ? https : http
-    x.get(uri, res => res.pipe(write))
-      .on("error", reject)
-      .on("finish", resolve)
+    let ctx = url.includes("https://") ? https : http
+    ctx.get(url, res => res.pipe(write))
+    write.on("finish", resolve)
+    write.on("error", reject)
   })
 }
 
@@ -229,4 +229,29 @@ exports.DaySplit = function () {
   let after = moment().set(_s).valueOf()
   let before = moment().set(_e).valueOf()
   return { after, before }
+}
+
+
+// 写入响应流
+// @params {stream} write
+// @params {string} path
+// @return {Promise<void>}
+// @public
+exports.WriteStream = function (write, path) {
+  return new Promise((resolve, reject) => {
+    fs.createReadStream(path)
+      .on("error", reject)
+      .on("end", resolve)
+      .pipe(write)
+  })
+}
+
+
+// 转Boolean
+// @param {*any} any
+// @public
+exports.toBoolean = function (any) {
+  any = typeof any === "string" ? any === "true" : any
+  any = Boolean(any)
+  return any
 }

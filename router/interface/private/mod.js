@@ -35,6 +35,7 @@ router.use("/signin", require("./use/signin"))
 router.use("/classroom", require("./use/classroom"))
 router.use("/techer", require("./use/techer"))
 router.use("/president", require("./use/president"))
+router.use("/device", require("./use/device"))
 
 
 // export.

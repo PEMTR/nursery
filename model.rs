@@ -11,6 +11,37 @@
 //! * `update` 数据上次更新时间
 
 
+// 设备列表
+struct Devices {
+  uid: String,           // 设备编号
+  school: School,        // 学校索引
+  cover: Option<String>  // 设备照片
+  filter: i32,           // 滤芯数
+  date: i64,
+  update: i64
+}
+
+
+// 设备水质
+struct DeviceWaterQualitys {
+  device: Devices,    // 设备索引
+  before: i64,        // 原水
+  after: i64,         // 净水
+  date: i64,
+  update: i64
+}
+
+
+// 设备滤芯
+struct DeviceFilters {
+  device: Devices,       // 设备索引
+  expires: i64,          // 到期时间
+  status: i32,           // 0 失效，1 有效
+  date: i64,
+  update: i64
+}
+
+
 // 用户列表
 struct User {
   type: i32,                  // 用户分类  0) 微信用户 1) 管理后台用户
@@ -61,6 +92,7 @@ struct School {
 
 // 水杯列表
 struct Cups {
+  classroom: Classroom,        // 班级索引
   code: String,                // 水杯编号
   uid: String,                 // 水杯ID
   expires: i64,                // 到期时间
@@ -122,6 +154,17 @@ struct Commodity {
   class: i32,                                  // 商品分类  0) 虚拟商品, 水滴作为货币  1) 实体商品，真实货币
   univalent: i64,                              // 商品单价
   detil: Option<HashMap<String, String>>       // 商品详情 Map
+  date: i64,
+  update: i64
+}
+
+
+// 水杯设备绑定
+struct CupDevice {
+  cup: Cups,           // 水杯索引
+  device: Devices,     // 设备索引
+  date: i64,
+  update: i64
 }
 
 
@@ -150,6 +193,7 @@ struct CupPhoto {
   cup: Cups,                 // 水杯索引
   image: String,             // 图片文件名
   cover: String,             // 缩略图
+  type: String,              // 文件类型
   date: i64,
   update: i64
 }
@@ -160,6 +204,7 @@ struct CupWaters {
   cup: Cups,               // 水杯索引
   number: i64,             // 取水量
   classroom: Classroom,    // 班级索引
+  device: Devices,         // 设备索引
   date: i64,
   update: i64
 }

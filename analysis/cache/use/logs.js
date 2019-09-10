@@ -5,7 +5,7 @@
 // @class
 module.exports = class Logs {
   
-  // @new
+  // @constructor
   constructor ({ elasticx }) {
     this.elasticx = elasticx
   }

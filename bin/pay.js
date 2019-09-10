@@ -18,7 +18,7 @@ const querystring = require("querystring")
 // @class
 class Pay {
   
-  // @new
+  // @constructor
   // @params {class} util 工具模块
   // @params {object} configure 配置
   constructor ({ util, configure }) {
@@ -49,7 +49,7 @@ class Pay {
 // @class
 class AliPay extends Pay {
   
-  // @new
+  // @constructor
   constructor (crate) {
     super(crate)
     this.loadKey()
@@ -190,7 +190,7 @@ class AliPay extends Pay {
 // @class
 class WxPay extends Pay {
   
-  // @new
+  // @constructor
   constructor (crate) {
     super(crate)
     this.loadKey()
@@ -340,20 +340,16 @@ class WxPay extends Pay {
       ...params
     }
 
-    /**
-     * 请求微信服务器 -> axios.post
-     * 计算签名 -> sigen
-     * 合并对象 -> assign
-     * 转为xml -> xml
-     */ 
+    // 请求微信服务器 -> axios.post
+    // 计算签名 -> sigen
+    // 合并对象 -> assign
+    // 转为xml -> xml
     let req = await axios.post(this.configure.wechat.baseUris.payUri, this.util.toXml(params))
     let result = this.util.unwind(await this.util.parseXml(req.data))
 
-    /**
-     * return_code和result_code
-     * 都为SUCCESS为正确
-     * 否则错误
-     */
+    // return_code和result_code
+    // 都为SUCCESS为正确
+    // 否则错误
     assert.deepStrictEqual("return_code" in result, true, "返回错误")
     assert.deepStrictEqual("result_code" in result, true, "返回错误")
     assert.deepStrictEqual(result["return_code"], "SUCCESS", "返回错误")
@@ -402,23 +398,19 @@ class WxPay extends Pay {
       ...params
     }
 
-    /**
-     * 请求微信服务器 -> axios.post
-     * 计算签名 -> sigen
-     * 合并对象 -> assign
-     * 转为xml -> xml
-     */
+    // 请求微信服务器 -> axios.post
+    // 计算签名 -> sigen
+    // 合并对象 -> assign
+    // 转为xml -> xml
     let method = "POST"
     let body = this.util.toXml(params)
     let host = this.configure.wechat.baseUris.withdrawUri
     let data = await this.pemRequest({ method, host, body })
     let result = this.util.unwind(await this.util.parseXml(data.toString("utf8")))
 
-    /**
-     * return_code和result_code
-     * 都为SUCCESS为正确
-     * 否则错误
-     */
+    // return_code和result_code
+    // 都为SUCCESS为正确
+    // 否则错误
     assert.deepStrictEqual("return_code" in result, true, "E.WITHDRAW")
     assert.deepStrictEqual("return_msg" in result, true, "E.WITHDRAW")
     assert.deepStrictEqual(result["return_code"], "SUCCESS", result.return_code || "E.WITHDRAW")

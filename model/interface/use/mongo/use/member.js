@@ -5,7 +5,7 @@
 // @class
 module.exports = class Member {
   
-  // @new
+  // @constructor
   constructor ({ mongo }) {
     this.mongo = mongo
   }

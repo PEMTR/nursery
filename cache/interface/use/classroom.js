@@ -5,7 +5,7 @@
 // @class
 module.exports = class Classroom {
   
-  // @new
+  // @constructor
   constructor ({ quasipaa, model, util }) {
     this.quasipaa = quasipaa
     this.model = model
@@ -57,7 +57,7 @@ module.exports = class Classroom {
       
       // 获取当天开始时间和结束时间
       // 查询班级当前的饮水情况
-      return await this.model.Mongo.Classroom.waterStandard({ 
+      return await this.model.Mongo.Classroom.waterSort({ 
         cupId, userId, after, before 
       }, _p => { _params = _p })
     }, async _v => ({
@@ -80,10 +80,9 @@ module.exports = class Classroom {
   // @public
   async trend ({ userId, cupId, skip, limit }) {
     let _params = null
-    return await this.quasipaa.Engine("classroom.water.sort", {
+    return await this.quasipaa.Engine("classroom.trend", {
       user: userId.toString(),
-      cup: cupId.toString(),
-      after, before
+      cup: cupId.toString()
     }, async _ => {
       
       // 获取园区活动列表

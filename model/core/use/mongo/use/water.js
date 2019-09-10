@@ -11,7 +11,7 @@ const moment = require("moment")
 // @class
 module.exports = class Water {
   
-  // @new
+  // @constructor
   constructor ({ mongo, util }) {
     this.mongo = mongo
     this.util = util

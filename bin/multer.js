@@ -13,7 +13,7 @@ const uuid = require("uuid/v4")
 // @class
 module.exports = class Multer {
   
-  // @new
+  // @constructor
   constructor ({ configure: { stage } }) {
     this.configure = stage
   }
@@ -21,13 +21,19 @@ module.exports = class Multer {
   // 创建文件可写流
   // @params {string} name 文件名
   // @params {string} dir 输出目录
-  // @return {object}
+  // @return {Promise<object>}
   // @public
   createWriteStream (name = uuid(), dir) {
-    let _dir = dir || this.configure.path
-    let _path = path.join(_dir, name)
-    let stream = fs.createWriteStream(_path)
-    return { stream, name, path: _path }
+    return new Promise((resolve, reject) => {
+      let _dir = dir || this.configure.path
+      let _path = path.join(_dir, name)
+      let stream = fs.createWriteStream(_path)
+        .on("error", reject)
+        .on("ready", _ => resolve({ 
+          stream, name, 
+          path: _path 
+        }))
+    })
   }
   
   // 处理文件表单请求

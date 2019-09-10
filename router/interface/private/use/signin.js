@@ -17,10 +17,9 @@ router.get("/", async function (req) {
 
 // 用户签到
 router.post("/", async function (req) {
-  return (await req.crate.rabbitx.SendTransfer("CoreWater", {
-    data: { user: req.user._id },
-    type: "SignIn"
-  })).as("boolean")
+  return await req.crate.broker.call("v1.Water.SignIn", { 
+    user: req.user._id 
+  }, { nodeID: "core" })
 })
 
 

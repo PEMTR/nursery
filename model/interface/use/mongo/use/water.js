@@ -5,7 +5,7 @@
 // @class
 module.exports = class Water {
   
-  // @new
+  // @constructor
   constructor ({ mongo }) {
     this.mongo = mongo
   }

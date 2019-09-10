@@ -10,7 +10,7 @@ const user = require("./use/user/mod")
 // @class
 module.exports = class GraphQL {
   
-  // @new
+  // @constructor
   constructor (crate) {
     this.User = new user(crate)
   }

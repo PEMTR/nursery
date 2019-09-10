@@ -17,10 +17,9 @@ router.get("/", async function (req) {
 
 // 分享小象公众号
 router.post("/share/wechat", async function (req) {
-  return (await req.crate.rabbitx.SendTransfer("CoreWater", {
-    type: "ShareWechatPublicNumber",
-    data: { user: req.user._id }
-  })).as("boolean")
+  return await req.crate.broker.call("v1.Water.ShareWechatPublicNumber", { 
+    user: req.user._id 
+  }, { nodeID: "core" })
 })
 
 

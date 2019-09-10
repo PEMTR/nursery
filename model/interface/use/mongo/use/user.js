@@ -18,7 +18,7 @@
 // @class
 module.exports = class User {
   
-  // @new
+  // @constructor
   constructor ({ mongo }) {
     this.mongo = mongo
   }

@@ -22,7 +22,7 @@ before_script:
 # binary
 binary_test:
   stage: test
-  allow_failure: true
+  allow_failure: false
   only:
     - merge_requests
   tags:

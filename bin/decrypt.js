@@ -12,7 +12,7 @@ const assert = require("assert").strict
 // @class
 module.exports = class Decrypt {
   
-  // @new
+  // @constructor
   constructor ({ util, configure, redis }) {
     this.configure = configure
     this.redis = redis

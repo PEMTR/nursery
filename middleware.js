@@ -10,7 +10,7 @@ const signale = require("signale")
 // @class
 module.exports = class Middleware {
 
-  // @new
+  // @constructor
   // @params {object} [code]
   // @params {object} [configure]
   constructor ({ code, configure }, crate) {
