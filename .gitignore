@@ -16,6 +16,7 @@ build/Release
 node_modules/
 jspm_packages/
 typings/
+.DS_Store
 .npm
 .eslintcache
 .node_repl_history
